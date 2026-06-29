@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高校野球｜新潟ベースボール・ハブ</title>
+  <meta name="description" content="新潟県内の高校野球チーム情報。2026年夏の大会出場66チーム（77校）を地区別・合同チームで掲載。各校の公式サイト・Instagramリンクつき。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cat: #818cf8; --cat-dim: #3730a3;
+      --navy-deep: #080f1f; --navy-main: #0c1a30; --navy-card: #0f2140;
+      --navy-border: #1c3560; --gold: #c8991a; --gold-bright: #e8b830;
+      --chalk: #dde4f0; --chalk-dim: #7a8aaa; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--navy-deep); color: var(--chalk); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(8,15,31,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--navy-border); padding: 0 24px; }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .logo-mark { width: 30px; height: 30px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .85rem; color: var(--navy-deep); font-weight: 700; }
+    .back-btn { font-size: .78rem; color: var(--chalk-dim); border: 1px solid var(--navy-border); padding: 6px 14px; border-radius: 4px; transition: color .2s, border-color .2s; }
+    .back-btn:hover { color: var(--cat); border-color: var(--cat); }
+
+    .cat-hero { background: var(--navy-main); position: relative; overflow: hidden; }
+    .cat-hero-img-wrap { position: relative; width: 100%; line-height: 0; }
+    .cat-hero-img-wrap img { width: 100%; display: block; max-height: 420px; object-fit: cover; object-position: center center; }
+    .cat-hero-img-wrap::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(transparent, var(--navy-main)); pointer-events: none; }
+    .cat-hero-img-wrap::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--cat); z-index: 1; }
+    .cat-hero-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; padding: 24px 24px 40px; }
+    .cat-hero-badge { width: 56px; height: 56px; border-radius: 14px; background: rgba(129,140,248,.12); border: 2px solid var(--cat); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
+    .cat-hero-text { flex: 1; min-width: 200px; }
+    .cat-hero-en { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .2em; color: var(--cat); margin-bottom: 6px; }
+    .cat-hero-title { font-family: 'Noto Serif JP', serif; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; color: var(--white); line-height: 1.15; margin-bottom: 8px; }
+    .cat-hero-desc { font-size: .85rem; color: var(--chalk-dim); max-width: 560px; }
+    .cat-hero-stats { display: flex; gap: 24px; flex-wrap: wrap; }
+    .cat-hero-stat { text-align: center; flex-shrink: 0; }
+    .cat-hero-num { font-family: 'Oswald', sans-serif; font-size: 2.4rem; font-weight: 700; color: var(--cat); line-height: 1; }
+    .cat-hero-num-label { font-size: .68rem; color: var(--chalk-dim); letter-spacing: .06em; }
+
+    section { padding: 48px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+    .section-head h2 { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+    .section-rule { flex: 1; height: 1px; background: var(--navy-border); }
+    .section-label { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; color: var(--cat); letter-spacing: .12em; white-space: nowrap; }
+
+    .tab-bar { display: flex; gap: 4px; margin-bottom: 24px; border-bottom: 1px solid var(--navy-border); flex-wrap: wrap; }
+    .tab-btn { padding: 9px 16px; font-size: .8rem; font-weight: 700; color: var(--chalk-dim); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color .2s, border-color .2s; white-space: nowrap; }
+    .tab-btn.active { color: var(--cat); border-bottom-color: var(--cat); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .region-head { font-family: 'Oswald', sans-serif; font-size: .8rem; font-weight: 600; color: var(--cat); letter-spacing: .1em; padding: 8px 0 6px; border-bottom: 1px solid var(--navy-border); margin-bottom: 12px; margin-top: 28px; display: flex; align-items: center; gap: 8px; }
+    .region-head:first-child { margin-top: 0; }
+    .region-count { font-size: .7rem; color: var(--chalk-dim); font-weight: 400; }
+
+    .school-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+    .school-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 7px; overflow: hidden; transition: border-color .2s, transform .15s; }
+    .school-card:hover { border-color: var(--cat); transform: translateY(-2px); }
+    .school-card.private { border-left: 3px solid var(--gold); }
+    .school-card.godo { border-left: 3px solid #f6ad55; opacity: .9; }
+    .school-card-header { background: var(--navy-deep); border-bottom: 1px solid var(--navy-border); padding: 9px 13px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .school-name { font-size: .88rem; font-weight: 700; color: var(--white); }
+    .badge-pub  { font-size: .58rem; font-weight: 700; padding: 2px 6px; border-radius: 3px; background: rgba(129,140,248,.15); color: var(--cat); border: 1px solid rgba(129,140,248,.3); white-space: nowrap; }
+    .badge-pri  { font-size: .58rem; font-weight: 700; padding: 2px 6px; border-radius: 3px; background: rgba(200,153,26,.15); color: var(--gold-bright); border: 1px solid rgba(200,153,26,.3); white-space: nowrap; }
+    .badge-godo { font-size: .58rem; font-weight: 700; padding: 2px 6px; border-radius: 3px; background: rgba(246,173,85,.15); color: #f6ad55; border: 1px solid rgba(246,173,85,.3); white-space: nowrap; }
+    .badge-kosen { font-size: .58rem; font-weight: 700; padding: 2px 6px; border-radius: 3px; background: rgba(52,211,153,.15); color: #34d399; border: 1px solid rgba(52,211,153,.3); white-space: nowrap; }
+    .school-body { padding: 9px 13px; }
+    .school-note { font-size: .7rem; color: var(--gold); margin-bottom: 5px; font-weight: 600; }
+    .school-links { display: flex; gap: 5px; flex-wrap: wrap; }
+    .sl-btn { display: inline-flex; align-items: center; gap: 3px; font-size: .65rem; padding: 2px 8px; border-radius: 4px; border: 1px solid; transition: background .15s; }
+    .btn-school { color: var(--chalk-dim); border-color: rgba(122,138,170,.25); }
+    .btn-school:hover { background: rgba(122,138,170,.08); color: var(--chalk); }
+    .btn-hbni  { color: var(--cat); border-color: rgba(129,140,248,.3); }
+    .btn-hbni:hover  { background: rgba(129,140,248,.08); }
+    .btn-insta { color: #e040fb; border-color: rgba(224,64,251,.3); }
+    .btn-insta:hover { background: rgba(224,64,251,.06); }
+
+    /* 合同チームカード */
+    .godo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+    .godo-card { background: var(--navy-card); border: 1px solid rgba(246,173,85,.25); border-left: 3px solid #f6ad55; border-radius: 7px; padding: 12px 14px; }
+    .godo-name { font-size: .88rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .godo-schools { font-size: .75rem; color: #f6ad55; }
+    .godo-hbni { display: inline-flex; align-items: center; gap: 3px; font-size: .65rem; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(246,173,85,.3); color: #f6ad55; margin-top: 6px; transition: background .15s; }
+    .godo-hbni:hover { background: rgba(246,173,85,.06); }
+
+    .tournament-section { background: var(--navy-deep); }
+    .tournament-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+    .tournament-group { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; }
+    .tournament-group-header { padding: 10px 16px; border-bottom: 1px solid var(--navy-border); display: flex; align-items: center; gap: 8px; }
+    .t-badge { font-size: .62rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; }
+    .t-badge.major { background: var(--cat); color: #fff; }
+    .t-badge.local { background: rgba(129,140,248,.15); color: var(--cat); border: 1px solid rgba(129,140,248,.3); }
+    .t-group-title { font-size: .85rem; font-weight: 700; color: var(--white); }
+    .tournament-item { padding: 9px 16px; border-bottom: 1px solid rgba(28,53,96,.4); }
+    .tournament-item:last-child { border-bottom: none; }
+    .t-name { font-size: .82rem; color: var(--white); font-weight: 500; margin-bottom: 2px; }
+    .t-meta { display: flex; gap: 10px; font-size: .68rem; color: var(--chalk-dim); flex-wrap: wrap; }
+
+    .links-section { background: var(--navy-main); }
+    .links-list { display: flex; flex-direction: column; gap: 8px; }
+    .ext-link { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; transition: border-color .2s; gap: 12px; }
+    .ext-link:hover { border-color: var(--cat); }
+    .ext-link-left { display: flex; flex-direction: column; gap: 2px; }
+    .ext-link-src { font-size: .65rem; color: var(--cat); font-family: 'Oswald', sans-serif; font-weight: 600; letter-spacing: .06em; }
+    .ext-link-title { font-size: .82rem; color: var(--chalk); }
+    .ext-arrow { color: var(--chalk-dim); flex-shrink: 0; }
+
+    .site-footer { background: var(--navy-deep); border-top: 1px solid var(--navy-border); padding: 32px 24px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+    .footer-nav { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .footer-nav a { font-size: .75rem; color: var(--chalk-dim); transition: color .2s; }
+    .footer-nav a:hover { color: var(--cat); }
+    .footer-copy { font-size: .7rem; color: rgba(122,138,170,.4); }
+
+    @media (max-width: 600px) {
+      .school-grid, .godo-grid { grid-template-columns: 1fr; }
+      .tab-btn { padding: 7px 10px; font-size: .73rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="./index.html" class="logo"><span class="logo-mark">⚾</span>新潟ベースボール・ハブ</a>
+    <a href="./index.html" class="back-btn">← ホームへ戻る</a>
+  </div>
+</header>
+
+<main>
+
+<div class="cat-hero">
+  <div class="cat-hero-img-wrap">
+    <img src="./koko-hero.jpg" alt="高校野球 — 新潟ベースボール・ハブ">
+  </div>
+  <div class="cat-hero-inner">
+    <div class="cat-hero-badge">🏫</div>
+    <div class="cat-hero-text">
+      <div class="cat-hero-en">HIGH SCHOOL BASEBALL</div>
+      <h1 class="cat-hero-title">高校野球</h1>
+      <p class="cat-hero-desc">2026年夏の新潟大会 出場66チーム（77校）を完全掲載。合同チームも正確に表示。公式サイト・Instagramリンクつき。</p>
+    </div>
+    <div class="cat-hero-stats">
+      <div class="cat-hero-stat">
+        <div class="cat-hero-num">66</div>
+        <div class="cat-hero-num-label">出場チーム</div>
+      </div>
+      <div class="cat-hero-stat">
+        <div class="cat-hero-num">77</div>
+        <div class="cat-hero-num-label">出場校数</div>
+      </div>
+      <div class="cat-hero-stat">
+        <div class="cat-hero-num">6</div>
+        <div class="cat-hero-num-label">合同チーム</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- チーム一覧 -->
+<section style="background:var(--navy-main)">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>第108回 夏の新潟大会 出場チーム</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">2026年 7/9〜7/24</span>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="pub">🟣 公立・国立校</button>
+      <button class="tab-btn" data-tab="pri">🥇 私立校</button>
+      <button class="tab-btn" data-tab="godo">🟠 合同チーム（6組）</button>
+    </div>
+
+    <!-- ══ 公立・国立 ══ -->
+    <div class="tab-content active" id="tab-pub">
+      <p style="font-size:.78rem;color:var(--chalk-dim);margin-bottom:8px;">📷アイコンで Instagram、🏫で学校HP、⚾で高校野球ドットコムの各ページへリンクします。</p>
+
+      <div class="region-head">📍 新潟市 <span class="region-count">（14校）</span></div>
+      <div class="school-grid">
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新潟</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://niigata-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2061" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/kentaka_bbc/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新潟南</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://niigataminami-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2074" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/niigataminami_bbc/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新潟西</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://niigatawest-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2071" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新潟工</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://niigatako-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2064" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新潟商</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://niigatasho-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2068" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/ncs_bbc/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新潟江南</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://niigatakonan-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2065" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/konan_baseball/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新潟東</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://niigatahigashi-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2072" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新潟農</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://niigatanog-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新潟県央工</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://kenoko-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2063" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新津</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://niitsu-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2076" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新津工</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://niitsuko-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2077" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">万代</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://bandai-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2083" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">海洋</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://kaiyou-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2008" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">巻</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://maki-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2087" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/maki_bbc2025/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">巻総合</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://makisogo-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2088" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+      </div>
+      <p style="font-size:.72rem;color:#f6ad55;margin:6px 0 0;">※ 新潟向陽・新潟北・新発田商は合同チームとして出場 → 「合同チーム」タブ参照</p>
+
+      <div class="region-head">📍 下越地区（新発田・村上・阿賀野・五泉 他）<span class="region-count">（7校）</span></div>
+      <div class="school-grid">
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新発田</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://shibata-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2029" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新発田農</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://shibatanogy-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2032" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/shibata_a_baseball/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">新発田南</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://shibataminami-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2033" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/sbtmin.baseball.ob/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">村上桜ケ丘</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://murakami-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2093" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/sakura_baseball89/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">五泉</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://gosen-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2022" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/gosen_baseballclub/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">阿賀黎明</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://agareimei-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a></div></div></div>
+      </div>
+      <p style="font-size:.72rem;color:#f6ad55;margin:6px 0 0;">※ 新発田商・碧・村上・中条は合同チームとして出場 → 「合同チーム」タブ参照</p>
+
+      <div class="region-head">📍 中越地区（長岡・三条・小千谷・十日町・魚沼 他）<span class="region-count">（17校）</span></div>
+      <div class="school-grid">
+        <div class="school-card"><div class="school-card-header"><span class="school-name">長岡</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://nagaoka-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2053" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">長岡大手</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://nagaokaohte-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2054" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">長岡向陵</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://nagaokakoryo-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2057" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">長岡商</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://nagaokasho-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2058" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">長岡高専</span><span class="badge-kosen">国立高専</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://www.nagaoka-ct.ac.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2056" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">三条</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://sanjo-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2025" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/sanko_bc2025/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">三条東</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://sanjohigashi-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2027" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">加茂</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://kamo-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2013" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">小千谷</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://ojiya-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2005" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">小千谷西</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://ojiyawest-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2006" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">十日町</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://tokamachi-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2048" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">十日町総合</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://tokamachisogo-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2049" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">塩沢商工</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://shiozawashokou-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2028" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">六日町</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://muikamachi-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2091" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">小出</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://koide-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2020" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">見附</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://mitsuke-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">分水</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://bunsui-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a></div></div></div>
+      </div>
+      <p style="font-size:.72rem;color:#f6ad55;margin:6px 0 0;">※ 見附・分水・三条商、長岡農・正徳館・栃尾は合同チームとして出場 → 「合同チーム」タブ参照</p>
+
+      <div class="region-head">📍 上越地区（柏崎・高田・上越・糸魚川 他）<span class="region-count">（8校）</span></div>
+      <div class="school-grid">
+        <div class="school-card"><div class="school-card-header"><span class="school-name">高田</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://takada-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2039" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/mie_takada_bbc/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">高田北城</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://takadahokujo-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2040" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">高田農</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://takadanogy-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2042" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">上越総合技術</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://jouetsusougi-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2035" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">柏崎</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://kashiwazaki-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2009" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">柏崎工</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://kashiwazakik-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2010" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">糸魚川</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://itoigawa-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2002" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+      </div>
+      <p style="font-size:.72rem;color:#f6ad55;margin:6px 0 0;">※ 高田商・新井・糸魚川白嶺、柏崎常盤・柏崎総合は合同チームとして出場 → 「合同チーム」タブ参照</p>
+
+      <div class="region-head">📍 佐渡 <span class="region-count">（2校）</span></div>
+      <div class="school-grid">
+        <div class="school-card"><div class="school-card-header"><span class="school-name">佐渡</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://sado-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2023" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card"><div class="school-card-header"><span class="school-name">佐渡総合</span><span class="badge-pub">公立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://sadosogo-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2024" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- ══ 私立 ══ -->
+    <div class="tab-content" id="tab-pri">
+      <p style="font-size:.78rem;color:var(--chalk-dim);margin-bottom:16px;">甲子園出場歴のある強豪校を中心に掲載。🥇バッジが私立校の目印です。</p>
+      <div class="school-grid">
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">日本文理</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-note">⭐ 甲子園準優勝（2009年）プロ多数輩出</div><div class="school-links"><a class="sl-btn btn-school" href="https://www.nihonbunri.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2080" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">新潟明訓</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-note">⭐ 甲子園出場多数・2026年春季県優勝</div><div class="school-links"><a class="sl-btn btn-school" href="https://www.n-meikin.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2075" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">帝京長岡</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-note">⭐ 2024年明治神宮大会出場</div><div class="school-links"><a class="sl-btn btn-school" href="https://www.teikyonagaoka.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2046" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">中越</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-note">⭐ 甲子園出場4回・昨夏王者</div><div class="school-links"><a class="sl-btn btn-school" href="https://www.chuetsu-hs.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2044" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">新潟産大附</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-note">2026年春季県準優勝</div><div class="school-links"><a class="sl-btn btn-school" href="https://www.niigata-suf.ac.jp/attached/" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2067" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">北越</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://www.hokketsu.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2085" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">関根学園</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://www.sekine.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2038" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">加茂暁星</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://www.kamokyosei.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2014" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">開志学園</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-note">⭐ 女子硬式野球部も全国トップクラス</div><div class="school-links"><a class="sl-btn btn-school" href="https://www.kaishi.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2007" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/kaishi_bbc/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">東京学館新潟</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://www.tgk-niigata.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2047" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/shiyukai.gbc/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">新潟青陵</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://www.n-seiryo.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2069" target="_blank" rel="noopener">⚾ 成績</a><a class="sl-btn btn-insta" href="https://www.instagram.com/nsbbc1986/" target="_blank" rel="noopener">📷 Instagram</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">新潟第一</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://www.n-daiichi.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2070" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">上越</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://joetsu-h.nein.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2034" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">新発田中央</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://www.shibatachuou.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2031" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+        <div class="school-card private"><div class="school-card-header"><span class="school-name">敬和学園</span><span class="badge-pri">私立</span></div><div class="school-body"><div class="school-links"><a class="sl-btn btn-school" href="https://www.keiwa.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a><a class="sl-btn btn-hbni" href="https://www.hb-nippon.com/teams/2019" target="_blank" rel="noopener">⚾ 成績</a></div></div></div>
+      </div>
+    </div>
+
+    <!-- ══ 合同チーム ══ -->
+    <div class="tab-content" id="tab-godo">
+      <p style="font-size:.78rem;color:var(--chalk-dim);margin-bottom:16px;">2026年夏の新潟大会では連合6チームが出場します（66チーム中）。複数校が合同でエントリーしています。</p>
+      <div class="godo-grid">
+        <div class="godo-card">
+          <div class="godo-name">見附・分水・三条商</div>
+          <div class="godo-schools">見附高校 ＋ 分水高校 ＋ 三条商業高校</div>
+          <a class="godo-hbni" href="https://www.hb-nippon.com/teams/8312" target="_blank" rel="noopener">⚾ 成績（高校野球ドットコム）</a>
+        </div>
+        <div class="godo-card">
+          <div class="godo-name">高田商・新井・糸魚川白嶺</div>
+          <div class="godo-schools">高田商業高校 ＋ 新井高校 ＋ 糸魚川白嶺高校</div>
+          <a class="godo-hbni" href="https://www.hb-nippon.com/teams/6694" target="_blank" rel="noopener">⚾ 成績（高校野球ドットコム）</a>
+        </div>
+        <div class="godo-card">
+          <div class="godo-name">長岡農・正徳館・栃尾</div>
+          <div class="godo-schools">長岡農業高校 ＋ 正徳館高校 ＋ 栃尾高校</div>
+          <a class="godo-hbni" href="https://www.hb-nippon.com/teams/8311" target="_blank" rel="noopener">⚾ 成績（高校野球ドットコム）</a>
+        </div>
+        <div class="godo-card">
+          <div class="godo-name">新潟向陽・新発田商</div>
+          <div class="godo-schools">新潟向陽高校 ＋ 新発田商業高校</div>
+          <a class="godo-hbni" href="https://www.hb-nippon.com/teams/8310" target="_blank" rel="noopener">⚾ 成績（高校野球ドットコム）</a>
+        </div>
+        <div class="godo-card">
+          <div class="godo-name">新潟北・碧・村上・中条</div>
+          <div class="godo-schools">新潟北高校 ＋ 碧高校 ＋ 村上高校 ＋ 中条高校</div>
+          <a class="godo-hbni" href="https://www.hb-nippon.com/teams/8199" target="_blank" rel="noopener">⚾ 成績（高校野球ドットコム）</a>
+        </div>
+        <div class="godo-card">
+          <div class="godo-name">柏崎常盤・柏崎総合</div>
+          <div class="godo-schools">柏崎常盤高校 ＋ 柏崎総合高校</div>
+          <a class="godo-hbni" href="https://www.hb-nippon.com/teams/6693" target="_blank" rel="noopener">⚾ 成績（高校野球ドットコム）</a>
+        </div>
+      </div>
+      <p style="margin-top:14px;font-size:.78rem;color:var(--chalk-dim);">※ 合同チームに参加している各校（新潟向陽・新発田商・新潟北・三条商等）は単独での野球部活動を行っています。大会への合同出場のみです。</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- 大会情報 -->
+<section class="tournament-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>2026年 大会日程</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">SCHEDULE</span>
+    </div>
+    <div class="tournament-grid">
+      <div class="tournament-group">
+        <div class="tournament-group-header"><span class="t-badge major">全国大会</span><span class="t-group-title">甲子園・全国レベル</span></div>
+        <div class="tournament-item"><div class="t-name">第108回 全国高校野球選手権大会（夏の甲子園）</div><div class="t-meta"><span>🗓 8月5日〜8月22日</span><span>📍 阪神甲子園球場</span></div></div>
+        <div class="tournament-item"><div class="t-name">明治神宮野球大会（高校の部）</div><div class="t-meta"><span>🗓 11月19日〜11月24日</span><span>📍 明治神宮野球場</span></div></div>
+      </div>
+      <div class="tournament-group">
+        <div class="tournament-group-header"><span class="t-badge major">新潟県大会</span><span class="t-group-title">夏・秋・春</span></div>
+        <div class="tournament-item"><div class="t-name">第108回 全国高校野球選手権 新潟大会</div><div class="t-meta"><span>🗓 7月9日〜7月24日</span><span>📍 エコスタ他</span><span>連覇狙う中越 vs 春王者・新潟明訓</span></div></div>
+        <div class="tournament-item"><div class="t-name">秋季新潟県大会</div><div class="t-meta"><span>🗓 9月4日〜9月22日</span></div></div>
+        <div class="tournament-item"><div class="t-name">秋季北信越大会（開催地：新潟県）</div><div class="t-meta"><span>🗓 10月10日〜10月18日</span><span>📍 エコスタ・三条・悠久山</span></div></div>
+        <div class="tournament-item"><div class="t-name">春季新潟県大会（2026年春 優勝：新潟明訓）</div><div class="t-meta"><span>🗓 4月25日〜5月10日</span></div></div>
+      </div>
+      <div class="tournament-group">
+        <div class="tournament-group-header"><span class="t-badge local">過去の主な実績</span><span class="t-group-title">新潟の甲子園</span></div>
+        <div class="tournament-item"><div class="t-name">日本文理 — 2009年夏 準優勝</div><div class="t-meta"><span>最後の1球で話題になった名勝負</span></div></div>
+        <div class="tournament-item"><div class="t-name">帝京長岡 — 芝草監督のもと急成長</div><div class="t-meta"><span>2025年センバツ出場</span></div></div>
+        <div class="tournament-item"><div class="t-name">中越 — 昨夏（2025年）王者</div><div class="t-meta"><span>OB：今井雄太郎・渡邉雄大</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 外部リンク -->
+<section class="links-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>関連情報・外部リンク</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">LINKS</span>
+    </div>
+    <div class="links-list">
+      <a class="ext-link" href="https://niigata-hbf.jp/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">高野連</span><span class="ext-link-title">新潟県高等学校野球連盟 公式サイト（大会情報・組み合わせ）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.hb-nippon.com/tournaments/1601" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">高校野球ドットコム</span><span class="ext-link-title">第108回 全国高校野球選手権 新潟大会 大会データ</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.nikkansports.com/baseball/highschool/pref/niigata.html" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">日刊スポーツ</span><span class="ext-link-title">新潟高校野球ニュース・速報</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.niigata-nippo.co.jp/category/news-original/%E9%AB%98%E6%A0%A1%E9%87%8E%E7%90%83" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">新潟日報</span><span class="ext-link-title">新潟日報｜高校野球特集</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">体修塾BCA</span><span class="ext-link-title">体修塾BCA — 柏崎市の野球専門スクール・トレーニングジム</span></div><span class="ext-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="./index.html">← ホーム</a>
+      <a href="./gakudo.html">学童野球</a>
+      <a href="./chugaku.html">中学野球</a>
+      <a href="./koko.html">高校野球</a>
+      <a href="./daigaku.html">大学野球</a>
+      <a href="./shakaijin.html">社会人野球</a>
+      <a href="./joshi.html">女子野球</a>
+    </div>
+    <p class="footer-copy">© 2026 新潟ベースボール・ハブ｜情報は高校野球ドットコム・新潟県高野連を参照しています。</p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中学野球｜新潟ベースボール・ハブ</title>
+  <meta name="description" content="新潟県内の中学野球チーム情報。硬式クラブ（リトルシニア12チーム・ボーイズ3チーム・ヤング1チーム）と軟式クラブ70チームを掲載。公式サイト・Instagram・FacebookリンクつきでSNSへアクセス可。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cat: #68d391; --cat-dim: #276740;
+      --navy-deep: #080f1f; --navy-main: #0c1a30; --navy-card: #0f2140;
+      --navy-border: #1c3560; --gold: #c8991a; --gold-bright: #e8b830;
+      --chalk: #dde4f0; --chalk-dim: #7a8aaa; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--navy-deep); color: var(--chalk); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(8,15,31,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--navy-border); padding: 0 24px; }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .logo-mark { width: 30px; height: 30px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .85rem; color: var(--navy-deep); font-weight: 700; }
+    .back-btn { font-size: .78rem; color: var(--chalk-dim); border: 1px solid var(--navy-border); padding: 6px 14px; border-radius: 4px; transition: color .2s, border-color .2s; white-space: nowrap; }
+    .back-btn:hover { color: var(--cat); border-color: var(--cat); }
+
+    /* ヒーロー */
+    .cat-hero { background: var(--navy-main); position: relative; overflow: hidden; }
+    .cat-hero-img-wrap { position: relative; width: 100%; line-height: 0; }
+    .cat-hero-img-wrap img { width: 100%; display: block; max-height: 420px; object-fit: cover; object-position: center top; }
+    .cat-hero-img-wrap::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(transparent, var(--navy-main)); pointer-events: none; }
+    .cat-hero-img-wrap::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--cat); z-index: 1; }
+    .cat-hero-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; padding: 24px 24px 40px; }
+    .cat-hero-badge { width: 56px; height: 56px; border-radius: 14px; background: rgba(104,211,145,.12); border: 2px solid var(--cat); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
+    .cat-hero-text { flex: 1; min-width: 200px; }
+    .cat-hero-en { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .2em; color: var(--cat); margin-bottom: 6px; }
+    .cat-hero-title { font-family: 'Noto Serif JP', serif; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; color: var(--white); line-height: 1.15; margin-bottom: 8px; }
+    .cat-hero-desc { font-size: .85rem; color: var(--chalk-dim); max-width: 560px; }
+    .cat-hero-stat { text-align: center; flex-shrink: 0; }
+    .cat-hero-num { font-family: 'Oswald', sans-serif; font-size: 2.8rem; font-weight: 700; color: var(--cat); line-height: 1; }
+    .cat-hero-num-label { font-size: .7rem; color: var(--chalk-dim); letter-spacing: .06em; }
+
+    /* セクション共通 */
+    section { padding: 52px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+    .section-head h2 { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+    .section-rule { flex: 1; height: 1px; background: var(--navy-border); }
+    .section-label { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; color: var(--cat); letter-spacing: .12em; white-space: nowrap; }
+
+    /* タブ */
+    .tab-bar { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 1px solid var(--navy-border); flex-wrap: wrap; }
+    .tab-btn { padding: 10px 18px; font-size: .82rem; font-weight: 700; color: var(--chalk-dim); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color .2s, border-color .2s; white-space: nowrap; }
+    .tab-btn.active { color: var(--cat); border-bottom-color: var(--cat); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* リーグバッジ */
+    .league-badge { display: inline-flex; align-items: center; gap: 4px; font-size: .65rem; font-weight: 700; padding: 2px 8px; border-radius: 3px; letter-spacing: .04em; white-space: nowrap; }
+    .badge-senior { background: rgba(104,211,145,.2); color: var(--cat); border: 1px solid rgba(104,211,145,.3); }
+    .badge-boys   { background: rgba(255,165,0,.2); color: #ffa500; border: 1px solid rgba(255,165,0,.3); }
+    .badge-young  { background: rgba(147,112,219,.2); color: #9370db; border: 1px solid rgba(147,112,219,.3); }
+    .badge-soft   { background: rgba(135,206,250,.2); color: #87cefa; border: 1px solid rgba(135,206,250,.3); }
+    .badge-godo   { background: rgba(150,150,150,.15); color: #aaa; border: 1px solid rgba(150,150,150,.25); }
+
+    /* 硬式チームカード */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+    .team-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; transition: border-color .2s, transform .2s; }
+    .team-card:hover { border-color: var(--cat); transform: translateY(-2px); }
+    .team-card-header { background: var(--navy-deep); border-bottom: 1px solid var(--navy-border); padding: 11px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .team-name { font-size: .92rem; font-weight: 700; color: var(--white); }
+    .team-body { padding: 11px 16px; display: flex; flex-direction: column; gap: 5px; }
+    .team-row { display: flex; align-items: flex-start; gap: 8px; font-size: .78rem; color: var(--chalk-dim); }
+    .team-row-label { color: var(--cat); font-weight: 600; min-width: 44px; font-size: .7rem; font-family: 'Oswald', sans-serif; letter-spacing: .04em; flex-shrink: 0; }
+    .team-ob { font-size: .72rem; color: var(--gold); background: rgba(200,153,26,.1); padding: 3px 10px; border-radius: 4px; margin-top: 2px; }
+    .team-links { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+    .team-link-btn { display: inline-flex; align-items: center; gap: 4px; font-size: .7rem; padding: 3px 10px; border-radius: 4px; transition: background .15s; border: 1px solid; }
+    .btn-web  { color: var(--cat); border-color: rgba(104,211,145,.3); }
+    .btn-web:hover  { background: rgba(104,211,145,.08); }
+    .btn-insta { color: #e040fb; border-color: rgba(224,64,251,.3); }
+    .btn-insta:hover { background: rgba(224,64,251,.06); }
+    .btn-fb   { color: #5890ff; border-color: rgba(88,144,255,.3); }
+    .btn-fb:hover   { background: rgba(88,144,255,.06); }
+
+    /* 軟式チームリスト */
+    .soft-section-header { font-family: 'Oswald', sans-serif; font-size: .8rem; font-weight: 600; color: var(--cat); letter-spacing: .1em; padding: 10px 0 8px; border-bottom: 1px solid var(--navy-border); margin-bottom: 12px; margin-top: 28px; }
+    .soft-section-header:first-child { margin-top: 0; }
+    .soft-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+    .soft-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; overflow: hidden; }
+    .soft-card-header { background: var(--navy-deep); border-bottom: 1px solid var(--navy-border); padding: 8px 12px; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .soft-area { font-family: 'Oswald', sans-serif; font-size: .78rem; font-weight: 600; color: var(--cat); }
+    .soft-list { padding: 4px 0; }
+    .soft-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 12px; border-bottom: 1px solid rgba(28,53,96,.4); font-size: .78rem; color: var(--chalk); gap: 6px; }
+    .soft-item:last-child { border-bottom: none; }
+    .soft-item.godo { color: var(--chalk-dim); font-style: italic; }
+    .soft-insta { font-size: .62rem; color: #e040fb; opacity: .7; transition: opacity .15s; white-space: nowrap; }
+    .soft-item:hover .soft-insta { opacity: 1; }
+    .soft-note { font-size: .62rem; color: var(--chalk-dim); background: rgba(28,53,96,.5); padding: 1px 6px; border-radius: 3px; white-space: nowrap; }
+
+    /* 大会 */
+    .tournament-section { background: var(--navy-deep); }
+    .tournament-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .tournament-group { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; }
+    .tournament-group-header { padding: 11px 18px; border-bottom: 1px solid var(--navy-border); display: flex; align-items: center; gap: 8px; }
+    .t-badge { font-size: .65rem; font-weight: 700; padding: 2px 8px; border-radius: 3px; }
+    .t-badge.major { background: var(--cat); color: #000; }
+    .t-badge.local { background: rgba(104,211,145,.15); color: var(--cat); border: 1px solid rgba(104,211,145,.3); }
+    .t-group-title { font-size: .88rem; font-weight: 700; color: var(--white); }
+    .tournament-item { padding: 10px 18px; border-bottom: 1px solid rgba(28,53,96,.4); }
+    .tournament-item:last-child { border-bottom: none; }
+    .t-name { font-size: .85rem; color: var(--white); font-weight: 500; margin-bottom: 3px; }
+    .t-meta { display: flex; gap: 12px; font-size: .7rem; color: var(--chalk-dim); flex-wrap: wrap; }
+
+    /* 外部リンク */
+    .links-section { background: var(--navy-main); }
+    .links-list { display: flex; flex-direction: column; gap: 8px; }
+    .ext-link { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; transition: border-color .2s; gap: 12px; }
+    .ext-link:hover { border-color: var(--cat); }
+    .ext-link-left { display: flex; flex-direction: column; gap: 2px; }
+    .ext-link-src { font-size: .68rem; color: var(--cat); font-family: 'Oswald', sans-serif; font-weight: 600; letter-spacing: .06em; }
+    .ext-link-title { font-size: .83rem; color: var(--chalk); }
+    .ext-arrow { color: var(--chalk-dim); flex-shrink: 0; }
+
+    /* フッター */
+    .site-footer { background: var(--navy-deep); border-top: 1px solid var(--navy-border); padding: 32px 24px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+    .footer-nav { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .footer-nav a { font-size: .75rem; color: var(--chalk-dim); transition: color .2s; }
+    .footer-nav a:hover { color: var(--cat); }
+    .footer-copy { font-size: .7rem; color: rgba(122,138,170,.4); }
+
+    @media (max-width: 600px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .soft-grid { grid-template-columns: 1fr; }
+      .tab-btn { padding: 8px 12px; font-size: .75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="./index.html" class="logo">
+      <span class="logo-mark">⚾</span>新潟ベースボール・ハブ
+    </a>
+    <a href="./index.html" class="back-btn">← ホームへ戻る</a>
+  </div>
+</header>
+
+<main>
+
+<div class="cat-hero">
+  <div class="cat-hero-img-wrap">
+    <img src="./chugaku-hero.jpg" alt="中学野球 — 新潟ベースボール・ハブ">
+  </div>
+  <div class="cat-hero-inner">
+    <div class="cat-hero-badge">⚾</div>
+    <div class="cat-hero-text">
+      <div class="cat-hero-en">JUNIOR HIGH SCHOOL BASEBALL</div>
+      <h1 class="cat-hero-title">中学野球</h1>
+      <p class="cat-hero-desc">リトルシニア12・ボーイズ3・ヤング1・軟式クラブ約70チーム。公式サイト・Instagram・Facebookリンクつき。</p>
+    </div>
+    <div class="cat-hero-stat">
+      <div class="cat-hero-num">101</div>
+      <div class="cat-hero-num-label">チーム数（硬式・軟式合計）</div>
+    </div>
+  </div>
+</div>
+
+<!-- チーム一覧 -->
+<section style="background:var(--navy-main)">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>クラブチーム一覧</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">CLUB TEAMS</span>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="senior">🟢 リトルシニア（12）</button>
+      <button class="tab-btn" data-tab="boys">🟠 ボーイズ・ヤング（5）</button>
+      <button class="tab-btn" data-tab="soft">🔵 軟式クラブ（約70）</button>
+    </div>
+
+    <!-- ══ リトルシニア ══ -->
+    <div class="tab-content active" id="tab-senior">
+      <p style="font-size:.78rem;color:var(--chalk-dim);margin-bottom:20px;">信越連盟・新潟ブロック所属の12チームです。公式サイト・SNSへは各ボタンからアクセスできます。</p>
+      <div class="team-grid">
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">上越シニア</span>
+            <span class="league-badge badge-senior">リトルシニア</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>上越市</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-web" href="https://www.netto.jp/joetsu/" target="_blank" rel="noopener">🌐 公式</a>
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/joetsu_little_senior/" target="_blank" rel="noopener">📷 Instagram</a>
+              <a class="team-link-btn btn-fb" href="https://www.facebook.com/joetsulittelsenior/?locale=ja_JP" target="_blank" rel="noopener">👤 Facebook</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">柏崎シニア</span>
+            <span class="league-badge badge-senior">リトルシニア</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>柏崎市</div>
+            <div class="team-row"><span class="team-row-label">練習場</span>北条運動広場</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/kashiwazaki_senior/" target="_blank" rel="noopener">📷 Instagram</a>
+              <a class="team-link-btn btn-fb" href="https://www.facebook.com/profile.php?id=100063495025403" target="_blank" rel="noopener">👤 Facebook</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">長岡シニア</span>
+            <span class="league-badge badge-senior">リトルシニア</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>長岡市</div>
+            <div class="team-row"><span class="team-row-label">練習場</span>和島野球場・屋内練習場（七日市）</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/nagaoka_senior/" target="_blank" rel="noopener">📷 Instagram</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">長岡東シニア</span>
+            <span class="league-badge badge-senior">リトルシニア</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>長岡市東部</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/nagaoka_higashi_senior/" target="_blank" rel="noopener">📷 Instagram</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">三条シニア</span>
+            <span class="league-badge badge-senior">リトルシニア</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>三条市</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/sanjo_senior/" target="_blank" rel="noopener">📷 Instagram</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">NGM新津五泉村松シニア</span>
+            <span class="league-badge badge-senior">リトルシニア</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟市秋葉区・五泉市・村松</div>
+            <div class="team-row"><span class="team-row-label">実績</span>台湾大会・全米選手権 出場</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-web" href="https://www5.hp-ez.com/hp/niitu-gosen-muramatu/" target="_blank" rel="noopener">🌐 公式</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">新潟シニア</span>
+            <span class="league-badge badge-senior">リトルシニア</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟市</div>
+            <div class="team-row"><span class="team-row-label">設立</span>1979年（信越連盟最古参）</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-web" href="http://niigata-senior.sakura.ne.jp/" target="_blank" rel="noopener">🌐 公式</a>
+              <a class="team-link-btn btn-fb" href="https://www.facebook.com/niigatasenior/" target="_blank" rel="noopener">👤 Facebook</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">新潟西シニア</span>
+            <span class="league-badge badge-senior">リトルシニア</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟市西蒲区</div>
+            <div class="team-row"><span class="team-row-label">練習場</span>旧西川竹園高校グラウンド・屋内練習場</div>
+            <div class="team-ob">⭐ OB: 荘司康誠（楽天・2022ドラ1）</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-web" href="https://niigata-nishi-senior.amebaownd.com/" target="_blank" rel="noopener">🌐 公式</a>
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/niigata.west.senior/" target="_blank" rel="noopener">📷 Instagram</a>
+              <a class="team-link-btn btn-fb" href="https://www.facebook.com/niigatawestsenior/" target="_blank" rel="noopener">👤 Facebook</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">新潟東シニア</span>
+            <span class="league-badge badge-senior">リトルシニア</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟市東区</div>
+            <div class="team-row"><span class="team-row-label">練習場</span>西山公園内（江南区西山）</div>
+            <div class="team-row"><span class="team-row-label">施設</span>屋内ハウス2棟・人工芝・ブルペン</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-web" href="https://www.netto.jp/nigatahigashi/" target="_blank" rel="noopener">🌐 公式</a>
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/niigata_east_senior/" target="_blank" rel="noopener">📷 Instagram</a>
+              <a class="team-link-btn btn-fb" href="https://www.facebook.com/niigataeastsenior/" target="_blank" rel="noopener">👤 Facebook</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">新潟江南シニア</span>
+            <span class="league-badge badge-senior">リトルシニア</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟市江南区</div>
+            <div class="team-row"><span class="team-row-label">練習場</span>両川中グラウンド・こあが公園</div>
+            <div class="team-row"><span class="team-row-label">連絡先</span>090-9422-0626</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/niigata.konan.senior/" target="_blank" rel="noopener">📷 Instagram</a>
+              <a class="team-link-btn btn-fb" href="https://www.facebook.com/新潟江南リトルシニア-944943192189261/" target="_blank" rel="noopener">👤 Facebook</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">新潟北シニア</span>
+            <span class="league-badge badge-senior">リトルシニア</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟市北区</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-web" href="https://www.netto.jp/niigatakita/" target="_blank" rel="noopener">🌐 公式</a>
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/niigatakita_senior/" target="_blank" rel="noopener">📷 Instagram</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">新発田シニア</span>
+            <span class="league-badge badge-senior">リトルシニア</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新発田市</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/shibata_senior/" target="_blank" rel="noopener">📷 Instagram</a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /team-grid -->
+    </div><!-- /tab-senior -->
+
+    <!-- ══ ボーイズ・ヤング ══ -->
+    <div class="tab-content" id="tab-boys">
+      <p style="font-size:.78rem;color:var(--chalk-dim);margin-bottom:20px;">新潟県内のボーイズリーグ・ヤングリーグ所属チームです。なおポニーリーグは新潟県内に加盟チームが確認されていません。</p>
+      <div class="team-grid">
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">新潟ボーイズ</span>
+            <span class="league-badge badge-boys">ボーイズ</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟市</div>
+            <div class="team-row"><span class="team-row-label">所属</span>日本少年野球連盟（ボーイズ）北陸支部</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/niigata_boys/" target="_blank" rel="noopener">📷 Instagram</a>
+              <a class="team-link-btn btn-fb" href="https://www.facebook.com/niigataboys2015/?locale=ja_JP" target="_blank" rel="noopener">👤 Facebook</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">Unites Niigata（ユナイツ新潟）</span>
+            <span class="league-badge badge-boys">ボーイズ</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟市</div>
+            <div class="team-row"><span class="team-row-label">備考</span>新潟西ボーイズ登録名。小中一貫（小学部＝リトルリーグ／中学部＝ボーイズリーグ）</div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">上越ボーイズ</span>
+            <span class="league-badge badge-boys">ボーイズ</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>上越市</div>
+            <div class="team-row"><span class="team-row-label">所属</span>日本少年野球連盟（ボーイズ）北陸支部</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/joetsuboys/" target="_blank" rel="noopener">📷 Instagram</a>
+              <a class="team-link-btn btn-fb" href="https://www.facebook.com/joetsuboys/?locale=ja_JP" target="_blank" rel="noopener">👤 Facebook</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">新潟ヤング</span>
+            <span class="league-badge badge-young">ヤング</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟市</div>
+            <div class="team-row"><span class="team-row-label">設立</span>2009年（県内唯一のヤングリーグ）</div>
+            <div class="team-row"><span class="team-row-label">特徴</span>保護者当番・サポート一切なし。選手主体の活動。</div>
+            <div class="team-links">
+              <a class="team-link-btn btn-web" href="https://www.netto.jp/niigatayoung/" target="_blank" rel="noopener">🌐 公式</a>
+              <a class="team-link-btn btn-insta" href="https://www.instagram.com/ngtyoung2009/" target="_blank" rel="noopener">📷 Instagram</a>
+              <a class="team-link-btn btn-fb" href="https://www.facebook.com/niigatany/?locale=ja_JP" target="_blank" rel="noopener">👤 Facebook</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">上越ヤング</span>
+            <span class="league-badge badge-young">ヤング</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>上越市</div>
+            <div class="team-row"><span class="team-row-label">所属</span>全日本少年硬式野球連盟（ヤングリーグ）</div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /tab-boys -->
+
+    <!-- ══ 軟式クラブ ══ -->
+    <div class="tab-content" id="tab-soft">
+      <p style="font-size:.78rem;color:var(--chalk-dim);margin-bottom:4px;">
+        部活動地域移行が進み、軟式野球でも学校の枠を超えた地域クラブが急増しています。<strong style="color:var(--cat)">新潟クラウン（@niigata.crown）</strong>は2019年設立の県内初の中学軟式クラブです。
+      </p>
+
+      <!-- 新潟市 -->
+      <div class="soft-section-header">📍 新潟市</div>
+      <div class="soft-grid">
+        <div class="soft-card">
+          <div class="soft-card-header"><span class="soft-area">中央区・東区</span><span class="league-badge badge-soft">軟式</span></div>
+          <div class="soft-list">
+            <div class="soft-item">鳥屋野BC</div>
+            <div class="soft-item">柳都BC</div>
+            <div class="soft-item">上山BC</div>
+            <div class="soft-item">宮浦BC</div>
+            <div class="soft-item">東新潟BC</div>
+            <div class="soft-item">新潟石山BC</div>
+          </div>
+        </div>
+        <div class="soft-card">
+          <div class="soft-card-header"><span class="soft-area">西区・西蒲区</span><span class="league-badge badge-soft">軟式</span></div>
+          <div class="soft-list">
+            <div class="soft-item">Vertex</div>
+            <div class="soft-item">黒埼BC</div>
+            <div class="soft-item">西新潟BC</div>
+            <div class="soft-item">小針BC</div>
+            <div class="soft-item">関屋BC</div>
+            <div class="soft-item">巻クラブ</div>
+          </div>
+        </div>
+        <div class="soft-card">
+          <div class="soft-card-header"><span class="soft-area">江南区・秋葉区</span><span class="league-badge badge-soft">軟式</span></div>
+          <div class="soft-list">
+            <div class="soft-item">江南BC</div>
+            <div class="soft-item">山潟BC</div>
+            <div class="soft-item">秋葉BC</div>
+            <div class="soft-item">新津第二BC</div>
+            <div class="soft-item">NEOX</div>
+            <div class="soft-item">Growth.b.b</div>
+          </div>
+        </div>
+        <div class="soft-card">
+          <div class="soft-card-header"><span class="soft-area">北区・南区</span><span class="league-badge badge-soft">軟式</span></div>
+          <div class="soft-list">
+            <div class="soft-item">北学BBC</div>
+            <div class="soft-item">Rinko</div>
+            <div class="soft-item">白根軟式野球倶楽部</div>
+            <div class="soft-item">ポルテBC</div>
+            <div class="soft-item">小新ビッグベアーズ</div>
+          </div>
+        </div>
+        <div class="soft-card">
+          <div class="soft-card-header"><span class="soft-area">新潟クラウン・NBC</span><span class="league-badge badge-soft">クラブ</span></div>
+          <div class="soft-list">
+            <div class="soft-item">新潟クラウン<span class="soft-insta">@niigata.crown</span></div>
+            <div class="soft-item">NBC<span class="soft-insta">@niigata_baseball_connection</span></div>
+            <div class="soft-item">CROWN GIRLS<span class="soft-note">女子専用</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 下越 -->
+      <div class="soft-section-header">📍 下越地区（新発田・村上・阿賀野・五泉 他）</div>
+      <div class="soft-grid">
+        <div class="soft-card">
+          <div class="soft-card-header"><span class="soft-area">新発田・胎内・聖籠</span><span class="league-badge badge-soft">軟式</span></div>
+          <div class="soft-list">
+            <div class="soft-item">新発田スリースターズ</div>
+            <div class="soft-item">新発田BRAVE BC</div>
+            <div class="soft-item">SHIBATA R.E.O.S</div>
+            <div class="soft-item">胎内BC</div>
+            <div class="soft-item">聖籠BC</div>
+          </div>
+        </div>
+        <div class="soft-card">
+          <div class="soft-card-header"><span class="soft-area">村上・阿賀野・五泉</span><span class="league-badge badge-soft">軟式</span></div>
+          <div class="soft-list">
+            <div class="soft-item">村上東BC</div>
+            <div class="soft-item">朝日BC</div>
+            <div class="soft-item">阿賀野BBC</div>
+            <div class="soft-item">五泉BC</div>
+            <div class="soft-item">NEXUS</div>
+            <div class="soft-item">新潟North</div>
+          </div>
+        </div>
+        <div class="soft-card">
+          <div class="soft-card-header"><span class="soft-area">佐渡市</span><span class="league-badge badge-soft">軟式</span></div>
+          <div class="soft-list">
+            <div class="soft-item">両津</div>
+            <div class="soft-item">佐和田</div>
+            <div class="soft-item">金井アンビシャス</div>
+            <div class="soft-item">南佐渡</div>
+            <div class="soft-item">佐渡BASE</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 中越 -->
+      <div class="soft-section-header">📍 中越地区（長岡・三条・見附・十日町・魚沼 他）</div>
+      <div class="soft-grid">
+        <div class="soft-card">
+          <div class="soft-card-header"><span class="soft-area">長岡市・三条市</span><span class="league-badge badge-soft">軟式</span></div>
+          <div class="soft-list">
+            <div class="soft-item">長岡WESTBC</div>
+            <div class="soft-item">A.M.OreNagaoka</div>
+            <div class="soft-item">東北BC</div>
+            <div class="soft-item">トライスターズBC</div>
+            <div class="soft-item">出雲崎BC</div>
+            <div class="soft-item">TKホープス</div>
+          </div>
+        </div>
+        <div class="soft-card">
+          <div class="soft-card-header"><span class="soft-area">三条・燕・弥彦</span><span class="league-badge badge-soft">軟式</span></div>
+          <div class="soft-list">
+            <div class="soft-item">弥彦</div>
+            <div class="soft-item">県央クラウン<span class="soft-note">三条・燕</span></div>
+            <div class="soft-item">大和BC</div>
+            <div class="soft-item">栄</div>
+            <div class="soft-item godo">見附南・見附クラブ<span class="soft-note">合同</span></div>
+            <div class="soft-item godo">三条二・三条三・大崎<span class="soft-note">合同</span></div>
+          </div>
+        </div>
+        <div class="soft-card">
+          <div class="soft-card-header"><span class="soft-area">十日町・魚沼・南魚沼</span><span class="league-badge badge-soft">軟式</span></div>
+          <div class="soft-list">
+            <div class="soft-item">十日町WEST</div>
+            <div class="soft-item">八海</div>
+            <div class="soft-item">塩沢４UNITY</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 上越 -->
+      <div class="soft-section-header">📍 上越地区（上越・妙高・糸魚川）</div>
+      <div class="soft-grid">
+        <div class="soft-card">
+          <div class="soft-card-header"><span class="soft-area">上越市周辺</span><span class="league-badge badge-soft">軟式</span></div>
+          <div class="soft-list">
+            <div class="soft-item">上越地区 各中学校 野球部</div>
+            <div class="soft-item">地域クラブ（随時増加中）</div>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top:16px;font-size:.78rem;color:var(--chalk-dim);">
+        ※「合同」は複数の中学校が合同で出場するチームです。軟式クラブの詳細・最新情報は <a href="https://niigata-chutairen.jp/" target="_blank" rel="noopener" style="color:var(--cat)">新潟県中学校体育連盟</a> でご確認ください。
+      </p>
+    </div><!-- /tab-soft -->
+
+  </div>
+</section>
+
+<!-- 大会情報 -->
+<section class="tournament-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>大会情報</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">TOURNAMENTS</span>
+    </div>
+    <div class="tournament-grid">
+      <div class="tournament-group">
+        <div class="tournament-group-header">
+          <span class="t-badge major">硬式・主要大会</span>
+          <span class="t-group-title">全国・信越連盟レベル</span>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">リトルシニア 全国選抜大会（大阪）</div>
+          <div class="t-meta"><span>🗓 3月</span><span>新潟ブロック1チーム出場</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">リトルシニア 林大会（全国・信越から2チーム）</div>
+          <div class="t-meta"><span>🗓 7月</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">ジャイアンツカップ（東京ドーム）</div>
+          <div class="t-meta"><span>🗓 8月</span><span>新潟県硬式No.1が出場</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">リトルシニア 日本選手権大会</div>
+          <div class="t-meta"><span>🗓 8月</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">ボーイズリーグ 春季全国大会</div>
+          <div class="t-meta"><span>🗓 3〜4月</span><span>日本少年野球連盟</span></div>
+        </div>
+      </div>
+      <div class="tournament-group">
+        <div class="tournament-group-header">
+          <span class="t-badge major">軟式・主要大会</span>
+          <span class="t-group-title">全国・中体連レベル</span>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">全国中学校軟式野球大会（全中）</div>
+          <div class="t-meta"><span>🗓 8月</span><span>日本中学校体育連盟</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">新潟県中学校総合体育大会 野球競技</div>
+          <div class="t-meta"><span>🗓 7月</span><span>新潟県中体連</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">新潟県中学校秋季野球大会</div>
+          <div class="t-meta"><span>🗓 9月</span><span>新潟県中体連</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">全国中学生都道府県対抗野球大会（伊豆）</div>
+          <div class="t-meta"><span>🗓 夏</span><span>日本中学生野球連盟</span></div>
+        </div>
+      </div>
+      <div class="tournament-group">
+        <div class="tournament-group-header">
+          <span class="t-badge local">ローカル大会</span>
+          <span class="t-group-title">新潟県・地区内</span>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">リトルシニア 新人大会（新潟ブロック）</div>
+          <div class="t-meta"><span>🗓 10月</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">リトルシニア 春季大会（新潟ブロック）</div>
+          <div class="t-meta"><span>🗓 5月</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">新潟県中学軟式 各地区大会（全日本少年軟式野球予選）</div>
+          <div class="t-meta"><span>🗓 6〜7月</span><span>各地区連盟</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 外部リンク -->
+<section class="links-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>関連情報・外部リンク</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">LINKS</span>
+    </div>
+    <div class="links-list">
+      <a class="ext-link" href="https://www.littlesenior-shin-etsu.jp/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">リトルシニア</span><span class="ext-link-title">日本リトルシニア中学硬式野球協会 信越連盟（新潟ブロック大会情報）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.boys-league.jp" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">ボーイズ</span><span class="ext-link-title">日本少年野球連盟（ボーイズリーグ）公式サイト</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://niigata-chutairen.jp/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">中体連</span><span class="ext-link-title">新潟県中学校体育連盟（軟式野球・大会情報）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">体修塾BCA</span><span class="ext-link-title">体修塾BCA — 柏崎市の野球専門スクール・トレーニングジム</span></div><span class="ext-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="./index.html">← ホーム</a>
+      <a href="./gakudo.html">学童野球</a>
+      <a href="./chugaku.html">中学野球</a>
+      <a href="./koko.html">高校野球</a>
+      <a href="./daigaku.html">大学野球</a>
+      <a href="./shakaijin.html">社会人野球</a>
+      <a href="./joshi.html">女子野球</a>
+    </div>
+    <p class="footer-copy">© 2026 新潟ベースボール・ハブ｜情報の正確性は各公式サイトでご確認ください。</p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
