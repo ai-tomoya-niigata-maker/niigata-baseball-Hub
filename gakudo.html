@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学童野球｜新潟ベースボール・ハブ</title>
+  <meta name="description" content="新潟県内の学童野球チーム・大会情報。新潟市・長岡市・三条市など地区別チーム一覧と主要大会情報をまとめています。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cat: #7dd3fc; --cat-dim: #1a6a90;
+      --navy-deep: #080f1f; --navy-main: #0c1a30; --navy-card: #0f2140;
+      --navy-border: #1c3560; --gold: #c8991a; --gold-bright: #e8b830;
+      --chalk: #dde4f0; --chalk-dim: #7a8aaa; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--navy-deep); color: var(--chalk); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── ヘッダー ── */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(8,15,31,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--navy-border); padding: 0 24px; }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .logo-mark { width: 30px; height: 30px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .85rem; color: var(--navy-deep); font-weight: 700; }
+    .back-btn { font-size: .78rem; color: var(--chalk-dim); border: 1px solid var(--navy-border); padding: 6px 14px; border-radius: 4px; transition: color .2s, border-color .2s; white-space: nowrap; }
+    .back-btn:hover { color: var(--cat); border-color: var(--cat); }
+
+    /* ── カテゴリーヒーロー ── */
+    .cat-hero { background: var(--navy-main); position: relative; overflow: hidden; }
+    .cat-hero-img-wrap { position: relative; width: 100%; line-height: 0; }
+    .cat-hero-img-wrap img { width: 100%; display: block; max-height: 420px; object-fit: cover; object-position: center top; }
+    .cat-hero-img-wrap::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(transparent, var(--navy-main)); pointer-events: none; }
+    .cat-hero-img-wrap::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--cat); z-index: 1; }
+    .cat-hero-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; padding: 24px 24px 40px; }
+    .cat-hero-badge { width: 56px; height: 56px; border-radius: 14px; background: rgba(125,211,252,.12); border: 2px solid var(--cat); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
+    .cat-hero-text { flex: 1; min-width: 200px; }
+    .cat-hero-en { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .2em; color: var(--cat); margin-bottom: 6px; }
+    .cat-hero-title { font-family: 'Noto Serif JP', serif; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; color: var(--white); line-height: 1.15; margin-bottom: 8px; }
+    .cat-hero-desc { font-size: .85rem; color: var(--chalk-dim); max-width: 560px; }
+    .cat-hero-stat { text-align: center; flex-shrink: 0; }
+    .cat-hero-num { font-family: 'Oswald', sans-serif; font-size: 2.8rem; font-weight: 700; color: var(--cat); line-height: 1; }
+    .cat-hero-num-label { font-size: .7rem; color: var(--chalk-dim); letter-spacing: .06em; }
+
+    /* ── セクション ── */
+    section { padding: 52px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+    .section-head h2 { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+    .section-rule { flex: 1; height: 1px; background: var(--navy-border); }
+    .section-label { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; color: var(--cat); letter-spacing: .12em; white-space: nowrap; }
+
+    /* ── フィルター ── */
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .filter-btn { background: var(--navy-card); border: 1px solid var(--navy-border); color: var(--chalk-dim); padding: 5px 14px; border-radius: 20px; font-size: .75rem; cursor: pointer; transition: all .15s; }
+    .filter-btn.active, .filter-btn:hover { background: rgba(125,211,252,.12); border-color: var(--cat); color: var(--cat); }
+
+    /* ── エリア別カード ── */
+    .area-section { background: var(--navy-main); }
+    .area-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .area-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; }
+    .area-card-header { background: var(--navy-deep); border-bottom: 1px solid var(--navy-border); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .area-name { font-family: 'Oswald', sans-serif; font-size: .88rem; font-weight: 600; color: var(--cat); letter-spacing: .05em; }
+    .area-count { font-size: .72rem; color: var(--chalk-dim); background: rgba(125,211,252,.1); padding: 2px 8px; border-radius: 10px; }
+    .team-list { padding: 6px 0; }
+    .team-item { display: flex; align-items: center; padding: 7px 14px 7px 16px; border-bottom: 1px solid rgba(28,53,96,.4); font-size: .82rem; color: var(--chalk); transition: background .15s; gap: 8px; }
+    .team-item:last-child { border-bottom: none; }
+    .team-item:hover { background: rgba(125,211,252,.04); }
+    .team-note { font-size: .65rem; color: var(--chalk-dim); background: rgba(28,53,96,.6); padding: 1px 6px; border-radius: 3px; margin-left: auto; white-space: nowrap; flex-shrink: 0; }
+    .area-gataq { display: block; text-align: center; padding: 9px; font-size: .73rem; color: var(--cat); border-top: 1px solid rgba(28,53,96,.5); opacity: .8; transition: opacity .2s; }
+    .area-gataq:hover { opacity: 1; }
+
+    /* ── 大会情報 ── */
+    .tournament-section { background: var(--navy-deep); }
+    .tournament-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+    .tournament-group { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; }
+    .tournament-group-header { padding: 12px 18px; border-bottom: 1px solid var(--navy-border); display: flex; align-items: center; gap: 8px; }
+    .t-badge { font-size: .65rem; font-weight: 700; padding: 2px 8px; border-radius: 3px; letter-spacing: .04em; }
+    .t-badge.major { background: var(--cat); color: #000; }
+    .t-badge.local { background: rgba(125,211,252,.15); color: var(--cat); border: 1px solid rgba(125,211,252,.3); }
+    .t-group-title { font-size: .88rem; font-weight: 700; color: var(--white); }
+    .tournament-item { padding: 11px 18px; border-bottom: 1px solid rgba(28,53,96,.4); }
+    .tournament-item:last-child { border-bottom: none; }
+    .t-name { font-size: .88rem; color: var(--white); font-weight: 500; margin-bottom: 3px; }
+    .t-meta { display: flex; gap: 12px; font-size: .72rem; color: var(--chalk-dim); flex-wrap: wrap; }
+
+    /* ── 外部リンク ── */
+    .links-section { background: var(--navy-main); }
+    .links-list { display: flex; flex-direction: column; gap: 8px; }
+    .ext-link { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; transition: border-color .2s; gap: 12px; }
+    .ext-link:hover { border-color: var(--cat); }
+    .ext-link-left { display: flex; flex-direction: column; gap: 2px; }
+    .ext-link-src { font-size: .68rem; color: var(--cat); font-family: 'Oswald', sans-serif; font-weight: 600; letter-spacing: .06em; }
+    .ext-link-title { font-size: .85rem; color: var(--chalk); }
+    .ext-arrow { color: var(--chalk-dim); flex-shrink: 0; }
+
+    /* ── フッター ── */
+    .site-footer { background: var(--navy-deep); border-top: 1px solid var(--navy-border); padding: 32px 24px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+    .footer-nav { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .footer-nav a { font-size: .75rem; color: var(--chalk-dim); transition: color .2s; }
+    .footer-nav a:hover { color: var(--cat); }
+    .footer-copy { font-size: .7rem; color: rgba(122,138,170,.4); }
+
+    @media (max-width: 600px) {
+      .cat-hero-inner { gap: 16px; }
+      .area-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="./index.html" class="logo">
+      <span class="logo-mark">⚾</span>新潟ベースボール・ハブ
+    </a>
+    <a href="./index.html" class="back-btn">← ホームへ戻る</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ヒーロー -->
+<div class="cat-hero">
+  <div class="cat-hero-img-wrap">
+    <img src="./gakudo-hero.jpg" alt="学童幼年野球 — 新潟ベースボール・ハブ">
+  </div>
+  <div class="cat-hero-inner">
+    <div class="cat-hero-badge">👦</div>
+    <div class="cat-hero-text">
+      <div class="cat-hero-en">ELEMENTARY SCHOOL BASEBALL</div>
+      <h1 class="cat-hero-title">学童野球</h1>
+      <p class="cat-hero-desc">新潟県内の少年野球チーム一覧と大会情報。新潟市野球連盟・がたQ掲載チームを地区別にまとめています。</p>
+    </div>
+    <div class="cat-hero-stat">
+      <div class="cat-hero-num">300+</div>
+      <div class="cat-hero-num-label">掲載チーム数</div>
+    </div>
+  </div>
+</div>
+
+<!-- エリア別チーム一覧 -->
+<section class="area-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>エリア別チーム一覧</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">TEAMS BY AREA</span>
+    </div>
+
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-area="all">すべて</button>
+      <button class="filter-btn" data-area="新潟市">新潟市</button>
+      <button class="filter-btn" data-area="長岡市">長岡市</button>
+      <button class="filter-btn" data-area="三条市">三条市・燕市</button>
+      <button class="filter-btn" data-area="柏崎市">柏崎市</button>
+      <button class="filter-btn" data-area="上越市">上越市</button>
+      <button class="filter-btn" data-area="その他">その他地区</button>
+    </div>
+
+    <div class="area-grid" id="areaGrid">
+
+      <!-- ── 新潟市 中央区 ── -->
+      <div class="area-card" data-area="新潟市">
+        <div class="area-card-header">
+          <span class="area-name">新潟市 中央区</span>
+          <span class="area-count">12チーム</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">新潟中央シーホークス</div>
+          <div class="team-item">山潟レッズ</div>
+          <div class="team-item">鳥屋野ペガサス</div>
+          <div class="team-item">上山ブルースターズ</div>
+          <div class="team-item">女池ロードーズ<span class="team-note">全国出場1回</span></div>
+          <div class="team-item">新潟IBC</div>
+          <div class="team-item">南万代エンジェルス</div>
+          <div class="team-item">舟栄ジャリナーズ</div>
+          <div class="team-item">紫所ビクトリーズ</div>
+          <div class="team-item">沼垂ミラーズベースボールクラブ</div>
+          <div class="team-item">桜が丘ビッグウエーブズ</div>
+          <div class="team-item">BN野球クラブ</div>
+        </div>
+        <a href="https://nsbb-niigata.wixsite.com/niigata/%E5%AD%A6%E7%AB%A5%E7%99%BB%E9%8C%B2%E3%83%81%E3%83%BC%E3%83%A0" target="_blank" rel="noopener" class="area-gataq">新潟市野球連盟 公式ページ ↗</a>
+      </div>
+
+      <!-- ── 新潟市 東区 ── -->
+      <div class="area-card" data-area="新潟市">
+        <div class="area-card-header">
+          <span class="area-name">新潟市 東区</span>
+          <span class="area-count">7チーム</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">NKベースボールクラブ</div>
+          <div class="team-item">東中野山ブルーシャークス</div>
+          <div class="team-item">NSジュニア</div>
+          <div class="team-item">HBCドラゴンキッズ</div>
+          <div class="team-item">KB野球少年団</div>
+          <div class="team-item">桃山ライオンズ</div>
+          <div class="team-item">下山フェニックス</div>
+        </div>
+        <a href="https://niigata-baseball.com/area/%E6%9D%B1%E5%8C%BA/" target="_blank" rel="noopener" class="area-gataq">がたQ 東区ページ ↗</a>
+      </div>
+
+      <!-- ── 新潟市 北区 ── -->
+      <div class="area-card" data-area="新潟市">
+        <div class="area-card-header">
+          <span class="area-name">新潟市 北区</span>
+          <span class="area-count">13チーム</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">J.OCEANS.BASEBALL CLUB</div>
+          <div class="team-item">マウント小針野球少年団</div>
+          <div class="team-item">新坂スピリッツ<span class="team-note">全国出場1回</span></div>
+          <div class="team-item">佐潟レイカーズ</div>
+          <div class="team-item">立仏レッドキャップス</div>
+          <div class="team-item">西内野フレンズ</div>
+          <div class="team-item">坂井輪ブルードラゴンズ</div>
+          <div class="team-item">東青山ブルーソックス</div>
+          <div class="team-item">黒埼ジュニアベースボールクラブ</div>
+          <div class="team-item">青山あらなみ野球少年団<span class="team-note">全国出場2回</span></div>
+          <div class="team-item">葛塚フェニックス</div>
+          <div class="team-item">OHファイターズ</div>
+          <div class="team-item">松浜カッツ</div>
+        </div>
+        <a href="https://niigata-baseball.com/area/%E5%8C%97%E5%8C%BA/" target="_blank" rel="noopener" class="area-gataq">がたQ 北区ページ ↗</a>
+      </div>
+
+      <!-- ── 新潟市 江南区 ── -->
+      <div class="area-card" data-area="新潟市">
+        <div class="area-card-header">
+          <span class="area-name">新潟市 江南区</span>
+          <span class="area-count">5チーム</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">横越野球少年団</div>
+          <div class="team-item">両川スポーツ少年団</div>
+          <div class="team-item">大淵スナイパーズ</div>
+          <div class="team-item">亀田少年野球クラブ</div>
+          <div class="team-item">曽野木ジャイアンツ<span class="team-note">全国出場1回</span></div>
+        </div>
+        <a href="https://niigata-baseball.com/area/%E6%B1%9F%E5%8D%97%E5%8C%BA/" target="_blank" rel="noopener" class="area-gataq">がたQ 江南区ページ ↗</a>
+      </div>
+
+      <!-- ── 新潟市 南区 ── -->
+      <div class="area-card" data-area="新潟市">
+        <div class="area-card-header">
+          <span class="area-name">新潟市 南区</span>
+          <span class="area-count">4チーム</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">白根NORTH</div>
+          <div class="team-item">レッドビッキーズ</div>
+          <div class="team-item">新飯田スポーツ少年団</div>
+          <div class="team-item">大通フェニックススポーツ少年団</div>
+        </div>
+        <a href="https://niigata-baseball.com/area/%E5%8D%97%E5%8C%BA/" target="_blank" rel="noopener" class="area-gataq">がたQ 南区ページ ↗</a>
+      </div>
+
+      <!-- ── 新潟市 秋葉区・西蒲区 ── -->
+      <div class="area-card" data-area="新潟市">
+        <div class="area-card-header">
+          <span class="area-name">新潟市 秋葉区・西蒲区</span>
+          <span class="area-count">15チーム</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">荻川少年スポーツクラブ</div>
+          <div class="team-item">新津三小ドラゴンファイターズ</div>
+          <div class="team-item">小須戸野球スポーツ少年団</div>
+          <div class="team-item">新津ブルーサンダーズ</div>
+          <div class="team-item">新津東ジュニアベースボールクラブ</div>
+          <div class="team-item">金津少年野球部</div>
+          <div class="team-item">新潟小合レッドナイト</div>
+          <div class="team-item">潟東少年野球クラブ</div>
+          <div class="team-item">漆山少年ファイターズ</div>
+          <div class="team-item">西川ジュニアベースボールクラブ</div>
+          <div class="team-item">巻北ベースボールクラブ</div>
+          <div class="team-item">浜っ子ライオンズ</div>
+          <div class="team-item">岩室クラブジュニア</div>
+          <div class="team-item">中之口ドリームズ</div>
+          <div class="team-item">巻ベースボールクラブ<span class="team-note">全国出場1回</span></div>
+        </div>
+        <a href="https://nsbb-niigata.wixsite.com/niigata/%E5%AD%A6%E7%AB%A5%E7%99%BB%E9%8C%B2%E3%83%81%E3%83%BC%E3%83%A0" target="_blank" rel="noopener" class="area-gataq">新潟市野球連盟 公式ページ ↗</a>
+      </div>
+
+      <!-- ── 長岡市 ── -->
+      <div class="area-card" data-area="長岡市">
+        <div class="area-card-header">
+          <span class="area-name">長岡市</span>
+          <span class="area-count">44チーム</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">あおし野球クラブ</div>
+          <div class="team-item">青葉台ベースボールクラブ</div>
+          <div class="team-item">赤城BC</div>
+          <div class="team-item">新町クラブスポーツ少年団</div>
+          <div class="team-item">石坂メッツ</div>
+          <div class="team-item">小国スターズ</div>
+          <div class="team-item">川口ファイターズ</div>
+          <div class="team-item">神田よつば野球部</div>
+          <div class="team-item">希望BC</div>
+          <div class="team-item">黒条わかばBC</div>
+          <div class="team-item">けいせつ野球クラブ</div>
+          <div class="team-item">江陽フェニックス<span class="team-note">合同チーム</span></div>
+          <div class="team-item">さつきスポーツ少年団</div>
+          <div class="team-item">新組ホワイトソックス</div>
+          <div class="team-item">信江スポーツ少年団</div>
+          <div class="team-item">信条フェニックス</div>
+          <div class="team-item">セントラルジュニアBC</div>
+          <div class="team-item">TSドジャース</div>
+          <div class="team-item">TMナインオールスターズ<span class="team-note">合同チーム</span></div>
+          <div class="team-item">栃尾オールスターズ<span class="team-note">合同チーム</span></div>
+          <div class="team-item">栃尾ジュニアBC</div>
+          <div class="team-item">長岡WEST</div>
+          <div class="team-item">長岡北BC</div>
+          <div class="team-item">長岡南ジュニア</div>
+          <div class="team-item">長岡南部スリースターズ</div>
+          <div class="team-item">南部レジェンズ<span class="team-note">合同チーム</span></div>
+          <div class="team-item">八幡野球クラブ</div>
+          <div class="team-item">日越ブルースカイ</div>
+          <div class="team-item">BLUE SOUTH<span class="team-note">合同チーム</span></div>
+          <div class="team-item">前川マッハーズ</div>
+          <div class="team-item">みつば少年野球団</div>
+          <div class="team-item">MITSUWAフェニックス</div>
+          <div class="team-item">宮内ジュニアBC</div>
+          <div class="team-item">宮内スタリオンズ<span class="team-note">合同チーム</span></div>
+          <div class="team-item">みゆきスポーツ少年団</div>
+          <div class="team-item">むつなみBC</div>
+          <div class="team-item">やまなみイースト</div>
+          <div class="team-item">やまなみグーニーズ</div>
+          <div class="team-item">与板たちばな野球クラブ</div>
+          <div class="team-item">若木BC</div>
+          <div class="team-item">若草野球スポーツ少年団</div>
+          <div class="team-item">若獅子スポーツ少年団</div>
+          <div class="team-item">和島BC</div>
+          <div class="team-item">出雲崎スカイヤーズ</div>
+          <div class="team-item">寺泊マリンスターズ</div>
+        </div>
+        <a href="https://niigata-baseball.com/area/%E9%95%B7%E5%B2%A1%E5%B8%82/" target="_blank" rel="noopener" class="area-gataq">がたQ 長岡市ページ ↗</a>
+      </div>
+
+      <!-- ── 三条市 ── -->
+      <div class="area-card" data-area="三条市">
+        <div class="area-card-header">
+          <span class="area-name">三条市</span>
+          <span class="area-count">7チーム</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">三条ノースリバー<span class="team-note">全国出場</span></div>
+          <div class="team-item">月岡少年野球スポーツ少年団</div>
+          <div class="team-item">大崎少年野球スポーツ少年団</div>
+          <div class="team-item">旭スポーツ少年団</div>
+          <div class="team-item">西小野球団隼クラブ</div>
+          <div class="team-item">スーパーキッズ裏館</div>
+          <div class="team-item">三条ジュニアビクトリー</div>
+        </div>
+        <a href="https://niigata-baseball.com/area/%E4%B8%89%E6%9D%A1%E5%B8%82/" target="_blank" rel="noopener" class="area-gataq">がたQ 三条市ページ ↗</a>
+      </div>
+
+      <!-- ── 燕市 ── -->
+      <div class="area-card" data-area="三条市">
+        <div class="area-card-header">
+          <span class="area-name">燕市</span>
+          <span class="area-count">5チーム</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">大関イーグルス少年野球団</div>
+          <div class="team-item">粟生津少年野球団</div>
+          <div class="team-item">弥彦ザ・ジェイ</div>
+          <div class="team-item">吉田北小スピリッツ</div>
+          <div class="team-item">小中川バファローズ</div>
+        </div>
+        <a href="https://niigata-baseball.com/area/%E7%87%95%E5%B8%82/" target="_blank" rel="noopener" class="area-gataq">がたQ 燕市ページ ↗</a>
+      </div>
+
+      <!-- ── 柏崎市 ── -->
+      <div class="area-card" data-area="柏崎市">
+        <div class="area-card-header">
+          <span class="area-name">柏崎市・刈羽郡</span>
+          <span class="area-count">3チーム+</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">柏崎STARS</div>
+          <div class="team-item">柏崎東部ファイターズ</div>
+          <div class="team-item">小千谷ジュニアベースボールクラブ</div>
+        </div>
+        <a href="https://niigata-baseball.com/area/%E6%9F%8F%E5%B4%8E%E5%B8%82/" target="_blank" rel="noopener" class="area-gataq">がたQ 柏崎市ページ ↗</a>
+      </div>
+
+      <!-- ── 上越市 ── -->
+      <div class="area-card" data-area="上越市">
+        <div class="area-card-header">
+          <span class="area-name">上越市</span>
+          <span class="area-count">3チーム+</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">上越謙桜</div>
+          <div class="team-item">新井ジュニア</div>
+          <div class="team-item">E-Rex</div>
+        </div>
+        <a href="https://niigata-baseball.com/area/%E4%B8%8A%E8%B6%8A%E5%B8%82/" target="_blank" rel="noopener" class="area-gataq">がたQ 上越市ページ ↗</a>
+      </div>
+
+      <!-- ── 下越・その他 ── -->
+      <div class="area-card" data-area="その他">
+        <div class="area-card-header">
+          <span class="area-name">下越地区（新発田・村上・阿賀野 他）</span>
+          <span class="area-count">10チーム+</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">新発田野球スポーツ少年団</div>
+          <div class="team-item">村上リトルファイターズ</div>
+          <div class="team-item">黒川サンダース</div>
+          <div class="team-item">オール阿賀野ジュニア</div>
+          <div class="team-item">胎内フレンズJr</div>
+          <div class="team-item">聖籠インパルス</div>
+          <div class="team-item">五泉フェニックス</div>
+          <div class="team-item">旭スポーツ少年団（胎内）</div>
+        </div>
+        <a href="https://niigata-baseball.com/teams/" target="_blank" rel="noopener" class="area-gataq">がたQ 全チーム一覧 ↗</a>
+      </div>
+
+      <!-- ── 中越・南魚沼・十日町 ── -->
+      <div class="area-card" data-area="その他">
+        <div class="area-card-header">
+          <span class="area-name">中越（見附・魚沼・十日町 他）</span>
+          <span class="area-count">15チーム+</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">今町ふたば野球スポーツ少年団<span class="team-note">見附市</span></div>
+          <div class="team-item">くずはスポーツ少年団<span class="team-note">見附市</span></div>
+          <div class="team-item">見附ドジャース<span class="team-note">見附市</span></div>
+          <div class="team-item">見附南JBC<span class="team-note">見附市</span></div>
+          <div class="team-item">十日町ジュニアベースボールクラブ<span class="team-note">十日町市</span></div>
+          <div class="team-item">川西クラブ<span class="team-note">十日町市</span></div>
+          <div class="team-item">下条スピリッツ<span class="team-note">十日町市</span></div>
+          <div class="team-item">津南フェニックス<span class="team-note">津南町</span></div>
+          <div class="team-item">中之島イーグルス<span class="team-note">長岡市</span></div>
+        </div>
+        <a href="https://niigata-baseball.com/teams/" target="_blank" rel="noopener" class="area-gataq">がたQ 全チーム一覧 ↗</a>
+      </div>
+
+      <!-- ── 佐渡 ── -->
+      <div class="area-card" data-area="その他">
+        <div class="area-card-header">
+          <span class="area-name">佐渡市</span>
+          <span class="area-count">12チーム+</span>
+        </div>
+        <div class="team-list">
+          <div class="team-item">相川パイレーツ</div>
+          <div class="team-item">小木マリナーズ</div>
+        </div>
+        <a href="https://niigata-baseball.com/area/%E4%BD%90%E6%B8%A1%E5%B8%82/" target="_blank" rel="noopener" class="area-gataq">がたQ 佐渡市ページ ↗</a>
+      </div>
+
+    </div><!-- /area-grid -->
+
+    <p style="margin-top:20px;font-size:.78rem;color:var(--chalk-dim);text-align:center;">
+      ※ チーム情報は <a href="https://niigata-baseball.com" target="_blank" rel="noopener" style="color:var(--cat)">がたQ（niigata-baseball.com）</a> および新潟市野球連盟公式サイトを参照しています。最新情報は各公式ページでご確認ください。
+    </p>
+  </div>
+</section>
+
+<!-- 大会情報 -->
+<section class="tournament-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>大会情報</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">TOURNAMENTS</span>
+    </div>
+    <div class="tournament-grid">
+      <div class="tournament-group">
+        <div class="tournament-group-header">
+          <span class="t-badge major">主要大会</span>
+          <span class="t-group-title">全国・県レベルの大会</span>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">高円宮賜杯 全日本学童軟式野球大会（マクドナルドトーナメント）</div>
+          <div class="t-meta"><span>🗓 夏（7〜8月）</span><span>🏢 全日本軟式野球連盟</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">全国学童軟式野球大会 新潟県予選</div>
+          <div class="t-meta"><span>🗓 初夏（6〜7月）</span><span>🏢 新潟県野球連盟</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">読売旗争奪少年野球大会（新潟大会）</div>
+          <div class="t-meta"><span>🗓 春（4〜5月）</span><span>🏢 読売新聞社</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">新潟県学童軟式野球選手権大会（秋季）</div>
+          <div class="t-meta"><span>🗓 秋（9〜10月）</span><span>🏢 新潟県野球連盟</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">オイシックス新潟アルビレックスBCカップ</div>
+          <div class="t-meta"><span>🗓 秋（10月）</span><span>🏢 アルビレックスBC</span></div>
+        </div>
+      </div>
+      <div class="tournament-group">
+        <div class="tournament-group-header">
+          <span class="t-badge local">ローカル大会</span>
+          <span class="t-group-title">地区・市区町村の大会</span>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">SDGs新潟地区学童軟式野球大会</div>
+          <div class="t-meta"><span>🗓 夏（8月）</span><span>🏢 新潟地区主催</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">ライオンズクラブ旗 長岡市学童野球大会</div>
+          <div class="t-meta"><span>🗓 夏（7月）</span><span>🏢 長岡地区</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">三條新聞社杯争奪 県央地域選抜少年野球大会</div>
+          <div class="t-meta"><span>🗓 夏（8月）</span><span>🏢 三条市スポーツ協会</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">五泉ドリーム杯親善少年野球大会</div>
+          <div class="t-meta"><span>🗓 春</span><span>🏢 五泉市地区</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">新潟球童会旗争奪 球童トーナメント学童野球大会</div>
+          <div class="t-meta"><span>🗓 秋</span><span>🏢 新潟球童会</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 外部リンク -->
+<section class="links-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>関連情報・外部リンク</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">LINKS</span>
+    </div>
+    <div class="links-list">
+      <a class="ext-link" href="https://niigata-baseball.com" target="_blank" rel="noopener">
+        <div class="ext-link-left">
+          <span class="ext-link-src">がたQ</span>
+          <span class="ext-link-title">がたQ — 新潟の学童野球ポータルサイト（チーム・大会情報）</span>
+        </div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://nsbb-niigata.wixsite.com/niigata" target="_blank" rel="noopener">
+        <div class="ext-link-left">
+          <span class="ext-link-src">公式</span>
+          <span class="ext-link-title">新潟市野球連盟 公式サイト（学童登録チーム一覧）</span>
+        </div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://jsbb-niigata.com/" target="_blank" rel="noopener">
+        <div class="ext-link-left">
+          <span class="ext-link-src">公式</span>
+          <span class="ext-link-title">新潟県野球連盟（JSBB新潟）</span>
+        </div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">
+        <div class="ext-link-left">
+          <span class="ext-link-src">体修塾BCA</span>
+          <span class="ext-link-title">体修塾BCA — 柏崎市の野球専門スクール・トレーニングジム</span>
+        </div><span class="ext-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="./index.html">← ホーム</a>
+      <a href="./gakudo.html">学童野球</a>
+      <a href="./chugaku.html">中学野球</a>
+      <a href="./koko.html">高校野球</a>
+      <a href="./daigaku.html">大学野球</a>
+      <a href="./shakaijin.html">社会人野球</a>
+      <a href="./joshi.html">女子野球</a>
+    </div>
+    <p class="footer-copy">© 2026 新潟ベースボール・ハブ｜チーム情報の正確性は各公式サイトでご確認ください。</p>
+  </div>
+</footer>
+
+<script>
+// エリアフィルター
+const btns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.area-card');
+
+btns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const area = btn.dataset.area;
+    cards.forEach(card => {
+      if (area === 'all' || card.dataset.area === area) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
