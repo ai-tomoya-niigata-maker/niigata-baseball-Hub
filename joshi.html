@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>女子野球｜新潟ベースボール・ハブ</title>
+  <meta name="description" content="新潟県内の女子野球チーム情報。高校・大学・社会人・ジュニア（学童・中学）の全カテゴリを掲載。新潟県女子野球連盟・開志学園・新潟ヤングガールズなど。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cat: #fc8181; --cat-dim: #9b1c1c;
+      --navy-deep: #080f1f; --navy-main: #0c1a30; --navy-card: #0f2140;
+      --navy-border: #1c3560; --gold: #c8991a; --gold-bright: #e8b830;
+      --chalk: #dde4f0; --chalk-dim: #7a8aaa; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--navy-deep); color: var(--chalk); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(8,15,31,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--navy-border); padding: 0 24px; }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .logo-mark { width: 30px; height: 30px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .85rem; color: var(--navy-deep); font-weight: 700; }
+    .back-btn { font-size: .78rem; color: var(--chalk-dim); border: 1px solid var(--navy-border); padding: 6px 14px; border-radius: 4px; transition: color .2s, border-color .2s; }
+    .back-btn:hover { color: var(--cat); border-color: var(--cat); }
+
+    /* ヒーロー */
+    .cat-hero { background: linear-gradient(135deg, #1a0010 0%, var(--navy-main) 60%); position: relative; overflow: hidden; padding: 64px 24px 52px; }
+    .cat-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--cat); }
+    .cat-hero::after { content: ''; position: absolute; inset: 4px 0 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(252,129,129,.08), transparent 70%); pointer-events: none; }
+    .cat-hero-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .cat-hero-badge { width: 56px; height: 56px; border-radius: 14px; background: rgba(252,129,129,.12); border: 2px solid var(--cat); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
+    .cat-hero-text { flex: 1; min-width: 220px; }
+    .cat-hero-en { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .2em; color: var(--cat); margin-bottom: 6px; }
+    .cat-hero-title { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; color: var(--white); line-height: 1.15; margin-bottom: 8px; }
+    .cat-hero-desc { font-size: .85rem; color: var(--chalk-dim); max-width: 520px; }
+
+    section { padding: 52px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+    .section-head h2 { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+    .section-rule { flex: 1; height: 1px; background: var(--navy-border); }
+    .section-label { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; color: var(--cat); letter-spacing: .12em; white-space: nowrap; }
+
+    /* タブ */
+    .tab-bar { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 1px solid var(--navy-border); flex-wrap: wrap; }
+    .tab-btn { padding: 9px 16px; font-size: .8rem; font-weight: 700; color: var(--chalk-dim); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color .2s, border-color .2s; white-space: nowrap; }
+    .tab-btn.active { color: var(--cat); border-bottom-color: var(--cat); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* チームカード */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+    .team-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; transition: border-color .2s, transform .15s; }
+    .team-card:hover { border-color: var(--cat); transform: translateY(-2px); }
+    .team-card.featured { border-left: 3px solid var(--cat); }
+    .team-card-header { background: var(--navy-deep); border-bottom: 1px solid var(--navy-border); padding: 11px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .team-name { font-size: .92rem; font-weight: 700; color: var(--white); }
+    .cat-badge { font-size: .6rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; white-space: nowrap; }
+    .badge-hs    { background: rgba(252,129,129,.2); color: var(--cat); border: 1px solid rgba(252,129,129,.3); }
+    .badge-univ  { background: rgba(232,121,249,.2); color: #e879f9; border: 1px solid rgba(232,121,249,.3); }
+    .badge-club  { background: rgba(163,230,53,.2);  color: #a3e635; border: 1px solid rgba(163,230,53,.3); }
+    .badge-jun   { background: rgba(96,165,250,.2);  color: #60a5fa; border: 1px solid rgba(96,165,250,.3); }
+    .badge-select { background: rgba(251,191,36,.2); color: #fbbf24; border: 1px solid rgba(251,191,36,.3); }
+    .team-body { padding: 11px 14px; display: flex; flex-direction: column; gap: 5px; }
+    .team-row { display: flex; align-items: flex-start; gap: 8px; font-size: .78rem; color: var(--chalk-dim); }
+    .team-row-label { color: var(--cat); font-weight: 600; min-width: 44px; font-size: .7rem; font-family: 'Oswald', sans-serif; letter-spacing: .04em; flex-shrink: 0; }
+    .team-note { font-size: .72rem; color: var(--gold); background: rgba(200,153,26,.1); padding: 3px 10px; border-radius: 4px; margin-top: 2px; }
+    .team-links { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
+    .tl-btn { display: inline-flex; align-items: center; gap: 3px; font-size: .68rem; padding: 3px 9px; border-radius: 4px; border: 1px solid; transition: background .15s; }
+    .btn-web   { color: var(--cat); border-color: rgba(252,129,129,.3); }
+    .btn-web:hover   { background: rgba(252,129,129,.08); }
+    .btn-insta { color: #e040fb; border-color: rgba(224,64,251,.3); }
+    .btn-insta:hover { background: rgba(224,64,251,.06); }
+    .btn-x     { color: var(--chalk-dim); border-color: rgba(122,138,170,.25); }
+    .btn-x:hover     { background: rgba(122,138,170,.06); color: var(--chalk); }
+
+    /* インフォバナー */
+    .info-banner { background: var(--navy-card); border: 1px solid rgba(252,129,129,.2); border-left: 3px solid var(--cat); border-radius: 8px; padding: 14px 18px; margin-bottom: 22px; font-size: .8rem; color: var(--chalk-dim); line-height: 1.75; }
+    .info-banner strong { color: var(--cat); }
+
+    /* 大会 */
+    .tournament-section { background: var(--navy-deep); }
+    .tournament-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+    .tournament-group { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; }
+    .tournament-group-header { padding: 10px 16px; border-bottom: 1px solid var(--navy-border); display: flex; align-items: center; gap: 8px; }
+    .t-badge { font-size: .62rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; }
+    .t-badge.major { background: var(--cat); color: #fff; }
+    .t-badge.local { background: rgba(252,129,129,.15); color: var(--cat); border: 1px solid rgba(252,129,129,.3); }
+    .t-group-title { font-size: .85rem; font-weight: 700; color: var(--white); }
+    .tournament-item { padding: 9px 16px; border-bottom: 1px solid rgba(28,53,96,.4); }
+    .tournament-item:last-child { border-bottom: none; }
+    .t-name { font-size: .82rem; color: var(--white); font-weight: 500; margin-bottom: 2px; }
+    .t-meta { display: flex; gap: 10px; font-size: .68rem; color: var(--chalk-dim); flex-wrap: wrap; }
+
+    /* 外部リンク */
+    .links-section { background: var(--navy-main); }
+    .links-list { display: flex; flex-direction: column; gap: 8px; }
+    .ext-link { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; transition: border-color .2s; gap: 12px; }
+    .ext-link:hover { border-color: var(--cat); }
+    .ext-link-left { display: flex; flex-direction: column; gap: 2px; }
+    .ext-link-src { font-size: .65rem; color: var(--cat); font-family: 'Oswald', sans-serif; font-weight: 600; letter-spacing: .06em; }
+    .ext-link-title { font-size: .82rem; color: var(--chalk); }
+    .ext-arrow { color: var(--chalk-dim); flex-shrink: 0; }
+
+    .site-footer { background: var(--navy-deep); border-top: 1px solid var(--navy-border); padding: 32px 24px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+    .footer-nav { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .footer-nav a { font-size: .75rem; color: var(--chalk-dim); transition: color .2s; }
+    .footer-nav a:hover { color: var(--cat); }
+    .footer-copy { font-size: .7rem; color: rgba(122,138,170,.4); }
+
+    @media (max-width: 600px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .tab-btn { padding: 7px 10px; font-size: .73rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="./index.html" class="logo"><span class="logo-mark">⚾</span>新潟ベースボール・ハブ</a>
+    <a href="./index.html" class="back-btn">← ホームへ戻る</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ヒーロー（画像追加時は joshi-hero.jpg を参照） -->
+<div class="cat-hero">
+  <div class="cat-hero-inner">
+    <div class="cat-hero-badge">⚾</div>
+    <div class="cat-hero-text">
+      <div class="cat-hero-en">WOMEN'S BASEBALL</div>
+      <h1 class="cat-hero-title">女子野球</h1>
+      <p class="cat-hero-desc">高校・大学・一般クラブ・ジュニア（学童・中学）まで、新潟県内の女子野球チームを全カテゴリで掲載。新潟県女子野球連盟の公式情報も。</p>
+    </div>
+  </div>
+</div>
+
+<!-- チーム一覧 -->
+<section style="background:var(--navy-main)">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>チーム一覧</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">TEAMS</span>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="hs">🏫 高校</button>
+      <button class="tab-btn" data-tab="univ">🎓 大学</button>
+      <button class="tab-btn" data-tab="club">⚾ 一般・クラブ</button>
+      <button class="tab-btn" data-tab="jun">👧 ジュニア（学童・中学）</button>
+    </div>
+
+    <!-- ══ 高校 ══ -->
+    <div class="tab-content active" id="tab-hs">
+      <div class="info-banner">
+        <strong>新潟県内の高校女子硬式野球部は現在１校のみ。</strong>開志学園が県唯一のチームとして全国大会に出場し続けています。<br>
+        女子野球に興味のある中学生は開志学園への入学が新潟県では唯一の選択肢です（随時体験会を実施中）。
+      </div>
+      <div class="team-grid">
+
+        <div class="team-card featured">
+          <div class="team-card-header">
+            <span class="team-name">開志学園高校 女子硬式野球部</span>
+            <span class="cat-badge badge-hs">高校・硬式</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">場所</span>新潟市東区津島屋</div>
+            <div class="team-row"><span class="team-row-label">特徴</span>新潟県高校唯一の女子硬式野球部。全国大会常連。</div>
+            <div class="team-row"><span class="team-row-label">体験会</span>随時・中学生対象の学校説明・部活体験を受け付け中</div>
+            <div class="team-row"><span class="team-row-label">電話</span>025-287-3390</div>
+            <div class="team-note">⭐ 第26回全国高校女子硬式野球選抜大会 出場（2026年3月）</div>
+            <div class="team-note">⭐ OG: 新潟医療福祉大学 女子硬式野球部へ進学する選手多数</div>
+            <div class="team-links">
+              <a class="tl-btn btn-web" href="https://www.kaishi.ed.jp" target="_blank" rel="noopener">🏫 学校HP</a>
+              <a class="tl-btn btn-insta" href="https://www.instagram.com/kaishi.jyoshi.yakyu/" target="_blank" rel="noopener">📷 Instagram</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ 大学 ══ -->
+    <div class="tab-content" id="tab-univ">
+      <div class="info-banner">
+        新潟医療福祉大学が<strong>2024年に女子硬式野球部を創部</strong>。開志学園OGを中心に全国から選手が集まっています。元・開志学園監督の後藤桂太氏が指揮を執っています。
+      </div>
+      <div class="team-grid">
+
+        <div class="team-card featured">
+          <div class="team-card-header">
+            <span class="team-name">新潟医療福祉大学 女子硬式野球部</span>
+            <span class="cat-badge badge-univ">大学・硬式</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">創部</span>2024年（県内初の大学女子硬式野球部）</div>
+            <div class="team-row"><span class="team-row-label">場所</span>新潟市北区島見町（専用グラウンド・屋内練習場）</div>
+            <div class="team-row"><span class="team-row-label">監督</span>後藤桂太 氏（元・開志学園女子硬式野球部監督）</div>
+            <div class="team-row"><span class="team-row-label">施設</span>両翼101m・中堅120mのグラウンド、全面人工芝屋内練習場、ブルペン（6人同時投球可・ナイター設備あり）</div>
+            <div class="team-note">⭐ 全国各地の強豪校出身選手が集結</div>
+            <div class="team-links">
+              <a class="tl-btn btn-web" href="https://www.nuhw.ac.jp/campuslife/sports/wbaseball/" target="_blank" rel="noopener">🏫 大学HP</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ 一般・クラブ ══ -->
+    <div class="tab-content" id="tab-club">
+      <div class="info-banner">
+        新潟県内には<strong>新潟県女子野球連盟</strong>に加盟する一般・社会人クラブチームが複数活動しています。がたQ（niigata-baseball.com）に掲載されているチームを掲載しています。
+      </div>
+      <div class="team-grid">
+
+        <div class="team-card featured">
+          <div class="team-card-header">
+            <span class="team-name">新潟ヤングガールズ</span>
+            <span class="cat-badge badge-club">一般・硬式</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟市</div>
+            <div class="team-row"><span class="team-row-label">特徴</span>月曜・木曜は専用練習場で平日合同自主練習日あり</div>
+            <div class="team-row"><span class="team-row-label">備考</span>東日本ヤングガールズのイベント参加実績あり</div>
+            <div class="team-links">
+              <a class="tl-btn btn-insta" href="https://www.instagram.com/joshiyakyuu2021/" target="_blank" rel="noopener">📷 Instagram</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">NLライズ</span>
+            <span class="cat-badge badge-club">一般</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟県内</div>
+            <div class="team-row"><span class="team-row-label">備考</span>新潟県女子野球連盟 加盟チーム</div>
+            <div class="team-links">
+              <a class="tl-btn btn-x" href="https://twitter.com/nl_rise_" target="_blank" rel="noopener">𝕏 X</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">県央BLジャイアンツ</span>
+            <span class="cat-badge badge-club">一般</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>県央地区（三条・燕周辺）</div>
+            <div class="team-row"><span class="team-row-label">備考</span>新潟県女子野球連盟 加盟チーム</div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">上越BREAKERS</span>
+            <span class="cat-badge badge-club">一般</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>上越市</div>
+            <div class="team-row"><span class="team-row-label">備考</span>新潟県女子野球連盟 加盟チーム</div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">中越アイニー</span>
+            <span class="cat-badge badge-club">一般</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>中越地区（長岡周辺）</div>
+            <div class="team-row"><span class="team-row-label">備考</span>新潟県女子野球連盟 加盟チーム</div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">中越フェニックス</span>
+            <span class="cat-badge badge-club">一般</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>中越地区（長岡周辺）</div>
+            <div class="team-row"><span class="team-row-label">備考</span>新潟県女子野球連盟 加盟チーム</div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">Heroines（ヒロインズ）</span>
+            <span class="cat-badge badge-club">一般</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟県内</div>
+            <div class="team-row"><span class="team-row-label">備考</span>新潟県女子野球連盟 加盟チーム</div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">CROWN GIRLS（クラウンガールズ）</span>
+            <span class="cat-badge badge-club">中学女子クラブ</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">エリア</span>新潟市南区</div>
+            <div class="team-row"><span class="team-row-label">特徴</span>新潟クラウン（中学軟式）の女子専用チーム</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ ジュニア ══ -->
+    <div class="tab-content" id="tab-jun">
+      <div class="info-banner">
+        <strong>新潟トキめきガールズ</strong>（学童女子）と<strong>トキガールズ</strong>（中学女子）は新潟県の女子野球を代表する選抜チームです。毎年選考会を経てメンバーが選ばれ、全国大会に出場しています。
+      </div>
+      <div class="team-grid">
+
+        <div class="team-card featured">
+          <div class="team-card-header">
+            <span class="team-name">新潟トキめきガールズ</span>
+            <span class="cat-badge badge-select">学童・県選抜</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">対象</span>小学生女子</div>
+            <div class="team-row"><span class="team-row-label">主催</span>新潟県女子野球連盟 ／ BBガールズ普及委員会</div>
+            <div class="team-row"><span class="team-row-label">選考</span>毎年、選手選考会を実施（県内各チームから選抜）</div>
+            <div class="team-row"><span class="team-row-label">実績</span>NPBガールズトーナメント出場（5期目・2025年）、2024年に初の初戦突破</div>
+            <div class="team-links">
+              <a class="tl-btn btn-web" href="https://npb.jp/girls/2025/roster_niigata.html" target="_blank" rel="noopener">⚾ NPBガールズ公式</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card featured">
+          <div class="team-card-header">
+            <span class="team-name">トキガールズ</span>
+            <span class="cat-badge badge-select">中学・県選抜</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">対象</span>中学生女子（軟式）</div>
+            <div class="team-row"><span class="team-row-label">主催</span>新潟県女子野球連盟</div>
+            <div class="team-row"><span class="team-row-label">選考</span>毎年4月頃に選考会。Googleフォームで申込受付。</div>
+            <div class="team-row"><span class="team-row-label">備考</span>2025年は新潟トキめきガールズ（学童）と合同練習を実施</div>
+            <div class="team-links">
+              <a class="tl-btn btn-web" href="http://www.niigata-wb.com/" target="_blank" rel="noopener">🌐 連盟HP</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">BBガールズ普及委員会</span>
+            <span class="cat-badge badge-jun">普及活動</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">活動</span>新潟トキめきガールズの運営・学童女子野球の普及</div>
+            <div class="team-row"><span class="team-row-label">主催</span>新潟県女子野球連盟と連携</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 大会情報 -->
+<section class="tournament-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>主要大会・イベント</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">TOURNAMENTS</span>
+    </div>
+    <div class="tournament-grid">
+
+      <div class="tournament-group">
+        <div class="tournament-group-header"><span class="t-badge major">高校・全国</span><span class="t-group-title">高校女子硬式野球</span></div>
+        <div class="tournament-item">
+          <div class="t-name">全国高校女子硬式野球選抜大会</div>
+          <div class="t-meta"><span>🗓 3月（甲子園）</span><span>開志学園が第26回出場（2026年）</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">全国高校女子硬式野球選手権大会（夏）</div>
+          <div class="t-meta"><span>🗓 夏</span><span>高校女子野球の甲子園</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">開志学園 練習体験会（随時）</div>
+          <div class="t-meta"><span>中学生対象 / TEL: 025-287-3390</span></div>
+        </div>
+      </div>
+
+      <div class="tournament-group">
+        <div class="tournament-group-header"><span class="t-badge major">一般・全国</span><span class="t-group-title">新潟大会・女子硬式</span></div>
+        <div class="tournament-item">
+          <div class="t-name">女子硬式野球新潟大会（第9回）</div>
+          <div class="t-meta"><span>🗓 2026年夏</span><span>全国から12チーム参加</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">第8回女子硬式野球新潟大会 結果（2025年）</div>
+          <div class="t-meta"><span>🏆 優勝：福井工業大学附属福井高</span><span>準優勝：秀明八千代高校</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">BBGウィンターフェスタ</div>
+          <div class="t-meta"><span>🗓 2月（見附市総合体育館）</span><span>屋内イベント・交流戦</span></div>
+        </div>
+      </div>
+
+      <div class="tournament-group">
+        <div class="tournament-group-header"><span class="t-badge local">ジュニア</span><span class="t-group-title">学童・中学女子</span></div>
+        <div class="tournament-item">
+          <div class="t-name">NPBガールズトーナメント（全日本女子学童軟式野球大会）</div>
+          <div class="t-meta"><span>🗓 夏</span><span>新潟トキめきガールズ出場</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">トキガールズ 選手選考会</div>
+          <div class="t-meta"><span>🗓 毎年4月頃</span><span>中学女子 県選抜チーム</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">新潟トキめきガールズ 選手選考会</div>
+          <div class="t-meta"><span>🗓 毎年春</span><span>学童女子 県選抜チーム</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 外部リンク -->
+<section class="links-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>関連情報・外部リンク</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">LINKS</span>
+    </div>
+    <div class="links-list">
+      <a class="ext-link" href="http://www.niigata-wb.com/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">新潟県女子野球連盟</span><span class="ext-link-title">新潟県女子野球連盟 公式サイト（大会情報・加盟チーム）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.instagram.com/kaishi.jyoshi.yakyu/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">開志学園女子</span><span class="ext-link-title">開志学園高校 女子硬式野球部 Instagram（@kaishi.jyoshi.yakyu）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.nuhw.ac.jp/campuslife/sports/wbaseball/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">医療福祉大女子</span><span class="ext-link-title">新潟医療福祉大学 女子硬式野球部（2024年創部）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://niigata-baseball.com/area/%E5%A5%B3%E5%AD%90%E9%87%8E%E7%90%83/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">がたQ</span><span class="ext-link-title">がたQ｜新潟の女子野球チーム一覧</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://npb.jp/girls/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">NPBガールズ</span><span class="ext-link-title">NPBガールズトーナメント（全日本女子学童軟式野球大会）公式</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">体修塾BCA</span><span class="ext-link-title">体修塾BCA — 柏崎市の野球専門スクール・トレーニングジム</span></div><span class="ext-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="./index.html">← ホーム</a>
+      <a href="./gakudo.html">学童野球</a>
+      <a href="./chugaku.html">中学野球</a>
+      <a href="./koko.html">高校野球</a>
+      <a href="./daigaku.html">大学野球</a>
+      <a href="./shakaijin.html">社会人野球</a>
+      <a href="./joshi.html">女子野球</a>
+    </div>
+    <p class="footer-copy">© 2026 新潟ベースボール・ハブ｜情報の正確性は各公式サイトでご確認ください。</p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>

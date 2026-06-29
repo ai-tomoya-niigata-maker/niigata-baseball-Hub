@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>社会人野球｜新潟ベースボール・ハブ</title>
+  <meta name="description" content="新潟県の社会人野球情報。JABA加盟の新潟コンマーシャル倶楽部、毎年5月開催のJABA選抜新潟大会、都市対抗・全日本クラブ選手権の情報をまとめています。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cat: #a3e635; --cat-dim: #3f6212;
+      --navy-deep: #080f1f; --navy-main: #0c1a30; --navy-card: #0f2140;
+      --navy-border: #1c3560; --gold: #c8991a; --gold-bright: #e8b830;
+      --chalk: #dde4f0; --chalk-dim: #7a8aaa; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--navy-deep); color: var(--chalk); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(8,15,31,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--navy-border); padding: 0 24px; }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .logo-mark { width: 30px; height: 30px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .85rem; color: var(--navy-deep); font-weight: 700; }
+    .back-btn { font-size: .78rem; color: var(--chalk-dim); border: 1px solid var(--navy-border); padding: 6px 14px; border-radius: 4px; transition: color .2s, border-color .2s; }
+    .back-btn:hover { color: var(--cat); border-color: var(--cat); }
+
+    /* ヒーロー */
+    .cat-hero { background: var(--navy-main); position: relative; overflow: hidden; }
+    .cat-hero-img-wrap { position: relative; width: 100%; line-height: 0; }
+    .cat-hero-img-wrap img { width: 100%; display: block; max-height: 420px; object-fit: cover; object-position: center center; }
+    .cat-hero-img-wrap::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 140px; background: linear-gradient(transparent, var(--navy-main)); pointer-events: none; }
+    .cat-hero-img-wrap::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--cat); z-index: 1; }
+    .cat-hero-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; padding: 24px 24px 40px; }
+    .cat-hero-badge { width: 56px; height: 56px; border-radius: 14px; background: rgba(163,230,53,.12); border: 2px solid var(--cat); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
+    .cat-hero-text { flex: 1; min-width: 220px; }
+    .cat-hero-en { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .2em; color: var(--cat); margin-bottom: 6px; }
+    .cat-hero-title { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; color: var(--white); line-height: 1.15; margin-bottom: 8px; }
+    .cat-hero-desc { font-size: .85rem; color: var(--chalk-dim); max-width: 520px; }
+
+    section { padding: 52px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+    .section-head h2 { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+    .section-rule { flex: 1; height: 1px; background: var(--navy-border); }
+    .section-label { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; color: var(--cat); letter-spacing: .12em; white-space: nowrap; }
+
+    /* タブ */
+    .tab-bar { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 1px solid var(--navy-border); flex-wrap: wrap; }
+    .tab-btn { padding: 9px 16px; font-size: .8rem; font-weight: 700; color: var(--chalk-dim); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color .2s, border-color .2s; white-space: nowrap; }
+    .tab-btn.active { color: var(--cat); border-bottom-color: var(--cat); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* チームカード（大） */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .team-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; transition: border-color .2s, transform .15s; }
+    .team-card:hover { border-color: var(--cat); transform: translateY(-2px); }
+    .team-card.featured { border-left: 3px solid var(--cat); }
+    .team-card-header { background: var(--navy-deep); border-bottom: 1px solid var(--navy-border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .team-name { font-size: .95rem; font-weight: 700; color: var(--white); }
+    .team-badge { font-size: .6rem; font-weight: 700; padding: 2px 8px; border-radius: 3px; white-space: nowrap; }
+    .badge-club    { background: rgba(163,230,53,.2); color: var(--cat); border: 1px solid rgba(163,230,53,.3); }
+    .badge-niigata { background: rgba(200,153,26,.2); color: var(--gold-bright); border: 1px solid rgba(200,153,26,.3); }
+    .team-body { padding: 12px 16px; display: flex; flex-direction: column; gap: 5px; }
+    .team-row { display: flex; align-items: flex-start; gap: 8px; font-size: .78rem; color: var(--chalk-dim); }
+    .team-row-label { color: var(--cat); font-weight: 600; min-width: 44px; font-size: .7rem; font-family: 'Oswald', sans-serif; letter-spacing: .04em; flex-shrink: 0; }
+    .team-note { font-size: .72rem; color: var(--gold); background: rgba(200,153,26,.1); padding: 3px 10px; border-radius: 4px; margin-top: 2px; }
+    .team-links { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
+    .tl-btn { display: inline-flex; align-items: center; gap: 3px; font-size: .7rem; padding: 3px 10px; border-radius: 4px; border: 1px solid; transition: background .15s; }
+    .btn-web   { color: var(--cat); border-color: rgba(163,230,53,.3); }
+    .btn-web:hover   { background: rgba(163,230,53,.08); }
+    .btn-insta { color: #e040fb; border-color: rgba(224,64,251,.3); }
+    .btn-insta:hover { background: rgba(224,64,251,.06); }
+    .btn-fb    { color: #60a5fa; border-color: rgba(96,165,250,.3); }
+    .btn-fb:hover    { background: rgba(96,165,250,.06); }
+    .btn-wiki  { color: var(--chalk-dim); border-color: rgba(122,138,170,.25); }
+    .btn-wiki:hover  { background: rgba(122,138,170,.06); color: var(--chalk); }
+
+    /* JABA大会 出場チームリスト */
+    .jaba-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+    .jaba-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; transition: border-color .15s; }
+    .jaba-card:hover { border-color: var(--cat); }
+    .jaba-card.niigata { border-left: 3px solid var(--cat); }
+    .jaba-team { font-size: .88rem; font-weight: 700; color: var(--white); }
+    .jaba-meta { font-size: .72rem; color: var(--chalk-dim); }
+    .jaba-cat { font-size: .62rem; font-weight: 700; padding: 1px 6px; border-radius: 3px; margin-top: 2px; display: inline-block; }
+    .jcat-niigata { background: rgba(163,230,53,.15); color: var(--cat); border: 1px solid rgba(163,230,53,.25); }
+    .jcat-corp { background: rgba(200,153,26,.15); color: var(--gold-bright); border: 1px solid rgba(200,153,26,.25); }
+    .jcat-club { background: rgba(96,165,250,.15); color: #60a5fa; border: 1px solid rgba(96,165,250,.25); }
+
+    /* インフォバナー */
+    .info-banner { background: var(--navy-card); border: 1px solid rgba(163,230,53,.2); border-left: 3px solid var(--cat); border-radius: 8px; padding: 14px 18px; margin-bottom: 22px; font-size: .8rem; color: var(--chalk-dim); line-height: 1.75; }
+    .info-banner strong { color: var(--cat); }
+
+    /* 大会カード */
+    .tournament-section { background: var(--navy-deep); }
+    .tournament-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+    .tournament-group { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; }
+    .tournament-group-header { padding: 10px 16px; border-bottom: 1px solid var(--navy-border); display: flex; align-items: center; gap: 8px; }
+    .t-badge { font-size: .62rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; }
+    .t-badge.major { background: var(--cat); color: #0a0a0a; }
+    .t-badge.local { background: rgba(163,230,53,.15); color: var(--cat); border: 1px solid rgba(163,230,53,.3); }
+    .t-group-title { font-size: .85rem; font-weight: 700; color: var(--white); }
+    .tournament-item { padding: 9px 16px; border-bottom: 1px solid rgba(28,53,96,.4); }
+    .tournament-item:last-child { border-bottom: none; }
+    .t-name { font-size: .82rem; color: var(--white); font-weight: 500; margin-bottom: 2px; }
+    .t-meta { display: flex; gap: 10px; font-size: .68rem; color: var(--chalk-dim); flex-wrap: wrap; }
+
+    /* 外部リンク */
+    .links-section { background: var(--navy-main); }
+    .links-list { display: flex; flex-direction: column; gap: 8px; }
+    .ext-link { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; transition: border-color .2s; gap: 12px; }
+    .ext-link:hover { border-color: var(--cat); }
+    .ext-link-left { display: flex; flex-direction: column; gap: 2px; }
+    .ext-link-src { font-size: .65rem; color: var(--cat); font-family: 'Oswald', sans-serif; font-weight: 600; letter-spacing: .06em; }
+    .ext-link-title { font-size: .82rem; color: var(--chalk); }
+    .ext-arrow { color: var(--chalk-dim); flex-shrink: 0; }
+
+    .site-footer { background: var(--navy-deep); border-top: 1px solid var(--navy-border); padding: 32px 24px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+    .footer-nav { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .footer-nav a { font-size: .75rem; color: var(--chalk-dim); transition: color .2s; }
+    .footer-nav a:hover { color: var(--cat); }
+    .footer-copy { font-size: .7rem; color: rgba(122,138,170,.4); }
+
+    @media (max-width: 600px) {
+      .team-grid, .jaba-grid { grid-template-columns: 1fr; }
+      .tab-btn { padding: 7px 10px; font-size: .73rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="./index.html" class="logo"><span class="logo-mark">⚾</span>新潟ベースボール・ハブ</a>
+    <a href="./index.html" class="back-btn">← ホームへ戻る</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ヒーロー -->
+<div class="cat-hero">
+  <div class="cat-hero-img-wrap">
+    <img src="./shakaijin-hero.jpg" alt="社会人野球 — 新潟ベースボール・ハブ">
+  </div>
+  <div class="cat-hero-inner">
+    <div class="cat-hero-badge">🏆</div>
+    <div class="cat-hero-text">
+      <div class="cat-hero-en">AMATEUR BASEBALL</div>
+      <h1 class="cat-hero-title">社会人野球</h1>
+      <p class="cat-hero-desc">JABA（日本野球連盟）加盟の新潟県チームと、毎年5月にエコスタジアムで開催されるJABA選抜新潟大会の情報をまとめています。</p>
+    </div>
+  </div>
+</div>
+
+<!-- チーム・大会一覧 -->
+<section style="background:var(--navy-main)">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>チーム・大会情報</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">JABA 新潟</span>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="teams">🟢 新潟県のチーム</button>
+      <button class="tab-btn" data-tab="jaba">🏟️ JABA選抜新潟大会</button>
+    </div>
+
+    <!-- ══ 新潟県チーム ══ -->
+    <div class="tab-content active" id="tab-teams">
+      <div class="info-banner">
+        新潟県のJABA（日本野球連盟）加盟チームは現在<strong>新潟コンマーシャル倶楽部</strong>が主要チームとして活動しています。2015年に創部100年を迎えた、新潟野球界最古の歴史を持つクラブです。JABA連盟公式Instagram（@jaba_niigata）でも新潟の試合情報が発信されています。
+      </div>
+
+      <div class="team-grid">
+
+        <div class="team-card featured">
+          <div class="team-card-header">
+            <span class="team-name">新潟コンマーシャル倶楽部</span>
+            <span class="team-badge badge-club">クラブチーム</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">創部</span>1916年（新潟商業高野球部OBが設立）</div>
+            <div class="team-row"><span class="team-row-label">拠点</span>新潟市</div>
+            <div class="team-row"><span class="team-row-label">所属</span>JABA新潟県野球連盟（日本野球連盟）</div>
+            <div class="team-row"><span class="team-row-label">目標</span>全日本クラブ野球選手権大会 出場</div>
+            <div class="team-row"><span class="team-row-label">特徴</span>現在も自らの練習と後輩学生の技術指導を続ける。登録選手17名（2026年）</div>
+            <div class="team-note">⭐ 1934年 都市対抗野球出場（新潟県勢として史上初）</div>
+            <div class="team-note">⭐ 2015年 創部100年（全国4番目の歴史を誇るクラブ）</div>
+            <div class="team-links">
+              <a class="tl-btn btn-insta" href="https://www.instagram.com/commercialclub/" target="_blank" rel="noopener">📷 Instagram</a>
+              <a class="tl-btn btn-fb" href="https://www.facebook.com/p/%E6%96%B0%E6%BD%9F%E3%82%B3%E3%83%B3%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3%E3%83%AB%E5%80%B6%E6%A5%BD%E9%83%A8-100032094926480/" target="_blank" rel="noopener">👤 Facebook</a>
+              <a class="tl-btn btn-wiki" href="https://ja.wikipedia.org/wiki/%E6%96%B0%E6%BD%9F%E3%82%B3%E3%83%B3%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3%E3%83%AB%E5%80%B6%E6%A5%BD%E9%83%A8" target="_blank" rel="noopener">📖 Wikipedia</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-card-header">
+            <span class="team-name">JABA新潟県野球連盟</span>
+            <span class="team-badge badge-niigata">連盟公式</span>
+          </div>
+          <div class="team-body">
+            <div class="team-row"><span class="team-row-label">所在</span>新潟市</div>
+            <div class="team-row"><span class="team-row-label">活動</span>新潟県内の社会人硬式野球の大会運営・チーム支援</div>
+            <div class="team-row"><span class="team-row-label">SNS</span>試合情報・結果・大会告知を随時発信中</div>
+            <div class="team-links">
+              <a class="tl-btn btn-web" href="https://www.jaba-niigata.jp" target="_blank" rel="noopener">🌐 公式HP</a>
+              <a class="tl-btn btn-insta" href="https://www.instagram.com/jaba_niigata/" target="_blank" rel="noopener">📷 Instagram</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ JABA選抜新潟大会 ══ -->
+    <div class="tab-content" id="tab-jaba">
+      <div class="info-banner">
+        毎年5月ゴールデンウィークに<strong>ハードオフエコスタジアム新潟</strong>で開催される社会人野球の一大イベント。全国の企業チーム・クラブチームが集い、新潟でトップレベルの社会人野球を観戦できる貴重な機会です。<br>
+        入場料：一般500円 / JABAファンクラブ会員300円 / <strong style="color:var(--cat)">高校生以下無料</strong>
+      </div>
+
+      <p style="font-family:'Oswald',sans-serif;font-size:.78rem;font-weight:600;color:var(--cat);letter-spacing:.1em;margin-bottom:14px;">第68回 JABA選抜新潟大会（2026年5月1日〜4日）出場チーム</p>
+
+      <div class="jaba-grid">
+        <div class="jaba-card niigata">
+          <div class="jaba-team">新潟コンマーシャル倶楽部</div>
+          <div class="jaba-meta">新潟市 ／ JABA新潟県野球連盟</div>
+          <span class="jaba-cat jcat-niigata">🟢 新潟代表</span>
+        </div>
+        <div class="jaba-card">
+          <div class="jaba-team">JR東日本東北</div>
+          <div class="jaba-meta">仙台市 ／ 企業チーム</div>
+          <span class="jaba-cat jcat-corp">企業</span>
+        </div>
+        <div class="jaba-card">
+          <div class="jaba-team">読売ジャイアンツ（三軍）</div>
+          <div class="jaba-meta">プロ三軍チーム</div>
+          <span class="jaba-cat jcat-corp">プロ三軍</span>
+        </div>
+        <div class="jaba-card">
+          <div class="jaba-team">バイタルネット</div>
+          <div class="jaba-meta">仙台市 ／ 企業チーム</div>
+          <span class="jaba-cat jcat-corp">企業</span>
+        </div>
+        <div class="jaba-card">
+          <div class="jaba-team">テイ・エス テック</div>
+          <div class="jaba-meta">埼玉県 ／ 企業チーム</div>
+          <span class="jaba-cat jcat-corp">企業</span>
+        </div>
+        <div class="jaba-card">
+          <div class="jaba-team">日立製作所</div>
+          <div class="jaba-meta">茨城県 ／ 企業チーム</div>
+          <span class="jaba-cat jcat-corp">企業</span>
+        </div>
+        <div class="jaba-card">
+          <div class="jaba-team">JR秋田</div>
+          <div class="jaba-meta">秋田市 ／ 企業チーム</div>
+          <span class="jaba-cat jcat-corp">企業</span>
+        </div>
+        <div class="jaba-card">
+          <div class="jaba-team">静岡硬式野球倶楽部</div>
+          <div class="jaba-meta">静岡県 ／ クラブチーム</div>
+          <span class="jaba-cat jcat-club">クラブ</span>
+        </div>
+        <div class="jaba-card">
+          <div class="jaba-team">マルハン北日本カンパニー</div>
+          <div class="jaba-meta">企業チーム</div>
+          <span class="jaba-cat jcat-corp">企業</span>
+        </div>
+        <div class="jaba-card">
+          <div class="jaba-team">全足利クラブ</div>
+          <div class="jaba-meta">栃木県足利市 ／ クラブチーム</div>
+          <span class="jaba-cat jcat-club">クラブ</span>
+        </div>
+        <div class="jaba-card">
+          <div class="jaba-team">FedEx（フェデックス）</div>
+          <div class="jaba-meta">企業チーム</div>
+          <span class="jaba-cat jcat-corp">企業</span>
+        </div>
+        <div class="jaba-card">
+          <div class="jaba-team">千曲川硬式野球クラブ</div>
+          <div class="jaba-meta">長野県小諸市 ／ クラブチーム</div>
+          <span class="jaba-cat jcat-club">クラブ</span>
+        </div>
+      </div>
+
+      <p style="margin-top:14px;font-size:.75rem;color:var(--chalk-dim);">
+        ※ 出場チームは年度により変わります。最新情報は <a href="https://www.jaba.or.jp" target="_blank" rel="noopener" style="color:var(--cat)">JABA公式サイト</a> でご確認ください。<br>
+        第67回（2025年）は2025年5月2〜5日開催。第68回（2026年）は2026年5月1〜4日開催。
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- 大会情報 -->
+<section class="tournament-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>主要大会情報</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">TOURNAMENTS</span>
+    </div>
+    <div class="tournament-grid">
+
+      <div class="tournament-group">
+        <div class="tournament-group-header"><span class="t-badge major">全国三大大会</span><span class="t-group-title">社会人野球の頂点</span></div>
+        <div class="tournament-item">
+          <div class="t-name">都市対抗野球大会</div>
+          <div class="t-meta"><span>🗓 7月〜8月</span><span>📍 東京ドーム</span><span>新潟代表が出場を目指す最高峰</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">社会人野球日本選手権大会</div>
+          <div class="t-meta"><span>🗓 10月〜11月</span><span>📍 京セラドーム大阪</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">全日本クラブ野球選手権大会</div>
+          <div class="t-meta"><span>🗓 夏（7〜8月）</span><span>クラブチームの全国一決定戦</span></div>
+        </div>
+      </div>
+
+      <div class="tournament-group">
+        <div class="tournament-group-header"><span class="t-badge major">新潟開催大会</span><span class="t-group-title">エコスタでトップ観戦</span></div>
+        <div class="tournament-item">
+          <div class="t-name">第68回 JABA選抜新潟大会</div>
+          <div class="t-meta"><span>🗓 2026年5月1日〜4日（GW）</span><span>📍 ハードオフエコスタジアム新潟・みどりと森の運動公園野球場</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">入場料</div>
+          <div class="t-meta"><span>一般500円 / JABA会員300円 / 高校生以下無料</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">JABA北信越クラブカップ大会</div>
+          <div class="t-meta"><span>🗓 秋</span><span>北信越地区のクラブチームが集結</span></div>
+        </div>
+      </div>
+
+      <div class="tournament-group">
+        <div class="tournament-group-header"><span class="t-badge local">都市対抗 新潟予選</span><span class="t-group-title">新潟代表決定戦</span></div>
+        <div class="tournament-item">
+          <div class="t-name">都市対抗野球大会 北信越2次予選</div>
+          <div class="t-meta"><span>🗓 6月</span><span>新潟コンマーシャル倶楽部が本戦出場を目指す</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">全日本クラブ野球選手権 新潟予選</div>
+          <div class="t-meta"><span>🗓 春〜夏</span><span>JABA新潟県野球連盟主催</span></div>
+        </div>
+        <div class="tournament-item">
+          <div class="t-name">JABA各地区連盟主催大会</div>
+          <div class="t-meta"><span>🗓 通年</span><span>詳細はJABA新潟公式Instagram（@jaba_niigata）で随時発信</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 外部リンク -->
+<section class="links-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>関連情報・外部リンク</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">LINKS</span>
+    </div>
+    <div class="links-list">
+      <a class="ext-link" href="https://www.jaba.or.jp" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">JABA公式</span><span class="ext-link-title">日本野球連盟（JABA）公式サイト — 大会情報・出場チーム一覧</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.instagram.com/jaba_niigata/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">JABA新潟</span><span class="ext-link-title">JABA新潟県野球連盟 公式Instagram（@jaba_niigata）— 試合情報随時発信</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.instagram.com/commercialclub/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">コンマーシャル倶楽部</span><span class="ext-link-title">新潟コンマーシャル倶楽部 公式Instagram（@commercialclub）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.jaba.or.jp/news/detail/?id=25709" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">JABA大会</span><span class="ext-link-title">第68回JABA選抜新潟大会 組み合わせ（JABA公式）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.niigatabo.com/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">新潟野球協議会</span><span class="ext-link-title">新潟県野球協議会 公式サイト</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">体修塾BCA</span><span class="ext-link-title">体修塾BCA — 柏崎市の野球専門スクール・トレーニングジム</span></div><span class="ext-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="./index.html">← ホーム</a>
+      <a href="./gakudo.html">学童野球</a>
+      <a href="./chugaku.html">中学野球</a>
+      <a href="./koko.html">高校野球</a>
+      <a href="./daigaku.html">大学野球</a>
+      <a href="./shakaijin.html">社会人野球</a>
+      <a href="./joshi.html">女子野球</a>
+    </div>
+    <p class="footer-copy">© 2026 新潟ベースボール・ハブ｜情報はJABA公式・各チーム公式を参照しています。</p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>

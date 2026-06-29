@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>野球スクール｜新潟ベースボール・ハブ</title>
+  <meta name="description" content="新潟県内の野球スクール・教室一覧。体修塾BCA・アルビレックスBC野球塾・DBS・ポルテなど対象年齢・特徴・料金で比較できます。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cat: #4fd1c5; --cat-dim: #0d5c5a;
+      --navy-deep: #080f1f; --navy-main: #0c1a30; --navy-card: #0f2140;
+      --navy-border: #1c3560; --gold: #c8991a; --gold-bright: #e8b830;
+      --chalk: #dde4f0; --chalk-dim: #7a8aaa; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--navy-deep); color: var(--chalk); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(8,15,31,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--navy-border); padding: 0 24px; }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .logo-mark { width: 30px; height: 30px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .85rem; color: var(--navy-deep); font-weight: 700; }
+    .back-btn { font-size: .78rem; color: var(--chalk-dim); border: 1px solid var(--navy-border); padding: 6px 14px; border-radius: 4px; transition: color .2s, border-color .2s; }
+    .back-btn:hover { color: var(--cat); border-color: var(--cat); }
+
+    /* ヒーロー */
+    .cat-hero { background: linear-gradient(135deg, #001a18 0%, var(--navy-main) 60%); position: relative; overflow: hidden; padding: 64px 24px 52px; }
+    .cat-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--cat); }
+    .cat-hero::after { content: ''; position: absolute; inset: 4px 0 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(79,209,197,.08), transparent 70%); pointer-events: none; }
+    .cat-hero-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .cat-hero-badge { width: 56px; height: 56px; border-radius: 14px; background: rgba(79,209,197,.12); border: 2px solid var(--cat); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
+    .cat-hero-text { flex: 1; min-width: 220px; }
+    .cat-hero-en { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .2em; color: var(--cat); margin-bottom: 6px; }
+    .cat-hero-title { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; color: var(--white); line-height: 1.15; margin-bottom: 8px; }
+    .cat-hero-desc { font-size: .85rem; color: var(--chalk-dim); max-width: 520px; }
+
+    section { padding: 52px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+    .section-head h2 { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+    .section-rule { flex: 1; height: 1px; background: var(--navy-border); }
+    .section-label { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; color: var(--cat); letter-spacing: .12em; white-space: nowrap; }
+
+    /* 比較テーブル */
+    .compare-table { width: 100%; border-collapse: collapse; font-size: .78rem; margin-bottom: 24px; }
+    .compare-table th { background: var(--navy-deep); color: var(--cat); font-family: 'Oswald', sans-serif; letter-spacing: .08em; padding: 8px 12px; text-align: left; border: 1px solid var(--navy-border); font-size: .7rem; white-space: nowrap; }
+    .compare-table td { padding: 9px 12px; border: 1px solid rgba(28,53,96,.5); color: var(--chalk); vertical-align: top; }
+    .compare-table tr:hover td { background: rgba(79,209,197,.04); }
+    .compare-table tr:nth-child(even) td { background: rgba(15,33,64,.5); }
+    .partner-row td { border-left: 3px solid var(--cat); }
+
+    /* スクールカード */
+    .school-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .school-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; transition: border-color .2s, transform .15s; }
+    .school-card:hover { border-color: var(--cat); transform: translateY(-2px); }
+    .school-card.partner { border-left: 3px solid var(--cat); }
+    .school-card-header { background: var(--navy-deep); border-bottom: 1px solid var(--navy-border); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .school-name { font-size: .95rem; font-weight: 700; color: var(--white); }
+    .school-badge { font-size: .6rem; font-weight: 700; padding: 2px 8px; border-radius: 3px; white-space: nowrap; }
+    .badge-partner { background: rgba(79,209,197,.2); color: var(--cat); border: 1px solid rgba(79,209,197,.3); }
+    .badge-pro    { background: rgba(255,102,0,.2); color: #ff6600; border: 1px solid rgba(255,102,0,.3); }
+    .badge-nat    { background: rgba(200,153,26,.2); color: var(--gold-bright); border: 1px solid rgba(200,153,26,.3); }
+    .badge-local  { background: rgba(96,165,250,.2); color: #60a5fa; border: 1px solid rgba(96,165,250,.3); }
+    .school-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+    .school-row { display: flex; align-items: flex-start; gap: 8px; font-size: .78rem; color: var(--chalk-dim); }
+    .school-row-label { color: var(--cat); font-weight: 600; min-width: 48px; font-size: .7rem; font-family: 'Oswald', sans-serif; letter-spacing: .04em; flex-shrink: 0; }
+    .school-note { font-size: .72rem; color: var(--gold); background: rgba(200,153,26,.1); padding: 3px 10px; border-radius: 4px; margin-top: 2px; }
+    .school-links { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; }
+    .sl-btn { display: inline-flex; align-items: center; gap: 3px; font-size: .7rem; padding: 3px 10px; border-radius: 4px; border: 1px solid; transition: background .15s; }
+    .btn-web   { color: var(--cat); border-color: rgba(79,209,197,.3); }
+    .btn-web:hover   { background: rgba(79,209,197,.08); }
+    .btn-insta { color: #e040fb; border-color: rgba(224,64,251,.3); }
+    .btn-insta:hover { background: rgba(224,64,251,.06); }
+    .btn-trial { background: var(--cat); color: #0a0a0a; border-color: var(--cat); font-weight: 700; }
+    .btn-trial:hover { background: #38b2ac; }
+
+    /* セミナー */
+    .seminar-section { background: var(--navy-deep); }
+    .seminar-list { display: flex; flex-direction: column; gap: 10px; }
+    .seminar-item { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; padding: 14px 18px; display: flex; flex-direction: column; gap: 4px; transition: border-color .15s; }
+    .seminar-item:hover { border-color: var(--cat); }
+    .seminar-title { font-size: .92rem; font-weight: 700; color: var(--white); }
+    .seminar-meta { font-size: .75rem; color: var(--chalk-dim); display: flex; gap: 16px; flex-wrap: wrap; }
+    .seminar-tag { font-size: .62rem; font-weight: 700; padding: 1px 7px; border-radius: 3px; display: inline-block; margin-top: 4px; }
+    .stag-clinic  { background: rgba(79,209,197,.15); color: var(--cat); border: 1px solid rgba(79,209,197,.25); }
+    .stag-event   { background: rgba(200,153,26,.15); color: var(--gold-bright); border: 1px solid rgba(200,153,26,.25); }
+    .stag-camp    { background: rgba(96,165,250,.15); color: #60a5fa; border: 1px solid rgba(96,165,250,.25); }
+
+    /* 外部リンク */
+    .links-section { background: var(--navy-main); }
+    .links-list { display: flex; flex-direction: column; gap: 8px; }
+    .ext-link { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; transition: border-color .2s; gap: 12px; }
+    .ext-link:hover { border-color: var(--cat); }
+    .ext-link-left { display: flex; flex-direction: column; gap: 2px; }
+    .ext-link-src { font-size: .65rem; color: var(--cat); font-family: 'Oswald', sans-serif; font-weight: 600; letter-spacing: .06em; }
+    .ext-link-title { font-size: .82rem; color: var(--chalk); }
+    .ext-arrow { color: var(--chalk-dim); flex-shrink: 0; }
+
+    .site-footer { background: var(--navy-deep); border-top: 1px solid var(--navy-border); padding: 32px 24px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+    .footer-nav { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .footer-nav a { font-size: .75rem; color: var(--chalk-dim); transition: color .2s; }
+    .footer-nav a:hover { color: var(--cat); }
+    .footer-copy { font-size: .7rem; color: rgba(122,138,170,.4); }
+
+    @media (max-width: 700px) {
+      .school-grid { grid-template-columns: 1fr; }
+      .compare-table { font-size: .72rem; }
+      .compare-table th, .compare-table td { padding: 6px 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="./index.html" class="logo"><span class="logo-mark">⚾</span>新潟ベースボール・ハブ</a>
+    <a href="./index.html" class="back-btn">← ホームへ戻る</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ヒーロー -->
+<div class="cat-hero">
+  <div class="cat-hero-inner">
+    <div class="cat-hero-badge">📚</div>
+    <div class="cat-hero-text">
+      <div class="cat-hero-en">BASEBALL SCHOOL</div>
+      <h1 class="cat-hero-title">野球スクール</h1>
+      <p class="cat-hero-desc">新潟県内の野球教室・スクールを一覧で掲載。対象年齢・料金・エリアで比較できます。無料体験できるスクールも多数あります。</p>
+    </div>
+  </div>
+</div>
+
+<!-- スクール比較 -->
+<section style="background:var(--navy-main)">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>スクール比較一覧</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">COMPARISON</span>
+    </div>
+
+    <div style="overflow-x:auto;margin-bottom:32px;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>スクール名</th>
+            <th>対象年齢</th>
+            <th>エリア</th>
+            <th>種別</th>
+            <th>特徴</th>
+            <th>体験</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="partner-row">
+            <td><strong style="color:var(--cat)">体修塾BCA</strong></td>
+            <td>小5〜大人</td>
+            <td>柏崎市</td>
+            <td>硬式・専門</td>
+            <td>ラプソードデータ計測・完全個別指導</td>
+            <td>✅ あり</td>
+          </tr>
+          <tr>
+            <td>アルビレックスBC野球塾</td>
+            <td>小学生〜中学生</td>
+            <td>新潟市・長岡市</td>
+            <td>硬式・バッティング</td>
+            <td>プロコーチ少人数制</td>
+            <td>✅ あり</td>
+          </tr>
+          <tr>
+            <td>DBS新潟中央校</td>
+            <td>3歳〜中3</td>
+            <td>新潟市中央区</td>
+            <td>総合型</td>
+            <td>コーディネーション・アジリティ重視</td>
+            <td>✅ 無料体験</td>
+          </tr>
+          <tr>
+            <td>ベースボールスクールポルテ</td>
+            <td>3歳〜12歳</td>
+            <td>県内各地</td>
+            <td>育成型</td>
+            <td>当番なし・褒める指導・親負担ゼロ</td>
+            <td>✅ 無料体験</td>
+          </tr>
+          <tr>
+            <td>エコスタ野球塾</td>
+            <td>小学生</td>
+            <td>新潟市（エコスタ）</td>
+            <td>硬式・通年</td>
+            <td>エコスタ屋内施設使用</td>
+            <td>✅ 無料体験</td>
+          </tr>
+          <tr>
+            <td>ユナイツ新潟</td>
+            <td>幼児〜中学生</td>
+            <td>新潟市</td>
+            <td>硬式（リトルリーグ）</td>
+            <td>小中一貫・MLBCUP全国優勝目標</td>
+            <td>✅ 体験会</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 詳細カード -->
+    <div class="school-grid">
+
+      <!-- 体修塾BCA -->
+      <div class="school-card partner">
+        <div class="school-card-header">
+          <span class="school-name">体修塾BCA</span>
+          <span class="school-badge badge-partner">🌟 パートナー</span>
+        </div>
+        <div class="school-body">
+          <div class="school-row"><span class="school-row-label">エリア</span>新潟県柏崎市</div>
+          <div class="school-row"><span class="school-row-label">対象</span>小学5年生〜大人</div>
+          <div class="school-row"><span class="school-row-label">種別</span>野球専門スクール＆トレーニングジム（硬式）</div>
+          <div class="school-row"><span class="school-row-label">特徴</span>ラプソードによるデータ計測で課題を可視化。投球・打撃を科学的に分析する個別指導。</div>
+          <div class="school-row"><span class="school-row-label">内容</span>バッティング・ピッチング・フィールディング・体力トレーニング</div>
+          <div class="school-note">⭐ このサイトのパートナースクール</div>
+          <div class="school-note">⭐ ラプソード（弾道計測器）導入 — 球速・回転数・変化量をリアルタイム計測</div>
+          <div class="school-links">
+            <a class="sl-btn btn-web" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">🌐 公式HP</a>
+            <a class="sl-btn btn-trial" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">体験申込 →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- アルビレックスBC野球塾 -->
+      <div class="school-card">
+        <div class="school-card-header">
+          <span class="school-name">アルビレックスBC野球塾</span>
+          <span class="school-badge badge-pro">プロ監修</span>
+        </div>
+        <div class="school-body">
+          <div class="school-row"><span class="school-row-label">エリア</span>新潟市（エコスタジアム屋内）・長岡市（悠久山野球場）</div>
+          <div class="school-row"><span class="school-row-label">対象</span>小学生（バッティングスクール）・中学生（軟式・硬式クラス）</div>
+          <div class="school-row"><span class="school-row-label">種別</span>通年制野球アカデミー（硬式・少人数制）</div>
+          <div class="school-row"><span class="school-row-label">特徴</span>オイシックス新潟アルビレックスBC監督・コーチ陣の監修プログラム。ジャンボドーム2F バッティングセンター使用で実際の生きた球を打てる。</div>
+          <div class="school-row"><span class="school-row-label">中学生</span>2023年11月〜。軟式クラス・硬式クラス（期間限定）の2クラス。</div>
+          <div class="school-note">⭐ プロコーチによるトスバッティング指導</div>
+          <div class="school-links">
+            <a class="sl-btn btn-web" href="https://www.niigata-albirex-bc.jp/yakyu-juku/about/" target="_blank" rel="noopener">🌐 公式HP</a>
+            <a class="sl-btn btn-trial" href="https://www.niigata-albirex-bc.jp/yakyu-juku/about/" target="_blank" rel="noopener">無料体験 →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- DBS -->
+      <div class="school-card">
+        <div class="school-card-header">
+          <span class="school-name">DBS 新潟中央校</span>
+          <span class="school-badge badge-nat">全国展開</span>
+        </div>
+        <div class="school-body">
+          <div class="school-row"><span class="school-row-label">エリア</span>新潟市中央区</div>
+          <div class="school-row"><span class="school-row-label">対象</span>3歳（未就学児）〜中学3年生</div>
+          <div class="school-row"><span class="school-row-label">種別</span>総合型野球スクール（ダイヤモンドベースボールスクール）</div>
+          <div class="school-row"><span class="school-row-label">クラス</span>キッズ（3歳〜小2）/ ジュニア（小2〜小6）/ アスリート（小6〜中3）</div>
+          <div class="school-row"><span class="school-row-label">特徴</span>コーディネーショントレーニング・アジリティトレーニング・ケガをしない体の使い方を重視。走攻守すべてをカバーする総合指導。</div>
+          <div class="school-row"><span class="school-row-label">施設料</span>入会後 500円/1レッスン（体験時は無料）</div>
+          <div class="school-links">
+            <a class="sl-btn btn-web" href="https://dbs.jr-bs.jp/list/886012/" target="_blank" rel="noopener">🌐 公式HP</a>
+            <a class="sl-btn btn-trial" href="https://dbs.jr-bs.jp/list/886012/" target="_blank" rel="noopener">無料体験 →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ポルテ -->
+      <div class="school-card">
+        <div class="school-card-header">
+          <span class="school-name">ベースボールスクール ポルテ</span>
+          <span class="school-badge badge-nat">全国950校</span>
+        </div>
+        <div class="school-body">
+          <div class="school-row"><span class="school-row-label">エリア</span>新潟県内 複数箇所（公式サイトで検索）</div>
+          <div class="school-row"><span class="school-row-label">対象</span>3歳〜12歳（小学生）</div>
+          <div class="school-row"><span class="school-row-label">種別</span>育成型野球スクール（mixi運営）</div>
+          <div class="school-row"><span class="school-row-label">特徴</span>「認めて、褒めて、励ます」指導。礼儀・協調性・自己管理力など非認知能力を育む。当番なし・親の負担ゼロ。</div>
+          <div class="school-row"><span class="school-row-label">料金</span>入会費8,300円 / 月謝9,170円（地域により異なる）</div>
+          <div class="school-note">⭐ 運動未経験・初心者でも安心して始められる</div>
+          <div class="school-links">
+            <a class="sl-btn btn-web" href="https://porte.sport-school.com/school" target="_blank" rel="noopener">🌐 新潟校を探す</a>
+            <a class="sl-btn btn-trial" href="https://porte.sport-school.com/school" target="_blank" rel="noopener">無料体験 →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- エコスタ野球塾 -->
+      <div class="school-card">
+        <div class="school-card-header">
+          <span class="school-name">エコスタジアム 野球塾</span>
+          <span class="school-badge badge-pro">アルビBC主催</span>
+        </div>
+        <div class="school-body">
+          <div class="school-row"><span class="school-row-label">エリア</span>新潟市中央区（ハードオフエコスタジアム屋内練習場）</div>
+          <div class="school-row"><span class="school-row-label">対象</span>小学生</div>
+          <div class="school-row"><span class="school-row-label">主催</span>オイシックス新潟アルビレックス・ベースボール・クラブ</div>
+          <div class="school-row"><span class="school-row-label">特徴</span>プロの球場施設（エコスタ）の屋内練習場を使用。野球競技人口の底辺拡大・競技力向上を目的とした通年制アカデミー。</div>
+          <div class="school-links">
+            <a class="sl-btn btn-web" href="https://www.hardoff-eco-stadium.jp/event/detail/id/4755" target="_blank" rel="noopener">🌐 詳細ページ</a>
+            <a class="sl-btn btn-trial" href="https://www.niigata-albirex-bc.jp/yakyu-juku/" target="_blank" rel="noopener">無料体験 →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ユナイツ新潟 -->
+      <div class="school-card">
+        <div class="school-card-header">
+          <span class="school-name">ユナイツ新潟</span>
+          <span class="school-badge badge-local">硬式・小中一貫</span>
+        </div>
+        <div class="school-body">
+          <div class="school-row"><span class="school-row-label">エリア</span>新潟市</div>
+          <div class="school-row"><span class="school-row-label">対象</span>幼児〜中学生（小学部：リトルリーグ・中学部：ボーイズリーグ）</div>
+          <div class="school-row"><span class="school-row-label">種別</span>硬式野球 小中一貫チーム兼スクール</div>
+          <div class="school-row"><span class="school-row-label">特徴</span>チーム活動と個人スキルアップを両立。MLBCUP全国優勝・リトルリーグ全日本選手権優勝・世界大会出場を目標に掲げる本格チーム。</div>
+          <div class="school-note">⭐ 保護者サポートなし / 選手主体の活動</div>
+          <div class="school-links">
+            <a class="sl-btn btn-web" href="https://www.unites-niigata.com/" target="_blank" rel="noopener">🌐 公式HP</a>
+            <a class="sl-btn btn-trial" href="https://www.unites-niigata.com/" target="_blank" rel="noopener">体験会 →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 野球セミナー・クリニック -->
+<section class="seminar-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>野球セミナー・クリニック・イベント</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">SEMINARS</span>
+    </div>
+
+    <p style="font-size:.78rem;color:var(--chalk-dim);margin-bottom:20px;">新潟で開催される野球セミナー・クリニック・体験会などの情報をまとめています。最新情報は各主催者のSNSでご確認ください。</p>
+
+    <div class="seminar-list">
+
+      <div class="seminar-item">
+        <div class="seminar-title">体修塾BCA 無料体験・個別相談（随時受付）</div>
+        <div class="seminar-meta">
+          <span>📍 柏崎市</span>
+          <span>🎯 小学5年生〜大人</span>
+          <span>💰 無料</span>
+        </div>
+        <span class="seminar-tag stag-clinic">体験・個別</span>
+        <div style="font-size:.75rem;color:var(--chalk-dim);margin-top:6px;">ラプソードによる投球・打撃データ計測体験。「自分の球が数字で見える」初回体験が好評。<a href="https://taisyuuzyukus.com" target="_blank" rel="noopener" style="color:var(--cat)">公式HPから申込 →</a></div>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-title">アルビレックスBC 野球教室・クリニック（随時）</div>
+        <div class="seminar-meta">
+          <span>📍 エコスタジアム新潟・県内各地</span>
+          <span>🎯 小学生〜中学生</span>
+          <span>💰 無料〜有料</span>
+        </div>
+        <span class="seminar-tag stag-clinic">クリニック</span>
+        <div style="font-size:.75rem;color:var(--chalk-dim);margin-top:6px;">BCLプロ選手によるクリニック。エコスタの施設を使い投球・打撃を直接指導。<a href="https://www.niigata-albirex-bc.jp/" target="_blank" rel="noopener" style="color:var(--cat)">公式HP →</a></div>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-title">プロ野球選手による野球教室（各地・随時）</div>
+        <div class="seminar-meta">
+          <span>📍 新潟県内各地</span>
+          <span>🎯 小学生〜一般</span>
+        </div>
+        <span class="seminar-tag stag-event">イベント</span>
+        <div style="font-size:.75rem;color:var(--chalk-dim);margin-top:6px;">新潟出身プロ選手（例：佐渡市で元プロ中畑清氏の親子教室など）が不定期で開催。情報は <a href="https://www.instagram.com/niigatayakyu/" target="_blank" rel="noopener" style="color:var(--cat)">新潟野球ドットコム (@niigatayakyu)</a> でチェック。</div>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-title">開志学園 女子硬式野球部 練習体験会（随時）</div>
+        <div class="seminar-meta">
+          <span>📍 新潟市東区</span>
+          <span>🎯 中学生女子</span>
+          <span>📞 025-287-3390</span>
+        </div>
+        <span class="seminar-tag stag-clinic">体験入部</span>
+        <div style="font-size:.75rem;color:var(--chalk-dim);margin-top:6px;">新潟県唯一の高校女子硬式野球部による随時体験会。入部希望・見学のみも歓迎。</div>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-title">DBS無料体験会（随時）</div>
+        <div class="seminar-meta">
+          <span>📍 新潟市中央区</span>
+          <span>🎯 3歳〜中学3年生</span>
+          <span>💰 施設利用料なし（体験時）</span>
+        </div>
+        <span class="seminar-tag stag-clinic">無料体験</span>
+        <div style="font-size:.75rem;color:var(--chalk-dim);margin-top:6px;">ダイヤモンドベースボールスクールの無料体験。体験のみOK・入会不要。<a href="https://dbs.jr-bs.jp/list/886012/" target="_blank" rel="noopener" style="color:var(--cat)">申込はこちら →</a></div>
+      </div>
+
+      <div class="seminar-item">
+        <div class="seminar-title">BBGウィンターフェスタ（女子）（毎年2月）</div>
+        <div class="seminar-meta">
+          <span>📍 見附市総合体育館</span>
+          <span>🎯 女子野球選手</span>
+          <span>🗓 毎年2月開催</span>
+        </div>
+        <span class="seminar-tag stag-event">冬季イベント</span>
+        <div style="font-size:.75rem;color:var(--chalk-dim);margin-top:6px;">新潟県女子野球連盟主催の屋内野球イベント。技術向上・交流を目的とした冬季限定企画。</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 外部リンク -->
+<section class="links-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>関連リンク</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">LINKS</span>
+    </div>
+    <div class="links-list">
+      <a class="ext-link" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">体修塾BCA</span><span class="ext-link-title">体修塾BCA — 柏崎市の野球専門スクール・トレーニングジム（パートナー）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.niigata-albirex-bc.jp/yakyu-juku/about/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">アルビBC野球塾</span><span class="ext-link-title">オイシックス新潟アルビレックスBC 野球塾 公式ページ</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://dbs.jr-bs.jp/list/886012/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">DBS新潟中央校</span><span class="ext-link-title">ダイヤモンドベースボールスクール 新潟中央校</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://porte.sport-school.com/school" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">ポルテ</span><span class="ext-link-title">ベースボールスクール ポルテ — 新潟県内のスクール検索</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.unites-niigata.com/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">ユナイツ新潟</span><span class="ext-link-title">ユナイツ新潟 — 硬式野球 小中一貫チーム 公式HP</span></div><span class="ext-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="./index.html">← ホーム</a>
+      <a href="./gakudo.html">学童野球</a>
+      <a href="./chugaku.html">中学野球</a>
+      <a href="./koko.html">高校野球</a>
+      <a href="./daigaku.html">大学野球</a>
+      <a href="./shakaijin.html">社会人野球</a>
+      <a href="./joshi.html">女子野球</a>
+    </div>
+    <p class="footer-copy">© 2026 新潟ベースボール・ハブ｜料金・詳細は各スクールの公式サイトでご確認ください。</p>
+  </div>
+</footer>
+
+</body>
+</html>
