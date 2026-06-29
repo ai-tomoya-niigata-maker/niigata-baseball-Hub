@@ -4,13 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>新潟ベースボール・ハブ｜新潟県の野球情報まとめ</title>
-  <meta name="description" content="新潟県の野球情報を一か所に。高校野球・中学野球・学童野球・野球場・スクールの情報をまとめたキュレーションサイトです。">
+  <meta name="description" content="新潟県の野球情報を一か所に。高校野球・中学野球・学童野球・アルビレックスBCなどの大会日程・ニュースをまとめたキュレーションサイトです。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
-
   <style>
-    /* ─── リセット & ベース ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -24,522 +22,185 @@
       --chalk:       #dde4f0;
       --chalk-dim:   #7a8aaa;
       --white:       #ffffff;
-      --green-infield: #1a5c28;
+      /* カテゴリー色 */
+      --c-gakudo:    #7dd3fc;
+      --c-chugaku:   #68d391;
+      --c-koko:      #818cf8;
+      --c-daigaku:   #e879f9;
+      --c-shakaijin: #a3e635;
+      --c-joshi:     #fc8181;
+      --c-albirex:   #FF6600;
+      --c-ballpark:  #f6ad55;
+      --c-indoor:    #b794f4;
     }
 
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Noto Sans JP', sans-serif;
-      background: var(--navy-deep);
-      color: var(--chalk);
-      line-height: 1.7;
-      min-height: 100vh;
-    }
-
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--navy-deep); color: var(--chalk); line-height: 1.7; min-height: 100vh; }
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
-    /* ─── ヘッダー ─── */
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(8, 15, 31, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--navy-border);
-      padding: 0 24px;
-    }
+    /* ── ヘッダー ── */
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(8,15,31,.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--navy-border); padding: 0 24px; }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); letter-spacing: .04em; }
+    .logo-mark { width: 30px; height: 30px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .85rem; color: var(--navy-deep); font-weight: 700; flex-shrink: 0; }
+    .site-nav { display: flex; gap: 4px; }
+    .site-nav a { padding: 6px 14px; font-size: .78rem; font-weight: 500; color: var(--chalk-dim); border-radius: 4px; transition: color .2s, background .2s; }
+    .site-nav a:hover { color: var(--gold-bright); background: rgba(200,153,26,.08); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--chalk); border-radius: 2px; }
 
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
-    }
+    /* ── ヒーロー ── */
+    .hero { position: relative; overflow: hidden; padding: 0 0 56px; text-align: center; background: var(--navy-main); }
+    .hero-image-wrap { position: relative; width: 100%; overflow: hidden; line-height: 0; }
+    .hero-image-wrap img { width: 100%; display: block; max-height: 480px; object-fit: cover; object-position: center top; }
+    .hero-image-wrap::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 120px; background: linear-gradient(transparent, var(--navy-main)); pointer-events: none; }
+    .hero-body { padding: 28px 24px 0; }
+    .hero-sub { font-size: .9rem; color: var(--chalk-dim); max-width: 480px; margin: 0 auto 36px; line-height: 1.8; }
+    .stat-row { display: flex; justify-content: center; gap: 2px; flex-wrap: wrap; max-width: 700px; margin: 0 auto; padding: 0 24px; }
+    .stat-item { background: var(--navy-card); border: 1px solid var(--navy-border); padding: 14px 24px; display: flex; flex-direction: column; align-items: center; gap: 2px; flex: 1; min-width: 120px; }
+    .stat-num { font-family: 'Oswald', sans-serif; font-size: 1.9rem; font-weight: 700; color: var(--gold-bright); line-height: 1; }
+    .stat-label { font-size: .7rem; color: var(--chalk-dim); letter-spacing: .05em; }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: .04em;
-    }
-    .logo-mark {
-      width: 30px;
-      height: 30px;
-      background: var(--gold);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .85rem;
-      color: var(--navy-deep);
-      font-weight: 700;
-      flex-shrink: 0;
-    }
+    /* ── セクション共通 ── */
+    section { padding: 64px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px; }
+    .section-head h2 { font-family: 'Noto Serif JP', serif; font-size: 1.45rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+    .section-rule { flex: 1; height: 1px; background: var(--navy-border); }
 
-    .site-nav {
-      display: flex;
-      gap: 4px;
-    }
-    .site-nav a {
-      padding: 6px 14px;
-      font-size: .78rem;
-      font-weight: 500;
-      color: var(--chalk-dim);
-      border-radius: 4px;
-      transition: color .2s, background .2s;
-      letter-spacing: .03em;
-    }
-    .site-nav a:hover {
-      color: var(--gold-bright);
-      background: rgba(200, 153, 26, .08);
-    }
+    /* ── カレンダー ── */
+    .calendar-section { background: var(--navy-main); }
+    .cal-wrap { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+    .cal-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .cal-title { font-family: 'Oswald', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--white); letter-spacing: .06em; }
+    .cal-btn { background: var(--navy-card); border: 1px solid var(--navy-border); color: var(--chalk); padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: .85rem; transition: border-color .2s; }
+    .cal-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .cal-dow { text-align: center; font-size: .65rem; font-weight: 700; color: var(--chalk-dim); padding: 6px 0; letter-spacing: .08em; }
+    .cal-dow.sun { color: #fc8181; } .cal-dow.sat { color: #7dd3fc; }
+    .cal-cell { background: var(--navy-card); border: 1px solid var(--navy-border); min-height: 72px; padding: 5px; position: relative; cursor: pointer; transition: border-color .15s; overflow: hidden; }
+    .cal-cell:hover { border-color: var(--gold-dim); }
+    .cal-cell.today { border-color: var(--gold); }
+    .cal-cell.other-month .cal-day { color: #2a3a5a; }
+    .cal-day { font-family: 'Oswald', sans-serif; font-size: .8rem; color: var(--chalk-dim); margin-bottom: 3px; }
+    .cal-cell.today .cal-day { color: var(--gold-bright); font-weight: 700; }
+    .cal-dots { display: flex; flex-direction: column; gap: 2px; }
+    .cal-dot { font-size: .62rem; line-height: 1.3; padding: 1px 4px; border-radius: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #000; font-weight: 600; }
 
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--chalk);
-      border-radius: 2px;
-    }
+    /* カレンダー凡例 */
+    .cal-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .cal-legend-item { display: flex; align-items: center; gap: 5px; font-size: .7rem; color: var(--chalk-dim); }
+    .cal-legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
-    /* ─── ヒーロー ─── */
-    .hero {
-      position: relative;
-      overflow: hidden;
-      padding: 0 0 64px;
-      text-align: center;
-      background: var(--navy-main);
-    }
+    /* 直近イベントリスト */
+    .upcoming { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; overflow: hidden; }
+    .upcoming-header { background: var(--navy-deep); border-bottom: 1px solid var(--navy-border); padding: 12px 16px; font-family: 'Oswald', sans-serif; font-size: .75rem; font-weight: 600; color: var(--gold); letter-spacing: .12em; }
+    .upcoming-item { display: flex; flex-direction: column; gap: 2px; padding: 11px 14px; border-bottom: 1px solid rgba(28,53,96,.5); transition: background .15s; }
+    .upcoming-item:last-child { border-bottom: none; }
+    .upcoming-item:hover { background: rgba(200,153,26,.05); }
+    .upcoming-date { font-family: 'Oswald', sans-serif; font-size: .72rem; color: var(--gold-bright); }
+    .upcoming-title { font-size: .82rem; color: var(--chalk); line-height: 1.4; }
+    .upcoming-cat { display: inline-block; font-size: .62rem; font-weight: 700; padding: 1px 6px; border-radius: 3px; color: #000; margin-top: 2px; }
+    .cal-loading { text-align: center; padding: 20px; font-size: .8rem; color: var(--chalk-dim); }
 
-    .hero-image-wrap {
-      position: relative;
-      width: 100%;
-      max-height: 500px;
-      overflow: hidden;
-      line-height: 0;
-    }
-    .hero-image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      max-height: 500px;
-    }
-    /* 画像下端をページ背景色へなじませるグラデーション */
-    .hero-image-wrap::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 120px;
-      background: linear-gradient(to bottom, transparent, var(--navy-main));
-      pointer-events: none;
-    }
+    /* ── カテゴリー（縦並び） ── */
+    .category-section { background: var(--navy-deep); }
+    .cat-list { display: flex; flex-direction: column; gap: 8px; }
+    .cat-row { display: flex; align-items: stretch; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; transition: transform .15s, border-color .15s; text-decoration: none; }
+    .cat-row:hover { transform: translateX(4px); border-color: var(--cat-color); }
+    .cat-row-bar { width: 5px; background: var(--cat-color); flex: none; }
+    .cat-row-body { flex: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 18px; }
+    .cat-row-info { display: flex; align-items: center; gap: 14px; }
+    .cat-row-name { font-size: 1rem; font-weight: 700; color: var(--white); }
+    .cat-row-desc { font-size: .78rem; color: var(--chalk-dim); }
+    .cat-row-count { font-family: 'Oswald', sans-serif; font-size: .78rem; font-weight: 600; color: var(--cat-color); white-space: nowrap; flex-shrink: 0; }
+    .cat-row-arrow { color: var(--chalk-dim); font-size: .9rem; flex-shrink: 0; transition: color .15s; }
+    .cat-row:hover .cat-row-arrow { color: var(--cat-color); }
 
-    .hero-body {
-      padding: 32px 24px 0;
-    }
+    /* ── アルビレックスBC ── */
+    .albirex-section { background: var(--navy-main); }
+    .albirex-card { background: #0f1a0a; border: 1px solid rgba(255,102,0,.3); border-radius: 8px; overflow: hidden; }
+    .albirex-header { background: linear-gradient(135deg, #1a0a00, #0f1a0a); border-bottom: 1px solid rgba(255,102,0,.2); padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
+    .albirex-logo { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: #FF6600; letter-spacing: .05em; }
+    .albirex-badge { background: #FF6600; color: #fff; font-size: .65rem; font-weight: 700; padding: 2px 8px; border-radius: 3px; letter-spacing: .05em; }
+    .albirex-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2px; }
+    .albirex-link { display: flex; align-items: center; justify-content: space-between; padding: 13px 18px; border-bottom: 1px solid rgba(255,102,0,.1); transition: background .15s; }
+    .albirex-link:hover { background: rgba(255,102,0,.08); }
+    .albirex-link-text { font-size: .83rem; color: var(--chalk); }
+    .albirex-link-arrow { color: #FF6600; font-size: .9rem; }
 
-    .hero-sub {
-      font-size: .92rem;
-      color: var(--chalk-dim);
-      max-width: 480px;
-      margin: 0 auto 40px;
-      line-height: 1.8;
-    }
-
-    /* スタット カウンター */
-    .stat-row {
-      display: flex;
-      justify-content: center;
-      gap: 2px;
-      flex-wrap: wrap;
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    .stat-item {
-      background: var(--navy-card);
-      border: 1px solid var(--navy-border);
-      padding: 16px 28px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      flex: 1;
-      min-width: 130px;
-    }
-    .stat-num {
-      font-family: 'Oswald', sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--gold-bright);
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: .7rem;
-      color: var(--chalk-dim);
-      letter-spacing: .06em;
-    }
-
-    /* ─── セクション共通 ─── */
-    section {
-      padding: 72px 24px;
-    }
-
-    .section-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 40px;
-    }
-    .section-head h2 {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--white);
-    }
-    .section-rule {
-      flex: 1;
-      height: 1px;
-      background: var(--navy-border);
-    }
-    .section-more {
-      font-size: .75rem;
-      color: var(--gold);
-      letter-spacing: .06em;
-      white-space: nowrap;
-      font-family: 'Oswald', sans-serif;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .section-more::after { content: '→'; }
-
-    /* ─── カテゴリカード ─── */
-    .cat-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2px;
-    }
-
-    .cat-card {
-      position: relative;
-      background: var(--navy-card);
-      border: 1px solid var(--navy-border);
-      padding: 28px 24px;
-      overflow: hidden;
-      transition: border-color .2s, transform .2s;
-      cursor: pointer;
-      display: block;
-    }
-    .cat-card:hover {
-      border-color: var(--gold-dim);
-      transform: translateY(-3px);
-    }
-    .cat-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px;
-      height: 100%;
-      background: var(--gold);
-      opacity: 0;
-      transition: opacity .2s;
-    }
-    .cat-card:hover::before { opacity: 1; }
-
-    .cat-icon {
-      font-size: 1.8rem;
-      margin-bottom: 12px;
-      line-height: 1;
-    }
-    .cat-count {
-      font-family: 'Oswald', sans-serif;
-      font-size: .68rem;
-      font-weight: 600;
-      color: var(--gold);
-      letter-spacing: .12em;
-      margin-bottom: 6px;
-    }
-    .cat-name {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-    .cat-desc {
-      font-size: .78rem;
-      color: var(--chalk-dim);
-      line-height: 1.6;
-    }
-
-    /* ─── ニュースリンク ─── */
-    .news-section { background: var(--navy-main); }
-
-    .news-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 16px;
-    }
-
-    .news-source {
-      background: var(--navy-card);
-      border: 1px solid var(--navy-border);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-    .news-source-header {
-      background: var(--navy-deep);
-      border-bottom: 1px solid var(--navy-border);
-      padding: 12px 18px;
-      font-size: .72rem;
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: .1em;
-      font-family: 'Oswald', sans-serif;
-    }
-
-    .news-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 18px;
-      border-bottom: 1px solid rgba(28,53,96,.5);
-      transition: background .15s;
-      gap: 12px;
-    }
+    /* RSSニュース */
+    .rss-news-section { background: var(--navy-deep); }
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+    .news-source { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; overflow: hidden; }
+    .news-source-header { background: var(--navy-deep); border-bottom: 1px solid var(--navy-border); padding: 11px 16px; font-size: .72rem; font-weight: 700; color: var(--gold); letter-spacing: .1em; font-family: 'Oswald', sans-serif; }
+    .news-link { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; border-bottom: 1px solid rgba(28,53,96,.5); transition: background .15s; gap: 10px; }
     .news-link:last-child { border-bottom: none; }
     .news-link:hover { background: rgba(200,153,26,.06); }
-    .news-link-text {
-      font-size: .83rem;
-      color: var(--chalk);
-      line-height: 1.45;
-    }
-    .news-link-arrow {
-      color: var(--gold-dim);
-      font-size: .9rem;
-      flex-shrink: 0;
-    }
+    .news-link-text { font-size: .82rem; color: var(--chalk); line-height: 1.45; }
+    .news-link-arrow { color: var(--gold-dim); flex-shrink: 0; }
 
-    /* ─── カレンダー ─── */
-    .calendar-section { background: var(--navy-deep); }
+    /* RSS自動ニュース */
+    .rss-items { display: flex; flex-direction: column; }
+    .rss-item { display: flex; flex-direction: column; gap: 2px; padding: 11px 16px; border-bottom: 1px solid rgba(28,53,96,.5); transition: background .15s; }
+    .rss-item:last-child { border-bottom: none; }
+    .rss-item:hover { background: rgba(200,153,26,.05); }
+    .rss-item a { color: var(--chalk); }
+    .rss-item a:hover { color: var(--gold-bright); }
+    .rss-item-title { font-size: .82rem; line-height: 1.45; }
+    .rss-item-date { font-size: .68rem; color: var(--chalk-dim); }
 
-    .schedule-board {
-      background: var(--navy-card);
-      border: 1px solid var(--navy-border);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-    .schedule-board-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 20px;
-      background: var(--navy-deep);
-      border-bottom: 1px solid var(--navy-border);
-    }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
-    .schedule-board-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: .78rem;
-      font-weight: 600;
-      color: var(--gold);
-      letter-spacing: .12em;
-    }
+    /* ── 施設紹介 ── */
+    .facilities-section { background: var(--navy-main); }
+    .fac-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+    .fac-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; padding: 20px; transition: border-color .2s, transform .2s; display: block; }
+    .fac-card:hover { border-color: var(--cat-color); transform: translateY(-2px); }
+    .fac-color-bar { width: 100%; height: 3px; border-radius: 2px; margin-bottom: 14px; background: var(--cat-color); }
+    .fac-name { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+    .fac-desc { font-size: .78rem; color: var(--chalk-dim); line-height: 1.6; }
 
-    .schedule-row {
-      display: grid;
-      grid-template-columns: 90px 1fr auto;
-      gap: 16px;
-      align-items: center;
-      padding: 14px 20px;
-      border-bottom: 1px solid rgba(28,53,96,.5);
-      transition: background .15s;
-    }
-    .schedule-row:last-child { border-bottom: none; }
-    .schedule-row:hover { background: rgba(200,153,26,.05); }
-
-    .schedule-date {
-      font-family: 'Oswald', sans-serif;
-      font-size: .78rem;
-      color: var(--gold-bright);
-      font-weight: 600;
-    }
-    .schedule-event {
-      font-size: .83rem;
-      color: var(--chalk);
-    }
-    .schedule-tag {
-      font-size: .65rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 3px;
-      letter-spacing: .05em;
-      white-space: nowrap;
-    }
-    .tag-hs { background: rgba(200,153,26,.2); color: var(--gold-bright); }
-    .tag-ms { background: rgba(26,92,40,.4); color: #6be08a; }
-    .tag-el { background: rgba(30,60,120,.6); color: #80aaff; }
-
-    /* ─── 体修塾バナー ─── */
-    .promo-section {
-      background: linear-gradient(135deg, var(--navy-main) 0%, #0a1e38 100%);
-      border-top: 1px solid var(--navy-border);
-      border-bottom: 1px solid var(--navy-border);
-    }
-
-    .promo-card {
-      max-width: 860px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 32px;
-      align-items: center;
-    }
-    .promo-eyebrow {
-      font-family: 'Oswald', sans-serif;
-      font-size: .68rem;
-      font-weight: 600;
-      letter-spacing: .15em;
-      color: var(--gold);
-      margin-bottom: 10px;
-    }
-    .promo-title {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 10px;
-      line-height: 1.4;
-    }
-    .promo-body {
-      font-size: .82rem;
-      color: var(--chalk-dim);
-      line-height: 1.7;
-      max-width: 460px;
-    }
-    .promo-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--gold);
-      color: var(--navy-deep);
-      font-weight: 700;
-      font-size: .82rem;
-      padding: 12px 24px;
-      border-radius: 4px;
-      white-space: nowrap;
-      transition: background .2s;
-      flex-shrink: 0;
-    }
+    /* ── 体修塾バナー ── */
+    .promo-section { background: linear-gradient(135deg, var(--navy-main), #0a1e38); border-top: 1px solid var(--navy-border); border-bottom: 1px solid var(--navy-border); }
+    .promo-card { max-width: 860px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; }
+    .promo-eyebrow { font-family: 'Oswald', sans-serif; font-size: .68rem; font-weight: 600; letter-spacing: .15em; color: var(--gold); margin-bottom: 10px; }
+    .promo-title { font-family: 'Noto Serif JP', serif; font-size: 1.25rem; font-weight: 700; color: var(--white); margin-bottom: 10px; line-height: 1.4; }
+    .promo-body { font-size: .82rem; color: var(--chalk-dim); line-height: 1.7; max-width: 460px; }
+    .promo-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--gold); color: var(--navy-deep); font-weight: 700; font-size: .82rem; padding: 12px 24px; border-radius: 4px; white-space: nowrap; transition: background .2s; flex-shrink: 0; }
     .promo-cta:hover { background: var(--gold-bright); }
 
-    /* ─── フッター ─── */
-    .site-footer {
-      background: var(--navy-deep);
-      border-top: 1px solid var(--navy-border);
-      padding: 40px 24px 32px;
-    }
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      align-items: center;
-      text-align: center;
-    }
-    .footer-logo {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--chalk-dim);
-      letter-spacing: .05em;
-    }
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .footer-links a {
-      font-size: .75rem;
-      color: var(--chalk-dim);
-      transition: color .2s;
-    }
+    /* ── フッター ── */
+    .site-footer { background: var(--navy-deep); border-top: 1px solid var(--navy-border); padding: 40px 24px 32px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; align-items: center; text-align: center; }
+    .footer-logo { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--chalk-dim); }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { font-size: .75rem; color: var(--chalk-dim); transition: color .2s; }
     .footer-links a:hover { color: var(--gold); }
-    .footer-copy {
-      font-size: .7rem;
-      color: rgba(122,138,170,.5);
-    }
+    .footer-copy { font-size: .7rem; color: rgba(122,138,170,.45); }
 
-    /* ─── モバイル ─── */
-    @media (max-width: 680px) {
+    /* ── レスポンシブ ── */
+    @media (max-width: 720px) {
       .site-nav { display: none; }
       .hamburger { display: flex; }
-      .site-nav.open {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 60px; left: 0; right: 0;
-        background: var(--navy-deep);
-        border-bottom: 1px solid var(--navy-border);
-        padding: 12px 16px;
-        gap: 4px;
-      }
-      .hero { padding: 56px 20px 56px; }
-      .stat-item { padding: 14px 16px; min-width: 100px; }
-      .promo-card {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
+      .site-nav.open { display: flex; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--navy-deep); border-bottom: 1px solid var(--navy-border); padding: 12px 16px; gap: 4px; z-index: 99; }
+      .cal-wrap { grid-template-columns: 1fr; }
+      .upcoming { display: none; }
+      .promo-card { grid-template-columns: 1fr; text-align: center; }
       .promo-body { max-width: 100%; }
-      .schedule-row {
-        grid-template-columns: 80px 1fr;
-        grid-template-rows: auto auto;
-      }
-      .schedule-tag { grid-column: 2; }
+      .cat-row-desc { display: none; }
     }
-
-    /* ─── アクセシビリティ ─── */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition-duration: 0s !important; }
+    @media (max-width: 480px) {
+      .cal-cell { min-height: 54px; }
+      .cal-dot { display: none; }
+      .cal-cell .cal-dot:first-child { display: block; }
     }
-
-    :focus-visible {
-      outline: 2px solid var(--gold);
-      outline-offset: 3px;
-    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0s !important; } }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   </style>
 </head>
-
 <body>
 
-<!-- ═══════════════ ヘッダー ═══════════════ -->
+<!-- ヘッダー -->
 <header class="site-header">
   <div class="header-inner">
     <a href="#" class="logo">
@@ -547,9 +208,12 @@
       新潟ベースボール・ハブ
     </a>
     <nav class="site-nav" id="siteNav">
-      <a href="#categories">カテゴリ</a>
-      <a href="#news">最新情報</a>
-      <a href="#schedule">大会日程</a>
+      <a href="#calendar">日程</a>
+      <a href="#categories">カテゴリー</a>
+      <a href="#albirex">アルビレックスBC</a>
+      <a href="#facilities">施設</a>
+      <a href="#coaching">野球指導</a>
+      <a href="#news">ニュース</a>
       <a href="https://taisyuuzyukus.com" target="_blank" rel="noopener">体修塾BCA</a>
     </nav>
     <button class="hamburger" id="hamburger" aria-label="メニュー">
@@ -558,249 +222,463 @@
   </div>
 </header>
 
-<!-- ═══════════════ ヒーロー ═══════════════ -->
 <main>
+
+<!-- ヒーロー -->
 <section class="hero">
-  <!-- ヒーロー画像 -->
   <div class="hero-image-wrap">
-    <img src="./hero.jpg" alt="NIIGATA BASEBALL HUB — 新潟県野球情報まとめサイト">
+    <img src="./hero.jpg" alt="NIIGATA BASEBALL HUB — 新潟県野球情報まとめ">
   </div>
-
   <div class="hero-body">
-    <p class="hero-sub">
-      学童・中学・高校・社会人、新潟県内のすべての野球カテゴリを一か所に。大会日程から練習場所まで。
-    </p>
+    <p class="hero-sub">学童・中学・高校・大学・社会人・女子、新潟県内の野球情報を一か所に。</p>
   </div>
-
   <div class="stat-row">
-    <div class="stat-item">
-      <span class="stat-num">364</span>
-      <span class="stat-label">学童チーム</span>
+    <div class="stat-item"><span class="stat-num">364</span><span class="stat-label">学童チーム</span></div>
+    <div class="stat-item"><span class="stat-num">101</span><span class="stat-label">中学チーム</span></div>
+    <div class="stat-item"><span class="stat-num">67</span><span class="stat-label">高校</span></div>
+    <div class="stat-item"><span class="stat-num">43</span><span class="stat-label">野球場</span></div>
+  </div>
+</section>
+
+<!-- ══ カレンダー ══ -->
+<section id="calendar" class="calendar-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>新潟野球 日程カレンダー</h2>
+      <div class="section-rule"></div>
     </div>
-    <div class="stat-item">
-      <span class="stat-num">101</span>
-      <span class="stat-label">中学チーム</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">67</span>
-      <span class="stat-label">高校</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-num">43</span>
-      <span class="stat-label">野球場</span>
+
+    <div class="cal-wrap">
+      <!-- 月カレンダー -->
+      <div>
+        <div class="cal-nav">
+          <button class="cal-btn" id="calPrev">◀ 前月</button>
+          <div class="cal-title" id="calTitle"></div>
+          <button class="cal-btn" id="calNext">次月 ▶</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+        <!-- 凡例 -->
+        <div class="cal-legend" style="margin-top:16px;">
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#7dd3fc"></div>学童野球</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#68d391"></div>中学野球</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#818cf8"></div>高校野球</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#e879f9"></div>大学野球</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#a3e635"></div>社会人野球</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#fc8181"></div>女子野球</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#FF6600"></div>アルビレックスBC</div>
+        </div>
+      </div>
+
+      <!-- 直近イベント -->
+      <div>
+        <div class="upcoming">
+          <div class="upcoming-header">📅 直近のイベント</div>
+          <div id="upcomingList"><div class="cal-loading">読み込み中…</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ カテゴリ ═══════════════ -->
-<section id="categories">
+<!-- ══ カテゴリー別まとめ ══ -->
+<section id="categories" class="category-section">
   <div class="section-inner">
     <div class="section-head">
-      <h2>カテゴリ一覧</h2>
+      <h2>カテゴリー別まとめ</h2>
       <div class="section-rule"></div>
     </div>
-
-    <div class="cat-grid">
-      <a class="cat-card" href="#">
-        <div class="cat-icon">🏫</div>
-        <div class="cat-count">67校</div>
-        <div class="cat-name">高校野球</div>
-        <div class="cat-desc">県内67校の情報。甲子園予選・県大会の日程と結果。強豪校の特集も。</div>
+    <div class="cat-list">
+      <a class="cat-row" href="#" style="--cat-color:#7dd3fc">
+        <div class="cat-row-bar"></div>
+        <div class="cat-row-body">
+          <div class="cat-row-info">
+            <div>
+              <div class="cat-row-name">学童野球</div>
+              <div class="cat-row-desc">小学生の野球チーム・大会情報。地区別チーム一覧。</div>
+            </div>
+          </div>
+          <span class="cat-row-count">364チーム</span>
+          <span class="cat-row-arrow">→</span>
+        </div>
       </a>
-
-      <a class="cat-card" href="#">
-        <div class="cat-icon">⚾</div>
-        <div class="cat-count">101チーム</div>
-        <div class="cat-name">中学野球</div>
-        <div class="cat-desc">硬式・軟式あわせて101チーム。部活移行情報・地域クラブの最新動向。</div>
+      <a class="cat-row" href="#" style="--cat-color:#68d391">
+        <div class="cat-row-bar"></div>
+        <div class="cat-row-body">
+          <div class="cat-row-info">
+            <div>
+              <div class="cat-row-name">中学野球</div>
+              <div class="cat-row-desc">硬式・軟式101チーム。部活地域移行の最新情報も。</div>
+            </div>
+          </div>
+          <span class="cat-row-count">101チーム</span>
+          <span class="cat-row-arrow">→</span>
+        </div>
       </a>
-
-      <a class="cat-card" href="#">
-        <div class="cat-icon">👦</div>
-        <div class="cat-count">364チーム</div>
-        <div class="cat-name">学童野球</div>
-        <div class="cat-desc">新潟県内の少年野球チーム一覧。地区別・市区町村別で探せます。</div>
+      <a class="cat-row" href="#" style="--cat-color:#818cf8">
+        <div class="cat-row-bar"></div>
+        <div class="cat-row-body">
+          <div class="cat-row-info">
+            <div>
+              <div class="cat-row-name">高校野球</div>
+              <div class="cat-row-desc">県内67校の情報。甲子園予選・県大会の日程と結果。</div>
+            </div>
+          </div>
+          <span class="cat-row-count">67校</span>
+          <span class="cat-row-arrow">→</span>
+        </div>
       </a>
-
-      <a class="cat-card" href="#">
-        <div class="cat-icon">🏟️</div>
-        <div class="cat-count">43カ所</div>
-        <div class="cat-name">野球場・施設</div>
-        <div class="cat-desc">県内43か所のグラウンド・球場。Googleマップ連携で場所をすぐ確認。</div>
+      <a class="cat-row" href="#" style="--cat-color:#e879f9">
+        <div class="cat-row-bar"></div>
+        <div class="cat-row-body">
+          <div class="cat-row-info">
+            <div>
+              <div class="cat-row-name">大学野球</div>
+              <div class="cat-row-desc">北信越大学野球リーグ・県内大学の試合情報。</div>
+            </div>
+          </div>
+          <span class="cat-row-count">随時更新</span>
+          <span class="cat-row-arrow">→</span>
+        </div>
       </a>
-
-      <a class="cat-card" href="#">
-        <div class="cat-icon">📚</div>
-        <div class="cat-count">掲載中</div>
-        <div class="cat-name">野球スクール</div>
-        <div class="cat-desc">新潟県内の野球教室・スクール一覧。対象年齢・料金・場所で比較できます。</div>
+      <a class="cat-row" href="#" style="--cat-color:#a3e635">
+        <div class="cat-row-bar"></div>
+        <div class="cat-row-body">
+          <div class="cat-row-info">
+            <div>
+              <div class="cat-row-name">社会人野球</div>
+              <div class="cat-row-desc">JABA新潟加盟チーム。都市対抗・全日本クラブの情報。</div>
+            </div>
+          </div>
+          <span class="cat-row-count">随時更新</span>
+          <span class="cat-row-arrow">→</span>
+        </div>
       </a>
-
-      <a class="cat-card" href="#">
-        <div class="cat-icon">🏆</div>
-        <div class="cat-count">随時更新</div>
-        <div class="cat-name">社会人野球</div>
-        <div class="cat-desc">JABA新潟加盟チームの情報。都市対抗・全日本クラブ選手権の結果も。</div>
+      <a class="cat-row" href="#" style="--cat-color:#fc8181">
+        <div class="cat-row-bar"></div>
+        <div class="cat-row-body">
+          <div class="cat-row-info">
+            <div>
+              <div class="cat-row-name">女子野球</div>
+              <div class="cat-row-desc">新潟の女子野球チーム・大会・体験会情報。</div>
+            </div>
+          </div>
+          <span class="cat-row-count">随時更新</span>
+          <span class="cat-row-arrow">→</span>
+        </div>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ 最新情報 ═══════════════ -->
-<section id="news" class="news-section">
+<!-- ══ アルビレックスBC ══ -->
+<section id="albirex" class="albirex-section">
   <div class="section-inner">
     <div class="section-head">
-      <h2>最新情報・外部リンク</h2>
+      <h2>オイシックス新潟アルビレックスBC</h2>
       <div class="section-rule"></div>
     </div>
+    <div class="albirex-card">
+      <div class="albirex-header">
+        <span class="albirex-logo">⚾ ALBIREX NIIGATA BC</span>
+        <span class="albirex-badge">BCリーグ</span>
+      </div>
+      <!-- RSS自動取得ニュース -->
+      <div id="albirexNews"><div class="cal-loading">ニュースを取得中…</div></div>
+      <div class="albirex-links">
+        <a class="albirex-link" href="https://www.albbc.net" target="_blank" rel="noopener">
+          <span class="albirex-link-text">公式サイト</span><span class="albirex-link-arrow">↗</span>
+        </a>
+        <a class="albirex-link" href="https://www.albbc.net/games/" target="_blank" rel="noopener">
+          <span class="albirex-link-text">試合日程・結果</span><span class="albirex-link-arrow">↗</span>
+        </a>
+        <a class="albirex-link" href="https://www.baseball-bcl.com" target="_blank" rel="noopener">
+          <span class="albirex-link-text">BCリーグ順位表</span><span class="albirex-link-arrow">↗</span>
+        </a>
+        <a class="albirex-link" href="https://www.albbc.net/ticket/" target="_blank" rel="noopener">
+          <span class="albirex-link-text">チケット情報</span><span class="albirex-link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ══ 施設紹介 ══ -->
+<section id="facilities" class="facilities-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>施設紹介</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="fac-grid">
+      <a class="fac-card" href="#" style="--cat-color:#f6ad55">
+        <div class="fac-color-bar"></div>
+        <div class="fac-name">🏟️ 野球場</div>
+        <div class="fac-desc">県内43か所のグラウンド・球場一覧。Googleマップ連携で場所をすぐ確認。試合観戦・練習場所探しに。</div>
+      </a>
+      <a class="fac-card" href="#" style="--cat-color:#b794f4">
+        <div class="fac-color-bar"></div>
+        <div class="fac-name">🏠 屋内練習場</div>
+        <div class="fac-desc">雨や冬でも使える屋内施設の一覧。バッティングケージ・ブルペン・トレーニング設備の情報も。</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 野球指導 ══ -->
+<section id="coaching" class="calendar-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>野球指導</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="fac-grid">
+      <a class="fac-card" href="#" style="--cat-color:#4fd1c5">
+        <div class="fac-color-bar"></div>
+        <div class="fac-name">📚 野球スクール</div>
+        <div class="fac-desc">新潟県内の野球教室・スクール一覧。対象年齢・料金・場所で比較できます。体修塾BCAをはじめ、県内各地の指導施設を掲載。</div>
+      </a>
+      <a class="fac-card" href="#" style="--cat-color:#f687b3">
+        <div class="fac-color-bar"></div>
+        <div class="fac-name">🎓 野球セミナー</div>
+        <div class="fac-desc">講習会・クリニック・指導者研修などのイベント情報。プロ・元プロ選手による特別セミナーの告知も随時掲載。</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ニュース・外部リンク ══ -->
+<section id="news" class="rss-news-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>ニュース・公式リンク</h2>
+      <div class="section-rule"></div>
+    </div>
     <div class="news-grid">
       <div class="news-source">
-        <div class="news-source-header">🗞 高校野球 / 新聞・公式</div>
+        <div class="news-source-header">🗞 高校野球 / 公式・新聞</div>
         <a class="news-link" href="https://www.hb.pref.niigata.lg.jp/niigata-jhba/" target="_blank" rel="noopener">
-          <span class="news-link-text">新潟県高等学校野球連盟 公式サイト</span>
-          <span class="news-link-arrow">↗</span>
+          <span class="news-link-text">新潟県高等学校野球連盟 公式</span><span class="news-link-arrow">↗</span>
         </a>
         <a class="news-link" href="https://www.nikkansports.com/baseball/highschool/pref/niigata.html" target="_blank" rel="noopener">
-          <span class="news-link-text">日刊スポーツ｜新潟高校野球ニュース</span>
-          <span class="news-link-arrow">↗</span>
+          <span class="news-link-text">日刊スポーツ｜新潟高校野球</span><span class="news-link-arrow">↗</span>
         </a>
         <a class="news-link" href="https://www.niigata-nippo.co.jp/sports/baseball/" target="_blank" rel="noopener">
-          <span class="news-link-text">新潟日報スポーツ｜野球</span>
-          <span class="news-link-arrow">↗</span>
+          <span class="news-link-text">新潟日報スポーツ｜野球</span><span class="news-link-arrow">↗</span>
         </a>
       </div>
-
       <div class="news-source">
-        <div class="news-source-header">⚾ 独立リーグ / アルビレックス</div>
-        <a class="news-link" href="https://www.albbc.net" target="_blank" rel="noopener">
-          <span class="news-link-text">オイシックス新潟アルビレックスBC 公式</span>
-          <span class="news-link-arrow">↗</span>
-        </a>
-        <a class="news-link" href="https://www.albbc.net/games/" target="_blank" rel="noopener">
-          <span class="news-link-text">試合日程・結果</span>
-          <span class="news-link-arrow">↗</span>
-        </a>
-        <a class="news-link" href="https://www.baseball-bcl.com" target="_blank" rel="noopener">
-          <span class="news-link-text">ベースボール・チャレンジ・リーグ（BCL）公式</span>
-          <span class="news-link-arrow">↗</span>
-        </a>
-      </div>
-
-      <div class="news-source">
-        <div class="news-source-header">🏋️ 社会人野球 / JABA</div>
+        <div class="news-source-header">🤝 社会人野球 / JABA</div>
         <a class="news-link" href="https://www.jaba.or.jp" target="_blank" rel="noopener">
-          <span class="news-link-text">日本野球連盟（JABA）公式サイト</span>
-          <span class="news-link-arrow">↗</span>
+          <span class="news-link-text">日本野球連盟（JABA）公式</span><span class="news-link-arrow">↗</span>
         </a>
         <a class="news-link" href="https://www.jaba-niigata.jp" target="_blank" rel="noopener">
-          <span class="news-link-text">JABA新潟県野球連盟</span>
-          <span class="news-link-arrow">↗</span>
+          <span class="news-link-text">JABA新潟県野球連盟</span><span class="news-link-arrow">↗</span>
         </a>
         <a class="news-link" href="https://www.baseball-dousyasen.jp" target="_blank" rel="noopener">
-          <span class="news-link-text">都市対抗野球大会 公式</span>
-          <span class="news-link-arrow">↗</span>
+          <span class="news-link-text">都市対抗野球大会 公式</span><span class="news-link-arrow">↗</span>
         </a>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════ 大会日程 ═══════════════ -->
-<section id="schedule" class="calendar-section">
-  <div class="section-inner">
-    <div class="section-head">
-      <h2>2026年 主要大会日程</h2>
-      <div class="section-rule"></div>
-    </div>
-
-    <div class="schedule-board">
-      <div class="schedule-board-header">
-        <div class="dot"></div>
-        <span class="schedule-board-title">SCHEDULE — 新潟県内主要大会</span>
-      </div>
-
-      <div class="schedule-row">
-        <span class="schedule-date">7月上旬</span>
-        <span class="schedule-event">第108回全国高校野球選手権 新潟大会</span>
-        <span class="schedule-tag tag-hs">高校</span>
-      </div>
-      <div class="schedule-row">
-        <span class="schedule-date">7〜8月</span>
-        <span class="schedule-event">第50回 全日本クラブ野球選手権大会（東京ドーム）</span>
-        <span class="schedule-tag tag-hs">社会人</span>
-      </div>
-      <div class="schedule-row">
-        <span class="schedule-date">8月</span>
-        <span class="schedule-event">第106回全国高等学校野球選手権大会（甲子園）</span>
-        <span class="schedule-tag tag-hs">高校</span>
-      </div>
-      <div class="schedule-row">
-        <span class="schedule-date">9月</span>
-        <span class="schedule-event">新潟県中学校秋季野球大会</span>
-        <span class="schedule-tag tag-ms">中学</span>
-      </div>
-      <div class="schedule-row">
-        <span class="schedule-date">9〜10月</span>
-        <span class="schedule-event">秋季新潟県高校野球大会（北信越大会予選）</span>
-        <span class="schedule-tag tag-hs">高校</span>
-      </div>
-      <div class="schedule-row">
-        <span class="schedule-date">10月</span>
-        <span class="schedule-event">新潟県学童軟式野球秋季大会</span>
-        <span class="schedule-tag tag-el">学童</span>
+      <div class="news-source">
+        <div class="news-source-header">📰 BCリーグ最新ニュース（自動取得）</div>
+        <div id="bclNews"><div class="cal-loading">取得中…</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════ 体修塾バナー ═══════════════ -->
+<!-- ══ 体修塾バナー ══ -->
 <section class="promo-section">
   <div class="section-inner">
     <div class="promo-card">
       <div>
         <p class="promo-eyebrow">PARTNER — 体修塾BCA</p>
         <h2 class="promo-title">新潟・柏崎で野球を<br>科学的に上達したい選手へ</h2>
-        <p class="promo-body">
-          体修塾BCAは新潟県柏崎市を拠点とする野球専門のスキルスクール＆トレーニングジムです。小学5年生〜大人まで対応。ラプソードによるデータ計測で、あなたの課題を可視化します。
-        </p>
+        <p class="promo-body">体修塾BCAは新潟県柏崎市を拠点とする野球専門スキルスクール＆トレーニングジム。小学5年生〜大人まで対応。ラプソードによるデータ計測で課題を可視化します。</p>
       </div>
-      <a class="promo-cta" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">
-        詳細を見る ↗
-      </a>
+      <a class="promo-cta" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">詳細を見る ↗</a>
     </div>
   </div>
 </section>
 
 </main>
 
-<!-- ═══════════════ フッター ═══════════════ -->
+<!-- フッター -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-logo">新潟ベースボール・ハブ</div>
     <div class="footer-links">
-      <a href="#categories">カテゴリ</a>
-      <a href="#news">最新情報</a>
-      <a href="#schedule">大会日程</a>
+      <a href="#calendar">日程</a>
+      <a href="#categories">カテゴリー</a>
+      <a href="#albirex">アルビレックスBC</a>
+      <a href="#facilities">施設紹介</a>
+      <a href="#coaching">野球指導</a>
+      <a href="#news">ニュース</a>
       <a href="https://taisyuuzyukus.com" target="_blank" rel="noopener">体修塾BCA</a>
     </div>
-    <p class="footer-copy">
-      このサイトは新潟の野球情報を集めたキュレーションサイトです。掲載情報の正確性は各公式サイトをご確認ください。<br>
-      © 2026 新潟ベースボール・ハブ
-    </p>
+    <p class="footer-copy">新潟の野球情報キュレーションサイト。掲載情報の正確性は各公式サイトでご確認ください。© 2026 新潟ベースボール・ハブ</p>
   </div>
 </footer>
 
 <script>
-  // ハンバーガーメニュー
-  const btn = document.getElementById('hamburger');
-  const nav = document.getElementById('siteNav');
-  btn.addEventListener('click', () => nav.classList.toggle('open'));
-  document.addEventListener('click', e => {
-    if (!btn.contains(e.target) && !nav.contains(e.target)) {
-      nav.classList.remove('open');
-    }
+/* ══════════════════════════════
+   カテゴリー色マップ
+══════════════════════════════ */
+const CAT_COLORS = {
+  '学童野球':         '#7dd3fc',
+  '中学野球':         '#68d391',
+  '高校野球':         '#818cf8',
+  '大学野球':         '#e879f9',
+  '社会人野球':       '#a3e635',
+  '女子野球':         '#fc8181',
+  'アルビレックスBC': '#FF6600',
+};
+
+/* ══════════════════════════════
+   手動登録イベント（ここを編集）
+══════════════════════════════ */
+const MANUAL_EVENTS = [
+  { date:'2026-07-04', cat:'高校野球',   title:'新潟大会 開幕',              venue:'ハードオフエコスタジアム新潟' },
+  { date:'2026-07-20', cat:'高校野球',   title:'新潟大会 準決勝',            venue:'ハードオフエコスタジアム新潟' },
+  { date:'2026-07-26', cat:'高校野球',   title:'新潟大会 決勝',              venue:'ハードオフエコスタジアム新潟' },
+  { date:'2026-07-12', cat:'アルビレックスBC', title:'アルビレックスBC ホームゲーム', venue:'ハードオフエコスタジアム新潟' },
+  { date:'2026-07-19', cat:'アルビレックスBC', title:'アルビレックスBC ホームゲーム', venue:'ハードオフエコスタジアム新潟' },
+  { date:'2026-08-01', cat:'アルビレックスBC', title:'アルビレックスBC ホームゲーム', venue:'ハードオフエコスタジアム新潟' },
+  { date:'2026-08-08', cat:'高校野球',   title:'全国高校野球選手権（甲子園）開幕', venue:'阪神甲子園球場' },
+  { date:'2026-08-08', cat:'中学野球',   title:'全日本少年軟式野球 新潟県予選', venue:'県内各球場' },
+  { date:'2026-08-09', cat:'女子野球',   title:'新潟女子野球交流大会',       venue:'県内球場' },
+  { date:'2026-09-15', cat:'中学野球',   title:'新潟県中学校秋季野球大会',   venue:'県内各球場' },
+  { date:'2026-09-20', cat:'高校野球',   title:'秋季新潟県大会 開幕',        venue:'県内各球場' },
+  { date:'2026-10-10', cat:'学童野球',   title:'県学童軟式野球秋季大会',     venue:'県内各球場' },
+  { date:'2026-07-05', cat:'社会人野球', title:'都市対抗野球 新潟県予選',    venue:'ハードオフエコスタジアム新潟' },
+];
+
+/* ══════════════════════════════
+   カレンダー
+══════════════════════════════ */
+let allEvents = [...MANUAL_EVENTS];
+const today = new Date();
+let curYear = today.getFullYear();
+let curMonth = today.getMonth();
+
+function fmtDate(d) {
+  const y = d.getFullYear(), m = String(d.getMonth()+1).padStart(2,'0'), dd = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${dd}`;
+}
+
+function renderCalendar() {
+  const title = document.getElementById('calTitle');
+  const grid  = document.getElementById('calGrid');
+  const months = ['1月','2月','3月','4月','5月','6月','7月','8','9月','10月','11月','12月'];
+  title.textContent = `${curYear}年 ${months[curMonth]}`;
+
+  // 曜日ヘッダー
+  const dows = ['日','月','火','水','木','金','土'];
+  const dowClasses = ['sun','','','','','','sat'];
+  let html = dows.map((d,i)=>`<div class="cal-dow ${dowClasses[i]}">${d}</div>`).join('');
+
+  const first = new Date(curYear, curMonth, 1).getDay();
+  const last  = new Date(curYear, curMonth+1, 0).getDate();
+  const todayStr = fmtDate(today);
+
+  // イベントをdateキーでインデックス化
+  const evMap = {};
+  allEvents.forEach(ev => {
+    if (!evMap[ev.date]) evMap[ev.date] = [];
+    evMap[ev.date].push(ev);
   });
+
+  // 前月の残り
+  const prevLast = new Date(curYear, curMonth, 0).getDate();
+  for (let i = 0; i < first; i++) {
+    const d = prevLast - first + 1 + i;
+    html += `<div class="cal-cell other-month"><div class="cal-day">${d}</div></div>`;
+  }
+
+  // 当月
+  for (let d = 1; d <= last; d++) {
+    const dateStr = `${curYear}-${String(curMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday = dateStr === todayStr;
+    const evs = evMap[dateStr] || [];
+    const dotsHtml = evs.slice(0,3).map(ev => {
+      const c = CAT_COLORS[ev.cat] || '#888';
+      return `<div class="cal-dot" style="background:${c}" title="${ev.title}">${ev.title}</div>`;
+    }).join('');
+    html += `<div class="cal-cell${isToday?' today':''}" data-date="${dateStr}">
+      <div class="cal-day">${d}</div>
+      <div class="cal-dots">${dotsHtml}</div>
+    </div>`;
+  }
+
+  // 翌月
+  const remain = 42 - first - last;
+  for (let i = 1; i <= remain; i++) {
+    html += `<div class="cal-cell other-month"><div class="cal-day">${i}</div></div>`;
+  }
+
+  grid.innerHTML = html;
+  renderUpcoming();
+}
+
+function renderUpcoming() {
+  const todayStr = fmtDate(today);
+  const upcoming = allEvents
+    .filter(ev => ev.date >= todayStr)
+    .sort((a,b) => a.date.localeCompare(b.date))
+    .slice(0, 8);
+  const list = document.getElementById('upcomingList');
+  if (!upcoming.length) { list.innerHTML = '<div class="cal-loading">直近のイベントはありません</div>'; return; }
+  list.innerHTML = upcoming.map(ev => {
+    const c = CAT_COLORS[ev.cat] || '#888';
+    const [y,m,d] = ev.date.split('-');
+    return `<div class="upcoming-item">
+      <div class="upcoming-date">${y}年${parseInt(m)}月${parseInt(d)}日</div>
+      <div class="upcoming-title">${ev.title}</div>
+      <span class="upcoming-cat" style="background:${c}">${ev.cat}</span>
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('calPrev').onclick = () => { curMonth--; if(curMonth<0){curMonth=11;curYear--;} renderCalendar(); };
+document.getElementById('calNext').onclick = () => { curMonth++; if(curMonth>11){curMonth=0;curYear++;} renderCalendar(); };
+renderCalendar();
+
+/* ══════════════════════════════
+   RSS自動取得（rss2json.com経由）
+══════════════════════════════ */
+const RSS2JSON = 'https://api.rss2json.com/v1/api.json?count=6&rss_url=';
+
+async function fetchRSS(feedUrl, targetId, catColor) {
+  const el = document.getElementById(targetId);
+  try {
+    const res = await fetch(RSS2JSON + encodeURIComponent(feedUrl));
+    const data = await res.json();
+    if (!data.items || !data.items.length) { el.innerHTML = '<div class="cal-loading">ニュースを取得できませんでした</div>'; return; }
+    el.innerHTML = data.items.slice(0,5).map(item => {
+      const date = item.pubDate ? new Date(item.pubDate).toLocaleDateString('ja-JP',{month:'short',day:'numeric'}) : '';
+      return `<div class="rss-item">
+        <a class="rss-item-title" href="${item.link}" target="_blank" rel="noopener">${item.title}</a>
+        <div class="rss-item-date">${date}</div>
+      </div>`;
+    }).join('');
+  } catch(e) {
+    el.innerHTML = '<div class="cal-loading">ニュースを取得できませんでした</div>';
+  }
+}
+
+// アルビレックスBC RSS
+fetchRSS('https://www.albbc.net/feed/', 'albirexNews', '#FF6600');
+// BCリーグ RSS
+fetchRSS('https://www.baseball-bcl.com/feed/', 'bclNews', '#a3e635');
+
+/* ══════════════════════════════
+   ハンバーガーメニュー
+══════════════════════════════ */
+const btn = document.getElementById('hamburger');
+const nav = document.getElementById('siteNav');
+btn.addEventListener('click', () => nav.classList.toggle('open'));
+document.addEventListener('click', e => {
+  if (!btn.contains(e.target) && !nav.contains(e.target)) nav.classList.remove('open');
+});
 </script>
 
 </body>
