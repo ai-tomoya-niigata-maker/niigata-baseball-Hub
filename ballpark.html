@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>野球場・施設｜新潟ベースボール・ハブ</title>
+  <meta name="description" content="新潟県内の野球場・スタジアム一覧。ハードオフエコスタジアム新潟、悠久山、三条パール金属、佐藤池、五十公野公園など主要球場の規模・アクセス・Googleマップ情報を掲載。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cat: #f6ad55; --cat-dim: #9c4221;
+      --navy-deep: #080f1f; --navy-main: #0c1a30; --navy-card: #0f2140;
+      --navy-border: #1c3560; --gold: #c8991a; --gold-bright: #e8b830;
+      --chalk: #dde4f0; --chalk-dim: #7a8aaa; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--navy-deep); color: var(--chalk); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(8,15,31,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--navy-border); padding: 0 24px; }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .logo-mark { width: 30px; height: 30px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .85rem; color: var(--navy-deep); font-weight: 700; }
+    .back-btn { font-size: .78rem; color: var(--chalk-dim); border: 1px solid var(--navy-border); padding: 6px 14px; border-radius: 4px; transition: color .2s, border-color .2s; }
+    .back-btn:hover { color: var(--cat); border-color: var(--cat); }
+
+    /* ヒーロー */
+    .cat-hero { background: linear-gradient(135deg, #1a0e00 0%, var(--navy-main) 60%); position: relative; overflow: hidden; padding: 64px 24px 52px; }
+    .cat-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--cat); }
+    .cat-hero::after { content: ''; position: absolute; inset: 4px 0 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(246,173,85,.08), transparent 70%); pointer-events: none; }
+    .cat-hero-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .cat-hero-badge { width: 56px; height: 56px; border-radius: 14px; background: rgba(246,173,85,.12); border: 2px solid var(--cat); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
+    .cat-hero-text { flex: 1; min-width: 220px; }
+    .cat-hero-en { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .2em; color: var(--cat); margin-bottom: 6px; }
+    .cat-hero-title { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; color: var(--white); line-height: 1.15; margin-bottom: 8px; }
+    .cat-hero-desc { font-size: .85rem; color: var(--chalk-dim); max-width: 520px; }
+
+    section { padding: 52px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+    .section-head h2 { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+    .section-rule { flex: 1; height: 1px; background: var(--navy-border); }
+    .section-label { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; color: var(--cat); letter-spacing: .12em; white-space: nowrap; }
+
+    /* タブ */
+    .tab-bar { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 1px solid var(--navy-border); flex-wrap: wrap; }
+    .tab-btn { padding: 9px 16px; font-size: .8rem; font-weight: 700; color: var(--chalk-dim); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color .2s, border-color .2s; white-space: nowrap; }
+    .tab-btn.active { color: var(--cat); border-bottom-color: var(--cat); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* メイン球場カード */
+    .park-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
+    .park-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; transition: border-color .2s, transform .15s; }
+    .park-card:hover { border-color: var(--cat); transform: translateY(-2px); }
+    .park-card.flagship { border-left: 3px solid var(--cat); }
+    .park-card-header { background: var(--navy-deep); border-bottom: 1px solid var(--navy-border); padding: 12px 16px; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .park-name { font-size: .98rem; font-weight: 700; color: var(--white); line-height: 1.3; }
+    .park-yomi { font-size: .68rem; color: var(--chalk-dim); margin-top: 2px; }
+    .park-badge { font-size: .58rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+    .badge-pro   { background: rgba(246,173,85,.2); color: var(--cat); border: 1px solid rgba(246,173,85,.3); }
+    .badge-main  { background: rgba(129,140,248,.2); color: #818cf8; border: 1px solid rgba(129,140,248,.3); }
+    .badge-local { background: rgba(96,165,250,.2); color: #60a5fa; border: 1px solid rgba(96,165,250,.3); }
+    .park-body { padding: 12px 16px; display: flex; flex-direction: column; gap: 5px; }
+    .park-row { display: flex; align-items: flex-start; gap: 8px; font-size: .78rem; color: var(--chalk-dim); }
+    .park-row-label { color: var(--cat); font-weight: 600; min-width: 52px; font-size: .68rem; font-family: 'Oswald', sans-serif; letter-spacing: .03em; flex-shrink: 0; }
+    .park-spec { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+    .spec-chip { font-size: .66rem; background: rgba(28,53,96,.6); color: var(--chalk); padding: 2px 8px; border-radius: 10px; }
+    .spec-chip.hi { background: rgba(246,173,85,.15); color: var(--cat); }
+    .park-note { font-size: .72rem; color: var(--gold); background: rgba(200,153,26,.1); padding: 3px 10px; border-radius: 4px; margin-top: 2px; }
+    .park-links { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+    .pl-btn { display: inline-flex; align-items: center; gap: 3px; font-size: .7rem; padding: 3px 10px; border-radius: 4px; border: 1px solid; transition: background .15s; }
+    .btn-map { color: var(--cat); border-color: rgba(246,173,85,.3); }
+    .btn-map:hover { background: rgba(246,173,85,.08); }
+    .btn-web { color: var(--chalk-dim); border-color: rgba(122,138,170,.25); }
+    .btn-web:hover { background: rgba(122,138,170,.06); color: var(--chalk); }
+
+    /* 簡易リスト */
+    .simple-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+    .simple-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; padding: 12px 14px; display: flex; flex-direction: column; gap: 3px; transition: border-color .15s; }
+    .simple-card:hover { border-color: var(--cat); }
+    .simple-name { font-size: .85rem; font-weight: 700; color: var(--white); }
+    .simple-area { font-size: .72rem; color: var(--chalk-dim); }
+    .simple-map { font-size: .68rem; color: var(--cat); margin-top: 4px; display: inline-block; }
+
+    /* 外部リンク */
+    .links-section { background: var(--navy-main); }
+    .links-list { display: flex; flex-direction: column; gap: 8px; }
+    .ext-link { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; transition: border-color .2s; gap: 12px; }
+    .ext-link:hover { border-color: var(--cat); }
+    .ext-link-left { display: flex; flex-direction: column; gap: 2px; }
+    .ext-link-src { font-size: .65rem; color: var(--cat); font-family: 'Oswald', sans-serif; font-weight: 600; letter-spacing: .06em; }
+    .ext-link-title { font-size: .82rem; color: var(--chalk); }
+    .ext-arrow { color: var(--chalk-dim); flex-shrink: 0; }
+
+    .site-footer { background: var(--navy-deep); border-top: 1px solid var(--navy-border); padding: 32px 24px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+    .footer-nav { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .footer-nav a { font-size: .75rem; color: var(--chalk-dim); transition: color .2s; }
+    .footer-nav a:hover { color: var(--cat); }
+    .footer-copy { font-size: .7rem; color: rgba(122,138,170,.4); }
+
+    @media (max-width: 600px) {
+      .park-grid { grid-template-columns: 1fr; }
+      .simple-list { grid-template-columns: 1fr; }
+      .tab-btn { padding: 7px 11px; font-size: .74rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="./index.html" class="logo"><span class="logo-mark">⚾</span>新潟ベースボール・ハブ</a>
+    <a href="./index.html" class="back-btn">← ホームへ戻る</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ヒーロー -->
+<div class="cat-hero">
+  <div class="cat-hero-inner">
+    <div class="cat-hero-badge">🏟️</div>
+    <div class="cat-hero-text">
+      <div class="cat-hero-en">BALLPARKS &amp; STADIUMS</div>
+      <h1 class="cat-hero-title">野球場・施設</h1>
+      <p class="cat-hero-desc">新潟県内の野球場・スタジアムを一覧で掲載。規模・アクセス・Googleマップ情報つき。プロ野球開催球場から地域の球場まで。</p>
+    </div>
+  </div>
+</div>
+
+<!-- 球場一覧 -->
+<section style="background:var(--navy-main)">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>球場一覧</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">BALLPARKS</span>
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="major">🏟️ 主要球場（大会会場）</button>
+      <button class="tab-btn" data-tab="local">⚾ 地域の球場</button>
+    </div>
+
+    <!-- ══ 主要球場 ══ -->
+    <div class="tab-content active" id="tab-major">
+      <p style="font-size:.78rem;color:var(--chalk-dim);margin-bottom:20px;">新潟県高野連が高校野球の会場に指定する主要5球場と、プロ野球（オイシックス新潟アルビレックスBC）が使用する球場を掲載しています。</p>
+      <div class="park-grid">
+
+        <!-- エコスタ -->
+        <div class="park-card flagship">
+          <div class="park-card-header">
+            <div>
+              <div class="park-name">HARD OFF ECOスタジアム新潟</div>
+              <div class="park-yomi">新潟県立野球場（鳥屋野潟公園野球場）</div>
+            </div>
+            <span class="park-badge badge-pro">プロ開催</span>
+          </div>
+          <div class="park-body">
+            <div class="park-row"><span class="park-row-label">所在</span>新潟市中央区長潟570（新潟県スポーツ公園内）</div>
+            <div class="park-spec">
+              <span class="spec-chip hi">収容約30,000人</span>
+              <span class="spec-chip">両翼100m</span>
+              <span class="spec-chip">中堅122m</span>
+              <span class="spec-chip">人工芝</span>
+              <span class="spec-chip">ナイター</span>
+              <span class="spec-chip">大型映像</span>
+            </div>
+            <div class="park-row"><span class="park-row-label">特徴</span>2009年7月開場。県内最大規模。プロ野球公式戦・オイシックス新潟アルビレックスBCの本拠地。屋内練習場併設。</div>
+            <div class="park-note">⭐ 横浜DeNAが毎シーズン主催試合を開催（南場オーナーが新潟市出身）</div>
+            <div class="park-note">⭐ JABA選抜新潟大会・夏の高校野球新潟大会の決勝会場</div>
+            <div class="park-links">
+              <a class="pl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=HARD+OFF+ECOスタジアム新潟" target="_blank" rel="noopener">📍 Googleマップ</a>
+              <a class="pl-btn btn-web" href="https://www.hardoff-eco-stadium.jp/" target="_blank" rel="noopener">🌐 公式HP</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 悠久山 -->
+        <div class="park-card">
+          <div class="park-card-header">
+            <div>
+              <div class="park-name">長岡市悠久山野球場</div>
+              <div class="park-yomi">ゆうきゅうざん</div>
+            </div>
+            <span class="park-badge badge-main">大会会場</span>
+          </div>
+          <div class="park-body">
+            <div class="park-row"><span class="park-row-label">所在</span>長岡市御山町（悠久山公園内）</div>
+            <div class="park-spec">
+              <span class="spec-chip">中越の中心球場</span>
+              <span class="spec-chip">ナイター</span>
+            </div>
+            <div class="park-row"><span class="park-row-label">特徴</span>中越地区を代表する球場。夏の高校野球新潟大会・秋季北信越大会の会場。アルビレックスBC野球塾（中学生指導）の会場でもある。</div>
+            <div class="park-links">
+              <a class="pl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=長岡市悠久山野球場" target="_blank" rel="noopener">📍 Googleマップ</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 三条パール金属 -->
+        <div class="park-card">
+          <div class="park-card-header">
+            <div>
+              <div class="park-name">三条パール金属スタジアム</div>
+              <div class="park-yomi">三条市民球場</div>
+            </div>
+            <span class="park-badge badge-main">大会会場</span>
+          </div>
+          <div class="park-body">
+            <div class="park-row"><span class="park-row-label">所在</span>三条市上須頃（三条総合運動公園内）</div>
+            <div class="park-spec">
+              <span class="spec-chip">県央の中心球場</span>
+              <span class="spec-chip">広大な敷地</span>
+            </div>
+            <div class="park-row"><span class="park-row-label">特徴</span>三条総合運動公園（甲子園球場6個分の敷地）内。県央地区の主要会場。秋季北信越大会の会場にもなる。</div>
+            <div class="park-links">
+              <a class="pl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=三条パール金属スタジアム" target="_blank" rel="noopener">📍 Googleマップ</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 五十公野 -->
+        <div class="park-card">
+          <div class="park-card-header">
+            <div>
+              <div class="park-name">新発田市五十公野公園野球場</div>
+              <div class="park-yomi">いじみの</div>
+            </div>
+            <span class="park-badge badge-main">大会会場</span>
+          </div>
+          <div class="park-body">
+            <div class="park-row"><span class="park-row-label">所在</span>新発田市五十公野（五十公野公園内）</div>
+            <div class="park-spec">
+              <span class="spec-chip">下越の中心球場</span>
+            </div>
+            <div class="park-row"><span class="park-row-label">特徴</span>下越地区を代表する球場。夏の高校野球新潟大会の会場の一つ。</div>
+            <div class="park-links">
+              <a class="pl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=新発田市五十公野公園野球場" target="_blank" rel="noopener">📍 Googleマップ</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 佐藤池 -->
+        <div class="park-card">
+          <div class="park-card-header">
+            <div>
+              <div class="park-name">柏崎市佐藤池野球場</div>
+              <div class="park-yomi">さとうがいけ</div>
+            </div>
+            <span class="park-badge badge-main">大会会場</span>
+          </div>
+          <div class="park-body">
+            <div class="park-row"><span class="park-row-label">所在</span>柏崎市佐藤池（佐藤池運動公園内）</div>
+            <div class="park-spec">
+              <span class="spec-chip">柏崎の中心球場</span>
+            </div>
+            <div class="park-row"><span class="park-row-label">特徴</span>柏崎エリアの主要球場。夏の高校野球新潟大会の会場の一つ。体修塾BCAの拠点・柏崎市にある。</div>
+            <div class="park-links">
+              <a class="pl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=柏崎市佐藤池野球場" target="_blank" rel="noopener">📍 Googleマップ</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- みどりと森 -->
+        <div class="park-card">
+          <div class="park-card-header">
+            <div>
+              <div class="park-name">みどりと森の運動公園野球場</div>
+              <div class="park-yomi">新潟市</div>
+            </div>
+            <span class="park-badge badge-main">大会会場</span>
+          </div>
+          <div class="park-body">
+            <div class="park-row"><span class="park-row-label">所在</span>新潟市（みどりと森の運動公園内）</div>
+            <div class="park-spec">
+              <span class="spec-chip">JABA第2会場</span>
+            </div>
+            <div class="park-row"><span class="park-row-label">特徴</span>JABA選抜新潟大会でエコスタと並ぶ第2会場として使用。アルビレックスBCも使用。</div>
+            <div class="park-links">
+              <a class="pl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=新潟市みどりと森の運動公園野球場" target="_blank" rel="noopener">📍 Googleマップ</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 大原 ベーマガ -->
+        <div class="park-card">
+          <div class="park-card-header">
+            <div>
+              <div class="park-name">大原運動公園 ベーマガSTADIUM</div>
+              <div class="park-yomi">上越市</div>
+            </div>
+            <span class="park-badge badge-main">大会会場</span>
+          </div>
+          <div class="park-body">
+            <div class="park-row"><span class="park-row-label">所在</span>上越市（大原運動公園内）</div>
+            <div class="park-spec">
+              <span class="spec-chip">上越の中心球場</span>
+              <span class="spec-chip">命名権球場</span>
+            </div>
+            <div class="park-row"><span class="park-row-label">特徴</span>上越地区の主要球場。アルビレックスBCの上越開催試合会場。</div>
+            <div class="park-links">
+              <a class="pl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=上越市大原運動公園野球場" target="_blank" rel="noopener">📍 Googleマップ</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ 地域の球場 ══ -->
+    <div class="tab-content" id="tab-local">
+      <p style="font-size:.78rem;color:var(--chalk-dim);margin-bottom:20px;">県内各地域の野球場です。学童・中学・草野球などで使われています。各カードのマップリンクから場所を確認できます。</p>
+      <div class="simple-list">
+        <div class="simple-card"><div class="simple-name">鳥屋野運動公園野球場</div><div class="simple-area">新潟市中央区</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=鳥屋野運動公園野球場+新潟市" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">新潟市西海岸公園野球場</div><div class="simple-area">新潟市中央区</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=新潟市西海岸公園野球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">新潟市東総合スポーツセンター野球場</div><div class="simple-area">新潟市東区</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=新潟市東総合スポーツセンター野球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">白根運動公園野球場</div><div class="simple-area">新潟市南区</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=白根運動公園野球場+新潟市" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">新津地区野球場</div><div class="simple-area">新潟市秋葉区</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=新津地区野球場+新潟市秋葉区" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">長岡市営陸上競技場・野球場</div><div class="simple-area">長岡市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=長岡市営野球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">和島野球場</div><div class="simple-area">長岡市（和島地区）</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=和島野球場+長岡市" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">川口運動公園野球場</div><div class="simple-area">長岡市川口</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=川口運動公園野球場+長岡市" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">小千谷市営野球場</div><div class="simple-area">小千谷市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=小千谷市営野球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">十日町市営野球場</div><div class="simple-area">十日町市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=十日町市営野球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">見附市運動公園野球場</div><div class="simple-area">見附市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=見附市運動公園野球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">燕市営野球場</div><div class="simple-area">燕市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=燕市営野球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">加茂市民球場</div><div class="simple-area">加茂市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=加茂市民球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">村上市民球場</div><div class="simple-area">村上市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=村上市民球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">胎内市総合グラウンド野球場</div><div class="simple-area">胎内市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=胎内市総合グラウンド野球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">糸魚川市美山球場</div><div class="simple-area">糸魚川市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=糸魚川市美山球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">妙高市新井総合公園野球場</div><div class="simple-area">妙高市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=妙高市新井総合公園野球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">佐渡市営野球場</div><div class="simple-area">佐渡市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=佐渡市営野球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">南魚沼市大原運動公園野球場</div><div class="simple-area">南魚沼市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=南魚沼市大原運動公園野球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+        <div class="simple-card"><div class="simple-name">魚沼市小出郷総合運動公園野球場</div><div class="simple-area">魚沼市</div><a class="simple-map" href="https://www.google.com/maps/search/?api=1&query=魚沼市小出郷総合運動公園野球場" target="_blank" rel="noopener">📍 マップで見る →</a></div>
+      </div>
+      <p style="margin-top:16px;font-size:.78rem;color:var(--chalk-dim);">※ 球場の予約・利用状況は各市町村の体育施設窓口、または <a href="https://www.pref.niigata.lg.jp/site/niigata-sports/supogasyuku-baseball.html" target="_blank" rel="noopener" style="color:var(--cat)">新潟県スポーツ施設一覧</a> でご確認ください。</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- 外部リンク -->
+<section class="links-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>関連リンク</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">LINKS</span>
+    </div>
+    <div class="links-list">
+      <a class="ext-link" href="https://www.hardoff-eco-stadium.jp/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">エコスタ公式</span><span class="ext-link-title">HARD OFF ECOスタジアム新潟 公式サイト（予約・イベント情報）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://niigata-hbf.jp/stadium_list/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">高野連</span><span class="ext-link-title">新潟県高等学校野球連盟 使用野球場一覧</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.niigata-albirex-bc.jp/stadium/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">アルビBC</span><span class="ext-link-title">オイシックス新潟アルビレックスBC スタジアム情報</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.pref.niigata.lg.jp/site/niigata-sports/supogasyuku-baseball.html" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">新潟県</span><span class="ext-link-title">新潟県 野球場 施設一覧（県公式）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">体修塾BCA</span><span class="ext-link-title">体修塾BCA — 柏崎市の野球専門スクール・トレーニングジム</span></div><span class="ext-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="./index.html">← ホーム</a>
+      <a href="./gakudo.html">学童野球</a>
+      <a href="./chugaku.html">中学野球</a>
+      <a href="./koko.html">高校野球</a>
+      <a href="./daigaku.html">大学野球</a>
+      <a href="./shakaijin.html">社会人野球</a>
+      <a href="./joshi.html">女子野球</a>
+    </div>
+    <p class="footer-copy">© 2026 新潟ベースボール・ハブ｜球場の利用情報は各施設の公式窓口でご確認ください。</p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>

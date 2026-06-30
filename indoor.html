@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>屋内練習場・施設｜新潟ベースボール・ハブ</title>
+  <meta name="description" content="新潟県内の野球向け屋内練習場・バッティングセンター一覧。ジャンボドーム・長岡ドーム・エコスタ屋内練習場など。雨や雪でも練習できる施設をエリア別に掲載。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cat: #b794f4; --cat-dim: #553c9a;
+      --navy-deep: #080f1f; --navy-main: #0c1a30; --navy-card: #0f2140;
+      --navy-border: #1c3560; --gold: #c8991a; --gold-bright: #e8b830;
+      --chalk: #dde4f0; --chalk-dim: #7a8aaa; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; background: var(--navy-deep); color: var(--chalk); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; background: rgba(8,15,31,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--navy-border); padding: 0 24px; }
+    .header-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+    .logo-mark { width: 30px; height: 30px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .85rem; color: var(--navy-deep); font-weight: 700; }
+    .back-btn { font-size: .78rem; color: var(--chalk-dim); border: 1px solid var(--navy-border); padding: 6px 14px; border-radius: 4px; transition: color .2s, border-color .2s; }
+    .back-btn:hover { color: var(--cat); border-color: var(--cat); }
+
+    /* ヒーロー */
+    .cat-hero { background: linear-gradient(135deg, #15002e 0%, var(--navy-main) 60%); position: relative; overflow: hidden; padding: 64px 24px 52px; }
+    .cat-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--cat); }
+    .cat-hero::after { content: ''; position: absolute; inset: 4px 0 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(183,148,244,.08), transparent 70%); pointer-events: none; }
+    .cat-hero-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .cat-hero-badge { width: 56px; height: 56px; border-radius: 14px; background: rgba(183,148,244,.12); border: 2px solid var(--cat); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0; }
+    .cat-hero-text { flex: 1; min-width: 220px; }
+    .cat-hero-en { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; letter-spacing: .2em; color: var(--cat); margin-bottom: 6px; }
+    .cat-hero-title { font-family: 'Noto Serif JP', serif; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; color: var(--white); line-height: 1.15; margin-bottom: 8px; }
+    .cat-hero-desc { font-size: .85rem; color: var(--chalk-dim); max-width: 520px; }
+
+    section { padding: 52px 24px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+    .section-head h2 { font-family: 'Noto Serif JP', serif; font-size: 1.3rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+    .section-rule { flex: 1; height: 1px; background: var(--navy-border); }
+    .section-label { font-family: 'Oswald', sans-serif; font-size: .7rem; font-weight: 600; color: var(--cat); letter-spacing: .12em; white-space: nowrap; }
+
+    /* タブ */
+    .tab-bar { display: flex; gap: 4px; margin-bottom: 28px; border-bottom: 1px solid var(--navy-border); flex-wrap: wrap; }
+    .tab-btn { padding: 9px 16px; font-size: .8rem; font-weight: 700; color: var(--chalk-dim); border: none; background: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; transition: color .2s, border-color .2s; white-space: nowrap; }
+    .tab-btn.active { color: var(--cat); border-bottom-color: var(--cat); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* 施設カード */
+    .fac-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
+    .fac-card { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; overflow: hidden; transition: border-color .2s, transform .15s; }
+    .fac-card:hover { border-color: var(--cat); transform: translateY(-2px); }
+    .fac-card.featured { border-left: 3px solid var(--cat); }
+    .fac-card-header { background: var(--navy-deep); border-bottom: 1px solid var(--navy-border); padding: 12px 16px; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+    .fac-name { font-size: .98rem; font-weight: 700; color: var(--white); line-height: 1.3; }
+    .fac-yomi { font-size: .68rem; color: var(--chalk-dim); margin-top: 2px; }
+    .fac-badge { font-size: .58rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+    .badge-bc    { background: rgba(183,148,244,.2); color: var(--cat); border: 1px solid rgba(183,148,244,.3); }
+    .badge-rental{ background: rgba(96,165,250,.2); color: #60a5fa; border: 1px solid rgba(96,165,250,.3); }
+    .badge-pro   { background: rgba(255,102,0,.2); color: #ff6600; border: 1px solid rgba(255,102,0,.3); }
+    .fac-body { padding: 12px 16px; display: flex; flex-direction: column; gap: 5px; }
+    .fac-row { display: flex; align-items: flex-start; gap: 8px; font-size: .78rem; color: var(--chalk-dim); }
+    .fac-row-label { color: var(--cat); font-weight: 600; min-width: 52px; font-size: .68rem; font-family: 'Oswald', sans-serif; letter-spacing: .03em; flex-shrink: 0; }
+    .fac-spec { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+    .spec-chip { font-size: .66rem; background: rgba(28,53,96,.6); color: var(--chalk); padding: 2px 8px; border-radius: 10px; }
+    .spec-chip.hi { background: rgba(183,148,244,.15); color: var(--cat); }
+    .fac-note { font-size: .72rem; color: var(--gold); background: rgba(200,153,26,.1); padding: 3px 10px; border-radius: 4px; margin-top: 2px; }
+    .fac-links { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 8px; }
+    .fl-btn { display: inline-flex; align-items: center; gap: 3px; font-size: .7rem; padding: 3px 10px; border-radius: 4px; border: 1px solid; transition: background .15s; }
+    .btn-web { color: var(--cat); border-color: rgba(183,148,244,.3); }
+    .btn-web:hover { background: rgba(183,148,244,.08); }
+    .btn-map { color: var(--chalk-dim); border-color: rgba(122,138,170,.25); }
+    .btn-map:hover { background: rgba(122,138,170,.06); color: var(--chalk); }
+    .btn-insta { color: #e040fb; border-color: rgba(224,64,251,.3); }
+    .btn-insta:hover { background: rgba(224,64,251,.06); }
+
+    /* インフォバナー */
+    .info-banner { background: var(--navy-card); border: 1px solid rgba(183,148,244,.2); border-left: 3px solid var(--cat); border-radius: 8px; padding: 14px 18px; margin-bottom: 22px; font-size: .8rem; color: var(--chalk-dim); line-height: 1.75; }
+    .info-banner strong { color: var(--cat); }
+
+    /* 外部リンク */
+    .links-section { background: var(--navy-main); }
+    .links-list { display: flex; flex-direction: column; gap: 8px; }
+    .ext-link { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; transition: border-color .2s; gap: 12px; }
+    .ext-link:hover { border-color: var(--cat); }
+    .ext-link-left { display: flex; flex-direction: column; gap: 2px; }
+    .ext-link-src { font-size: .65rem; color: var(--cat); font-family: 'Oswald', sans-serif; font-weight: 600; letter-spacing: .06em; }
+    .ext-link-title { font-size: .82rem; color: var(--chalk); }
+    .ext-arrow { color: var(--chalk-dim); flex-shrink: 0; }
+
+    .site-footer { background: var(--navy-deep); border-top: 1px solid var(--navy-border); padding: 32px 24px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; align-items: center; text-align: center; }
+    .footer-nav { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .footer-nav a { font-size: .75rem; color: var(--chalk-dim); transition: color .2s; }
+    .footer-nav a:hover { color: var(--cat); }
+    .footer-copy { font-size: .7rem; color: rgba(122,138,170,.4); }
+
+    @media (max-width: 600px) {
+      .fac-grid { grid-template-columns: 1fr; }
+      .tab-btn { padding: 7px 11px; font-size: .74rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="./index.html" class="logo"><span class="logo-mark">⚾</span>新潟ベースボール・ハブ</a>
+    <a href="./index.html" class="back-btn">← ホームへ戻る</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ヒーロー -->
+<div class="cat-hero">
+  <div class="cat-hero-inner">
+    <div class="cat-hero-badge">🏠</div>
+    <div class="cat-hero-text">
+      <div class="cat-hero-en">INDOOR FACILITIES</div>
+      <h1 class="cat-hero-title">屋内練習場・施設</h1>
+      <p class="cat-hero-desc">雪国・新潟の冬や雨の日でも練習できる屋内施設を一覧で掲載。バッティングセンター・レンタル練習場・公共の屋内練習場まで。</p>
+    </div>
+  </div>
+</div>
+
+<!-- 施設一覧 -->
+<section style="background:var(--navy-main)">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>屋内施設一覧</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">INDOOR</span>
+    </div>
+
+    <div class="info-banner">
+      新潟は冬の積雪が多く、<strong>11月〜3月は屋外練習が難しい</strong>地域です。そのため屋内施設の確保が上達のカギになります。バッティングセンター（手軽に打撃練習）・レンタル練習場（チーム貸切）・公共施設（低価格）の3タイプを掲載しています。
+    </div>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="batting">🎯 バッティングセンター</button>
+      <button class="tab-btn" data-tab="rental">🏟️ レンタル練習場</button>
+      <button class="tab-btn" data-tab="piloti">🏛️ 体育館ピロティ・屋内運動場</button>
+      <button class="tab-btn" data-tab="public">🏟️ 総合体育館（冬季練習）</button>
+    </div>
+
+    <!-- ══ バッティングセンター ══ -->
+    <div class="tab-content active" id="tab-batting">
+      <div class="fac-grid">
+
+        <div class="fac-card featured">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">ジャンボドーム</div>
+              <div class="fac-yomi">新潟市江南区</div>
+            </div>
+            <span class="fac-badge badge-bc">アルビBC野球塾会場</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>新潟市江南区横越上町5-2-1</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">バッティング</span>
+              <span class="spec-chip">ピッチング</span>
+              <span class="spec-chip">トスバッティング</span>
+              <span class="spec-chip">卓球・ビリヤード等</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">営業</span>平日10:00〜22:00 / 土日祝9:00〜22:00（冬季は変更あり）</div>
+            <div class="fac-row"><span class="fac-row-label">TEL</span>025-383-2150</div>
+            <div class="fac-note">⭐ アルビレックスBC野球塾（バッティングスクール）の会場。2Fバッティングセンターで生きた球を打てる。</div>
+            <div class="fac-note">⭐ ティーバッティング道具など無料貸出あり</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-web" href="https://jumbo-dome.com/" target="_blank" rel="noopener">🌐 公式HP</a>
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=ジャンボドーム+新潟市江南区" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card featured">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">長岡ドーム スポーツスタジアム</div>
+              <div class="fac-yomi">長岡市</div>
+            </div>
+            <span class="fac-badge badge-bc">日本最大級</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>長岡市（長岡ICからすぐ・国道8号線沿い）</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">日本最大級BC</span>
+              <span class="spec-chip">ピッチング</span>
+              <span class="spec-chip">投手映像付</span>
+              <span class="spec-chip">サッカー・バスケ等</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>日本最大級のバッティングゾーン。投手の映像を見ながら打てるリアル設備。プリペイドカード制。年中無休。</div>
+            <div class="fac-note">⭐ オイシックス新潟アルビレックスBC 長岡地区後援会事務局</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-web" href="http://www.nagaoka-dome.com/" target="_blank" rel="noopener">🌐 公式HP</a>
+              <a class="fl-btn btn-insta" href="https://www.instagram.com/nagaokadome/" target="_blank" rel="noopener">📷 Instagram</a>
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=長岡ドームスポーツスタジアム" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ レンタル練習場 ══ -->
+    <div class="tab-content" id="tab-rental">
+      <div class="info-banner">
+        チーム貸切や個人での本格練習に使えるレンタル屋内練習場です。新潟県内ではエコスタ屋内練習場が最大規模。各リトルシニアチームも独自の屋内施設を保有しています（中学野球ページ参照）。
+      </div>
+      <div class="fac-grid">
+
+        <div class="fac-card featured">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">HARD OFF ECOスタジアム新潟 屋内練習場</div>
+              <div class="fac-yomi">新潟市中央区</div>
+            </div>
+            <span class="fac-badge badge-pro">プロ仕様</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>新潟市中央区長潟570（新潟県スポーツ公園内）</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">プロも使用</span>
+              <span class="spec-chip">広々スペース</span>
+              <span class="spec-chip">予約制</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">予約</span>新潟県スポーツ公園 施設予約サービス（初回団体登録が必要）</div>
+            <div class="fac-row"><span class="fac-row-label">冬季</span>12〜3月は積雪のため屋内練習場が先行予約の対象（抽選制）</div>
+            <div class="fac-note">⭐ プロ野球（オイシックス新潟アルビレックスBC）も使う本格的な屋内練習場</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-web" href="https://www.hardoff-eco-stadium.jp/usage/training.html" target="_blank" rel="noopener">🌐 利用案内</a>
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=HARD+OFF+ECOスタジアム新潟" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">体修塾BCA トレーニングジム</div>
+              <div class="fac-yomi">柏崎市</div>
+            </div>
+            <span class="fac-badge badge-bc">パートナー</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>柏崎市</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">ラプソード完備</span>
+              <span class="spec-chip">屋内</span>
+              <span class="spec-chip">個別指導</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>野球専門スクール＆トレーニングジム。ラプソードで投球・打撃を計測しながら室内で練習できる。小5〜大人対象。</div>
+            <div class="fac-note">⭐ このサイトのパートナー施設</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-web" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">🌐 公式HP</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">リトルシニア各チーム 屋内練習場</div>
+              <div class="fac-yomi">新潟市・長岡市など</div>
+            </div>
+            <span class="fac-badge badge-rental">チーム施設</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">特徴</span>新潟西シニア（屋内練習場・ブルペン）、新潟東シニア（屋内ハウス2棟・人工芝）、長岡シニア（七日市の屋内練習場）など各チームが屋内設備を保有。</div>
+            <div class="fac-row"><span class="fac-row-label">利用</span>原則チーム員用。詳細は各チームへ（中学野球ページにリンクあり）</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-web" href="./chugaku.html" target="_blank" rel="noopener">⚾ 中学野球ページへ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">YOUR BASE（ユアベース）</div>
+              <div class="fac-yomi">燕市吉田エリア</div>
+            </div>
+            <span class="fac-badge badge-rental">民間レンタル</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>燕市吉田エリア</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">屋内</span>
+              <span class="spec-chip">レンタル</span>
+              <span class="spec-chip">バッティング</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>燕市吉田にある民間の屋内野球練習施設。個人・チームでの利用が可能。</div>
+            <div class="fac-note">⚠️ 最新の営業時間・料金・予約方法は施設に直接お問い合わせください</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=YOUR+BASE+野球+燕市吉田" target="_blank" rel="noopener">📍 マップで検索</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ 体育館ピロティ・屋内運動場 ══ -->
+    <div class="tab-content" id="tab-piloti">
+      <div class="info-banner">
+        新潟県内の体育館には、建物下部の<strong>ピロティ（柱で支えられた半屋外スペース）</strong>や、野球・球技専用の<strong>屋内運動場</strong>を備えた施設があります。雪国・新潟ならではの設備で、冬季のノック・バッティング・キャッチボール練習に活用されています。利用は各施設窓口・公共施設予約システムから。
+      </div>
+      <div class="fac-grid">
+
+        <div class="fac-card featured">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">長岡市南部体育館 ピロティ</div>
+              <div class="fac-yomi">長岡市</div>
+            </div>
+            <span class="fac-badge badge-rental">ピロティ</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>長岡市曲新町564-3</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">グリーンフロア</span>
+              <span class="spec-chip">キャッチボール可</span>
+              <span class="spec-chip">アリーナ2面</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>アリーナのほか、フットサルやキャッチボールが利用できる「グリーンフロア」を備える。3階にランニングコース・トレーニングコーナー。</div>
+            <div class="fac-row"><span class="fac-row-label">TEL</span>長岡市公共施設予約システムまたは施設へ</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-web" href="https://niigata-bs.sakura.ne.jp/si/nanbu/" target="_blank" rel="noopener">🌐 公式HP</a>
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=長岡市南部体育館+曲新町" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">十日町市総合体育館 ピロティ</div>
+              <div class="fac-yomi">十日町市</div>
+            </div>
+            <span class="fac-badge badge-rental">ピロティ</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>十日町市</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">ピロティ</span>
+              <span class="spec-chip">豪雪地帯</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>全国有数の豪雪地帯・十日町の体育館。建物下のピロティ空間が冬季の貴重な練習場所になっている。</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=十日町市総合体育館" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">五泉市体育館 ピロティ</div>
+              <div class="fac-yomi">五泉市</div>
+            </div>
+            <span class="fac-badge badge-rental">ピロティ</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>五泉市</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">ピロティ</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>五泉市の体育館。ピロティ空間が冬季の野球練習に利用されている。</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=五泉市体育館" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card featured">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">立川記念屋内球技練習場</div>
+              <div class="fac-yomi">阿賀野市</div>
+            </div>
+            <span class="fac-badge badge-rental">屋内運動場</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>阿賀野市（安田エリア）</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">球技専用屋内</span>
+              <span class="spec-chip">予約制</span>
+              <span class="spec-chip">最大2時間/回</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>阿賀野市の野球・球技専用屋内運動場。1回最大2時間。安田体育館・城ノ内野球場が同エリア。</div>
+            <div class="fac-row"><span class="fac-row-label">予約</span>阿賀野市公共施設予約システム（利用7日前まで）／安田公民館 0250-68-3006</div>
+            <div class="fac-note">⭐ ユーザー言及の「記念」屋内施設はこちらの可能性大</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-web" href="https://www.city.agano.niigata.jp/soshiki/shogaigakushuka/shogaigakushu/1/12450.html" target="_blank" rel="noopener">🌐 予約方法</a>
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=立川記念屋内球技練習場+阿賀野市" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">京ヶ瀬屋内運動場</div>
+              <div class="fac-yomi">阿賀野市</div>
+            </div>
+            <span class="fac-badge badge-rental">屋内運動場</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>阿賀野市曽郷1028</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">屋内運動場</span>
+              <span class="spec-chip">9:00〜21:30</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>阿賀野市の屋内運動場。野球・球技の冬季練習に利用。利用日7日前までに予約。</div>
+            <div class="fac-row"><span class="fac-row-label">TEL</span>0250-62-5322（生涯学習課）</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-web" href="https://www.city.agano.niigata.jp/soshiki/shogaigakushuka/shogaigakushu/3/1/2198.html" target="_blank" rel="noopener">🌐 施設情報</a>
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=京ヶ瀬屋内運動場+阿賀野市" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">水原屋内運動場</div>
+              <div class="fac-yomi">阿賀野市</div>
+            </div>
+            <span class="fac-badge badge-rental">屋内運動場</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>阿賀野市（水原野球場に併設）</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">屋内運動場</span>
+              <span class="spec-chip">野球場併設</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>水原野球場に併設された屋内運動場。冬季の野球練習に活用。</div>
+            <div class="fac-row"><span class="fac-row-label">TEL</span>0250-62-5322（生涯学習課）</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=水原野球場+阿賀野市" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">笹神屋内運動場</div>
+              <div class="fac-yomi">阿賀野市</div>
+            </div>
+            <span class="fac-badge badge-rental">屋内運動場</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>阿賀野市笹岡（笹神エリア）</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">屋内運動場</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>阿賀野市笹神エリアの屋内運動場。野球・球技の練習に利用。</div>
+            <div class="fac-row"><span class="fac-row-label">TEL</span>0250-61-2111（笹神支所）</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=笹神体育館+阿賀野市笹岡" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">吉田トレーニングセンター（ビジョンよしだ）</div>
+              <div class="fac-yomi">燕市吉田</div>
+            </div>
+            <span class="fac-badge badge-rental">屋内施設</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>燕市吉田エリア</div>
+            <div class="fac-spec">
+              <span class="spec-chip hi">屋内トレーニング</span>
+            </div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>燕市吉田の屋内トレーニング施設。冬季の体力トレーニングに利用可。吉田総合体育館・吉田北体育センターも同エリア。</div>
+            <div class="fac-row"><span class="fac-row-label">TEL</span>0256-92-5100（吉田総合体育館）</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-web" href="https://www.city.tsubame.niigata.jp/soshiki/kyoiku/3/2/14747.html" target="_blank" rel="noopener">🌐 施設情報</a>
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=吉田トレーニングセンター+燕市" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="tab-content" id="tab-public">
+      <div class="info-banner">
+        市町村が運営する体育館・総合運動施設も、冬季の野球練習（ノック・トレーニング・室内ティー）に使われています。利用は各施設窓口で予約します。女子野球の冬季イベント「BBGウィンターフェスタ」は見附市総合体育館で開催されます。
+      </div>
+      <div class="fac-grid">
+
+        <div class="fac-card">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">見附市総合体育館</div>
+              <div class="fac-yomi">見附市</div>
+            </div>
+            <span class="fac-badge badge-rental">公共</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>見附市</div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>女子野球「BBGウィンターフェスタ」（毎年2月）の会場。冬季の屋内練習に活用。</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=見附市総合体育館" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">新潟市東総合スポーツセンター</div>
+              <div class="fac-yomi">新潟市東区</div>
+            </div>
+            <span class="fac-badge badge-rental">公共</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">所在</span>新潟市東区</div>
+            <div class="fac-row"><span class="fac-row-label">特徴</span>大型アリーナを持つ総合体育施設。冬季の室内トレーニングに利用可。</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-map" href="https://www.google.com/maps/search/?api=1&query=新潟市東総合スポーツセンター" target="_blank" rel="noopener">📍 マップ</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="fac-card">
+          <div class="fac-card-header">
+            <div>
+              <div class="fac-name">各市町村 総合体育館・武道館</div>
+              <div class="fac-yomi">県内各地</div>
+            </div>
+            <span class="fac-badge badge-rental">公共</span>
+          </div>
+          <div class="fac-body">
+            <div class="fac-row"><span class="fac-row-label">特徴</span>長岡市・上越市・三条市など各市の体育館も冬季の野球練習に利用されています。空き状況・予約は各市の体育施設窓口へ。</div>
+            <div class="fac-links">
+              <a class="fl-btn btn-web" href="https://www.pref.niigata.lg.jp/site/niigata-sports/supogasyuku-gym.html" target="_blank" rel="noopener">🌐 県施設一覧</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 外部リンク -->
+<section class="links-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>関連リンク</h2>
+      <div class="section-rule"></div>
+      <span class="section-label">LINKS</span>
+    </div>
+    <div class="links-list">
+      <a class="ext-link" href="https://jumbo-dome.com/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">ジャンボドーム</span><span class="ext-link-title">ジャンボドーム 公式サイト（新潟市江南区）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="http://www.nagaoka-dome.com/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">長岡ドーム</span><span class="ext-link-title">長岡ドーム スポーツスタジアム 公式サイト</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.hardoff-eco-stadium.jp/usage/training.html" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">エコスタ</span><span class="ext-link-title">HARD OFF ECOスタジアム新潟 屋内練習場 利用案内</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.city.agano.niigata.jp/soshiki/shogaigakushuka/shogaigakushu/1/12450.html" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">阿賀野市</span><span class="ext-link-title">阿賀野市 体育施設の予約方法（立川記念屋内球技練習場・京ヶ瀬・水原・笹神屋内運動場）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://niigata-bs.sakura.ne.jp/si/nanbu/" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">長岡市南部体育館</span><span class="ext-link-title">長岡市南部体育館 公式サイト（グリーンフロア・ピロティ）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.city.tsubame.niigata.jp/soshiki/kyoiku/3/2/3332.html" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">燕市</span><span class="ext-link-title">燕市 スポーツ施設一覧（吉田トレーニングセンター他）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://www.pref.niigata.lg.jp/site/niigata-sports/supogasyuku-gym.html" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">新潟県</span><span class="ext-link-title">新潟県 体育館 施設一覧（県公式）</span></div><span class="ext-arrow">↗</span>
+      </a>
+      <a class="ext-link" href="https://taisyuuzyukus.com" target="_blank" rel="noopener">
+        <div class="ext-link-left"><span class="ext-link-src">体修塾BCA</span><span class="ext-link-title">体修塾BCA — 柏崎市の野球専門スクール・トレーニングジム</span></div><span class="ext-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-nav">
+      <a href="./index.html">← ホーム</a>
+      <a href="./gakudo.html">学童野球</a>
+      <a href="./chugaku.html">中学野球</a>
+      <a href="./koko.html">高校野球</a>
+      <a href="./daigaku.html">大学野球</a>
+      <a href="./shakaijin.html">社会人野球</a>
+      <a href="./joshi.html">女子野球</a>
+    </div>
+    <p class="footer-copy">© 2026 新潟ベースボール・ハブ｜施設の利用情報は各施設の公式窓口でご確認ください。</p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
