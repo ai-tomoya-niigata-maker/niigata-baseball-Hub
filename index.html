@@ -176,6 +176,7 @@
     .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
     .footer-links a { font-size: .75rem; color: var(--chalk-dim); transition: color .2s; }
     .footer-links a:hover { color: var(--gold); }
+    .footer-operator { font-size: .75rem; color: var(--chalk-dim); }
     .footer-copy { font-size: .7rem; color: rgba(122,138,170,.45); }
 
     /* ── レスポンシブ ── */
@@ -507,6 +508,7 @@
       <a href="#news">ニュース</a>
       <a href="https://taisyuuzyukus.com" target="_blank" rel="noopener">体修塾BCA</a>
     </div>
+    <p class="footer-operator">運営：体修塾BCA 大林智也（柏崎市）</p>
     <p class="footer-copy">新潟の野球情報キュレーションサイト。掲載情報の正確性は各公式サイトでご確認ください。© 2026 新潟ベースボール・ハブ</p>
   </div>
 </footer>
@@ -526,7 +528,9 @@ const CAT_COLORS = {
 };
 
 /* ══════════════════════════════
-   手動登録イベント（ここを編集）
+   予備データ（通常はここを編集しない）
+   ★大会の追加・修正は events.json を編集する★
+   以下は events.json の読み込みに失敗した時だけ使われる保険
 ══════════════════════════════ */
 const MANUAL_EVENTS = [
   { date:'2026-07-04', cat:'高校野球',   title:'新潟大会 開幕',              venue:'ハードオフエコスタジアム新潟' },
@@ -548,6 +552,47 @@ const MANUAL_EVENTS = [
    カレンダー
 ══════════════════════════════ */
 let allEvents = [...MANUAL_EVENTS];
+
+/* 台帳（events.json）を読み込む。失敗したらMANUAL_EVENTSのまま表示 */
+async function loadEvents() {
+  try {
+    const res = await fetch('events.json?v=' + Date.now());
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length) allEvents = data;
+    }
+  } catch (e) {
+    console.warn('events.json を読み込めなかったため予備データで表示します', e);
+  }
+  renderCalendar();
+  injectEventSchema();
+}
+
+/* SportsEvent構造化データを台帳から自動生成してGoogleに申告 */
+function injectEventSchema() {
+  const todayStr = fmtDate(new Date());
+  const future = allEvents.filter(ev => ev.date >= todayStr);
+  if (!future.length) return;
+  const schema = future.map(ev => ({
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    "name": ev.title,
+    "sport": "野球",
+    "startDate": ev.date,
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": ev.venue,
+      "address": { "@type": "PostalAddress", "addressRegion": "新潟県", "addressCountry": "JP" }
+    },
+    "organizer": { "@type": "Organization", "name": "新潟ベースボール・ハブ（情報掲載）" }
+  }));
+  const tag = document.createElement('script');
+  tag.type = 'application/ld+json';
+  tag.textContent = JSON.stringify(schema);
+  document.head.appendChild(tag);
+}
+
 const today = new Date();
 let curYear = today.getFullYear();
 let curMonth = today.getMonth();
@@ -560,7 +605,7 @@ function fmtDate(d) {
 function renderCalendar() {
   const title = document.getElementById('calTitle');
   const grid  = document.getElementById('calGrid');
-  const months = ['1月','2月','3月','4月','5月','6月','7月','8','9月','10月','11月','12月'];
+  const months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
   title.textContent = `${curYear}年 ${months[curMonth]}`;
 
   // 曜日ヘッダー
@@ -632,7 +677,7 @@ function renderUpcoming() {
 
 document.getElementById('calPrev').onclick = () => { curMonth--; if(curMonth<0){curMonth=11;curYear--;} renderCalendar(); };
 document.getElementById('calNext').onclick = () => { curMonth++; if(curMonth>11){curMonth=0;curYear++;} renderCalendar(); };
-renderCalendar();
+loadEvents();
 
 /* ══════════════════════════════
    RSS自動取得（rss2json.com経由）
