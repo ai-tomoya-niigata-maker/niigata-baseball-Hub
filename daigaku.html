@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>大学野球｜新潟ベースボール・ハブ</title>
-  <meta name="description" content="新潟県の大学野球情報まとめ。硬式（新潟医療福祉大学・新潟大学／南東北大学野球連盟）、軟式（新潟地区大学軟式野球連盟8校）、準硬式の各チーム・連盟情報を掲載。">
+  <meta name="description" content="新潟県の大学野球情報まとめ。硬式（新潟医療福祉大学・新潟大学／南東北大学野球連盟）、軟式（新潟地区大学軟式野球連盟）、準硬式の各チーム・連盟情報を掲載。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700;900&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
@@ -97,9 +97,13 @@
     .team-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; }
     .team-row { display: flex; align-items: center; gap: 12px; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 6px; padding: 13px 16px; transition: border-color .15s, transform .15s; }
     .team-row:hover { border-color: var(--c-daigaku); transform: translateX(3px); }
+    a.team-row .team-name { transition: color .15s; }
+    a.team-row:hover .team-name { color: var(--c-daigaku); }
     .team-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c-daigaku); flex-shrink: 0; }
+    .team-body { flex: 1; min-width: 0; }
     .team-name { font-size: .85rem; font-weight: 700; color: var(--white); }
     .team-note { font-size: .68rem; color: var(--chalk-dim); }
+    .team-sns { margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; font-size: .66rem; font-weight: 700; color: var(--c-daigaku); background: rgba(232,121,249,.1); border: 1px solid rgba(232,121,249,.3); padding: 4px 9px; border-radius: 20px; letter-spacing: .03em; }
     .league-info { margin-top: 24px; background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: 8px; padding: 18px 20px; }
     .league-info-title { font-family: 'Oswald', sans-serif; font-size: .72rem; font-weight: 600; letter-spacing: .12em; color: var(--gold); margin-bottom: 8px; }
     .league-info-text { font-size: .78rem; color: var(--chalk-dim); line-height: 1.8; }
@@ -182,7 +186,7 @@
     <div class="breadcrumb"><a href="./index.html">ホーム</a> ＞ <a href="./index.html#categories">カテゴリー</a> ＞ 大学野球</div>
     <p class="page-eyebrow">UNIVERSITY BASEBALL</p>
     <h1 class="page-title">新潟の大学野球</h1>
-    <p class="page-lead">新潟県内で活動する大学野球チームのまとめページです。硬式は新潟医療福祉大学・新潟大学の2校、軟式は新潟地区大学軟式野球連盟に8校が加盟しています。準硬式野球部の情報もあわせて掲載しています。</p>
+    <p class="page-lead">新潟県内で活動する大学野球チームのまとめページです。硬式は新潟医療福祉大学・新潟大学の2校、軟式は新潟地区大学軟式野球連盟に加盟する県内7校を掲載しています。準硬式野球部の情報もあわせて掲載しています。</p>
 
     <!-- 2026トピック -->
     <div class="topic-banner">
@@ -254,19 +258,18 @@
     <div class="section-head">
       <h2>軟式大学野球</h2>
       <div class="section-rule"></div>
-      <span class="section-tag">新潟地区大学軟式野球連盟・8校</span>
+      <span class="section-tag">新潟地区大学軟式野球連盟</span>
     </div>
-    <p class="section-desc">県内の大学軟式野球は「新潟地区大学軟式野球連盟」（全日本大学軟式野球連盟加盟）を中心に活動しています。現在の加盟は以下の8校です。リーグ戦の上位校は全日本大学軟式野球選手権など全国の舞台へつながります。</p>
+    <p class="section-desc">県内の大学軟式野球は「新潟地区大学軟式野球連盟」（全日本大学軟式野球連盟加盟）を中心に活動しています。県内で活動する加盟校は以下の7校です。リーグ戦の上位校は全日本大学軟式野球選手権など全国の舞台へつながります。</p>
 
     <div class="team-list">
-      <div class="team-row"><span class="team-dot"></span><div><div class="team-name">新潟大学</div><div class="team-note">新潟市西区</div></div></div>
-      <div class="team-row"><span class="team-dot"></span><div><div class="team-name">新潟大学 医学部</div><div class="team-note">新潟市中央区</div></div></div>
-      <div class="team-row"><span class="team-dot"></span><div><div class="team-name">新潟大学 歯学部</div><div class="team-note">新潟市中央区</div></div></div>
-      <div class="team-row"><span class="team-dot"></span><div><div class="team-name">新潟医療福祉大学</div><div class="team-note">新潟市北区</div></div></div>
-      <div class="team-row"><span class="team-dot"></span><div><div class="team-name">新潟県立大学</div><div class="team-note">新潟市東区</div></div></div>
-      <div class="team-row"><span class="team-dot"></span><div><div class="team-name">新潟国際情報大学</div><div class="team-note">新潟市西区</div></div></div>
-      <div class="team-row"><span class="team-dot"></span><div><div class="team-name">新潟薬科大学</div><div class="team-note">新潟市秋葉区</div></div></div>
-      <div class="team-row"><span class="team-dot"></span><div><div class="team-name">敬和学園大学</div><div class="team-note">新発田市</div></div></div>
+      <a class="team-row" href="https://x.com/niigatananya" target="_blank" rel="noopener"><span class="team-dot"></span><div class="team-body"><div class="team-name">新潟大学 医学部</div><div class="team-note">新潟市中央区</div></div><span class="team-sns">X ↗</span></a>
+      <a class="team-row" href="https://www.instagram.com/niigata_dent_baseballclub/" target="_blank" rel="noopener"><span class="team-dot"></span><div class="team-body"><div class="team-name">新潟大学 歯学部</div><div class="team-note">新潟市中央区</div></div><span class="team-sns">Instagram ↗</span></a>
+      <a class="team-row" href="https://www.instagram.com/nuhw__bc/" target="_blank" rel="noopener"><span class="team-dot"></span><div class="team-body"><div class="team-name">新潟医療福祉大学</div><div class="team-note">新潟市北区</div></div><span class="team-sns">Instagram ↗</span></a>
+      <a class="team-row" href="https://www.instagram.com/unp_baseball/" target="_blank" rel="noopener"><span class="team-dot"></span><div class="team-body"><div class="team-name">新潟県立大学</div><div class="team-note">新潟市東区</div></div><span class="team-sns">Instagram ↗</span></a>
+      <a class="team-row" href="https://www.instagram.com/nuis0608" target="_blank" rel="noopener"><span class="team-dot"></span><div class="team-body"><div class="team-name">新潟国際情報大学</div><div class="team-note">新潟市西区</div></div><span class="team-sns">Instagram ↗</span></a>
+      <a class="team-row" href="https://www.instagram.com/niigata_yakka/" target="_blank" rel="noopener"><span class="team-dot"></span><div class="team-body"><div class="team-name">新潟薬科大学</div><div class="team-note">新潟市秋葉区</div></div><span class="team-sns">Instagram ↗</span></a>
+      <a class="team-row" href="https://www.instagram.com/kgc_baseball/" target="_blank" rel="noopener"><span class="team-dot"></span><div class="team-body"><div class="team-name">敬和学園大学</div><div class="team-note">新発田市</div></div><span class="team-sns">Instagram ↗</span></a>
     </div>
 
     <div class="league-info">
@@ -322,7 +325,7 @@
           <span class="news-link-text">全日本大学軟式野球連盟</span><span class="news-link-arrow">↗</span>
         </a>
         <a class="news-link" href="https://junbf.jp/member/" target="_blank" rel="noopener">
-          <span class="news-link-text">加盟校一覧（新潟地区・8校）</span><span class="news-link-arrow">↗</span>
+          <span class="news-link-text">加盟校一覧（新潟地区）</span><span class="news-link-arrow">↗</span>
         </a>
         <a class="news-link" href="https://hokushinetsu.junko.or.jp/" target="_blank" rel="noopener">
           <span class="news-link-text">北信越地区大学準硬式野球連盟</span><span class="news-link-arrow">↗</span>
