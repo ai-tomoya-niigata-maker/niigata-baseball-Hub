@@ -440,10 +440,20 @@
   renderer.domElement.addEventListener('pointerup',function(){camDrag=null;});
 
   // ---------- resize ----------
+  // 画面が縦長（aspect<1）だと横方向の視野が足りず、金の輪や串がステージからはみ出す。
+  // シーンの最大半径 SCENE_R が必ず収まる距離までカメラを引く。
+  var SCENE_R=2.05; // 金の輪1.75／串の先端1.8／矢印1.3 + 余白
+  function fitCamera(){
+    var vt=Math.tan(camera.fov*Math.PI/180/2);
+    var d=SCENE_R/(vt*Math.min(1,camera.aspect));
+    baseZ=Math.max(5.2,d);
+    positionCamera();
+  }
   function resize(){
     var w=stage.clientWidth,h=stage.clientHeight;
     renderer.setSize(w,h);
     camera.aspect=w/h; camera.updateProjectionMatrix();
+    fitCamera();
   }
   window.addEventListener('resize',resize);
 
