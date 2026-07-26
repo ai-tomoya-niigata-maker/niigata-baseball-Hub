@@ -26,7 +26,7 @@
   .lead{color:var(--sub);font-size:13px;margin-top:6px;line-height:1.6}
   .lead b{color:var(--gold)}
 
-  .grid{display:grid;grid-template-columns:360px 1fr;gap:14px;margin-top:14px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
   @media(max-width:900px){.grid{grid-template-columns:1fr}}
 
   .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;position:relative;overflow:hidden}
@@ -45,6 +45,9 @@
   .dial-read span{color:var(--sub);font-size:11px}
 
   .field{margin-top:10px}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:0 16px;margin-top:10px}
+  .field-row .field{margin-top:0}
+  @media(max-width:480px){.field-row{grid-template-columns:1fr;gap:10px 0}}
   .field-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
   .field-head label{color:var(--text);font-weight:700;font-size:13px}
   .field-head .val{color:var(--gold);font-weight:900;font-size:18px}
@@ -54,7 +57,7 @@
   input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--gold);border:3px solid var(--panel);cursor:pointer}
   .hint{color:var(--sub);font-size:11px;margin-top:4px;line-height:1.5}
 
-  .derived{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+  .derived{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
   .dcell{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:9px;text-align:center}
   .dcell.wide{grid-column:1 / -1}
   .dcell .t{color:var(--sub);font-size:10px;letter-spacing:.06em}
@@ -116,53 +119,60 @@
 
       <div class="subhead">リリース<span class="en">RELEASE</span></div>
 
-      <div class="field" style="margin-top:0">
-        <div class="field-head"><label>球速</label><div class="val"><span id="speedVal">138</span><small>km/h</small></div></div>
-        <input type="range" id="speed" min="100" max="160" step="1" value="138">
+      <div class="field-row" style="margin-top:0">
+        <div class="field">
+          <div class="field-head"><label>球速</label><div class="val"><span id="speedVal">138</span><small>km/h</small></div></div>
+          <input type="range" id="speed" min="100" max="160" step="1" value="138">
+        </div>
+        <div class="field">
+          <div class="field-head"><label>リリース高さ</label><div class="val"><span id="relHVal">178</span><small>cm</small></div></div>
+          <input type="range" id="relH" min="140" max="210" step="1" value="178">
+        </div>
       </div>
-      <div class="field">
-        <div class="field-head"><label>リリース高さ</label><div class="val"><span id="relHVal">178</span><small>cm</small></div></div>
-        <input type="range" id="relH" min="140" max="210" step="1" value="178">
+      <div class="field-row">
+        <div class="field">
+          <div class="field-head"><label>リリース横位置</label><div class="val"><span id="relXVal">45</span><small>cm</small></div></div>
+          <input type="range" id="relX" min="-80" max="80" step="1" value="45">
+          <div class="hint">投手から見て＋＝右／－＝左</div>
+        </div>
+        <div class="field">
+          <div class="field-head"><label>垂直リリース角度</label><div class="val"><span id="vertVal">-1</span><small>°</small></div></div>
+          <input type="range" id="vert" min="-8" max="6" step="0.5" value="-1">
+          <div class="hint">＋＝上向き／－＝下向き（実測はマイナスが多め）</div>
+        </div>
       </div>
-      <div class="field">
-        <div class="field-head"><label>リリース横位置</label><div class="val"><span id="relXVal">45</span><small>cm</small></div></div>
-        <input type="range" id="relX" min="-80" max="80" step="1" value="45">
-        <div class="hint">投手から見て＋＝右／－＝左（マウンド中心からの距離）</div>
-      </div>
-      <div class="field">
-        <div class="field-head"><label>垂直リリース角度</label><div class="val"><span id="vertVal">-1</span><small>°</small></div></div>
-        <input type="range" id="vert" min="-8" max="6" step="0.5" value="-1">
-        <div class="hint">＋＝上向きにリリース／－＝下向きにリリース（実測ではマイナスが多い値です）</div>
-      </div>
-      <div class="field">
-        <div class="field-head"><label>水平リリース角度</label><div class="val"><span id="horizVal">-1</span><small>°</small></div></div>
-        <input type="range" id="horiz" min="-10" max="10" step="0.5" value="-1">
-        <div class="hint">投手から見て＋＝右方向／－＝左方向へのリリース角</div>
-      </div>
-      <div class="field">
-        <div class="field-head"><label>エクステンション</label><div class="val"><span id="extVal">1.80</span><small>m</small></div></div>
-        <input type="range" id="ext" min="1.2" max="2.1" step="0.01" value="1.80">
+      <div class="field-row">
+        <div class="field">
+          <div class="field-head"><label>水平リリース角度</label><div class="val"><span id="horizVal">-1</span><small>°</small></div></div>
+          <input type="range" id="horiz" min="-10" max="10" step="0.5" value="-1">
+          <div class="hint">投手から見て＋＝右／－＝左方向</div>
+        </div>
+        <div class="field">
+          <div class="field-head"><label>エクステンション</label><div class="val"><span id="extVal">1.80</span><small>m</small></div></div>
+          <input type="range" id="ext" min="1.2" max="2.1" step="0.01" value="1.80">
+        </div>
       </div>
 
       <div class="subhead">回転<span class="en">SPIN AXIS（BALL SPIN LABと同じ考え方）</span></div>
 
       <div class="field-head" style="margin-bottom:2px"><label>回転方向</label><span class="hint" style="margin:0">投手から見た文字盤</span></div>
       <div class="dial-box">
-        <svg id="dial" width="150" height="150" viewBox="0 0 200 200"></svg>
+        <svg id="dial" width="130" height="130" viewBox="0 0 200 200"></svg>
       </div>
       <div class="dial-read">
         <input id="clockInput" value="01:15" inputmode="numeric" aria-label="回転方向 時：分">
         <span>hh:mm</span>
       </div>
 
-      <div class="field">
-        <div class="field-head"><label>ジャイロの角度</label><div class="val"><span id="gyroVal">5</span>°</div></div>
-        <input type="range" id="gyro" min="-90" max="90" step="1" value="5">
-      </div>
-
-      <div class="field">
-        <div class="field-head"><label>回転数</label><div class="val"><span id="rpmVal">2300</span><small>RPM</small></div></div>
-        <input type="range" id="rpm" min="500" max="3500" step="1" value="2300">
+      <div class="field-row">
+        <div class="field">
+          <div class="field-head"><label>ジャイロの角度</label><div class="val"><span id="gyroVal">5</span>°</div></div>
+          <input type="range" id="gyro" min="-90" max="90" step="1" value="5">
+        </div>
+        <div class="field">
+          <div class="field-head"><label>回転数</label><div class="val"><span id="rpmVal">2300</span><small>RPM</small></div></div>
+          <input type="range" id="rpm" min="500" max="3500" step="1" value="2300">
+        </div>
       </div>
 
       <div class="derived">
