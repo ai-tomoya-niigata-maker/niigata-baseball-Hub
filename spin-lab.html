@@ -99,34 +99,9 @@
 <div class="wrap">
   <div class="eyebrow">PITCH TRAJECTORY LAB｜体修塾BCA</div>
   <h1>投球　軌道シミュレーター</h1>
-  <p class="lead">下の<b>回転軸モデル</b>で使っている<b>回転方向（時計の文字盤）</b>と<b>ジャイロ角</b>による回転軸の考え方に、<b>球速・リリース位置・リリース角度</b>を組み合わせて、ボールが実際にどう変化しながらホームベースへ届くかを物理モデル（抗力＋マグヌス力）で再現します。弾道計測器（Rapsodoなど）の計測値をそのまま入力してください。</p>
+  <p class="lead"><b>回転軸モデル</b>で使っている<b>回転方向（時計の文字盤）</b>と<b>ジャイロ角</b>による回転軸の考え方に、<b>球速・リリース位置・リリース角度</b>を組み合わせて、ボールが実際にどう変化しながらホームベースへ届くかを物理モデル（抗力＋マグヌス力）で再現します。弾道計測器（Rapsodoなど）の計測値をそのまま入力してください。</p>
 
-  <div class="card viewer-card">
-    <div class="viewer-top">
-      <div>
-        <h2>回転軸モデル</h2>
-        <div class="en" style="margin-bottom:0">SPIN AXIS MODEL（BALL SPIN LABと同じ表示）</div>
-      </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <div class="seg" id="axisViewSeg">
-          <button data-axisview="pitcher" class="on">投手視点</button>
-          <button data-axisview="catcher">捕手視点</button>
-        </div>
-        <div class="seg" id="axisSpeedSeg">
-          <button data-axisspeed="0.1">1/10</button>
-          <button data-axisspeed="0.033" class="on">1/30</button>
-          <button data-axisspeed="0.0166">1/60</button>
-          <button data-axisspeed="0">停止</button>
-        </div>
-      </div>
-    </div>
-    <div id="axisStage">
-      <div class="stage-label" id="axisStageLabel">PITCHER VIEW</div>
-      <div class="stage-note">黒い矢印＝回転の向き／黒い串＝回転軸／金の輪と針＝時計の文字盤と回転方向（投手視点基準）。計測値の入力（回転方向・ジャイロ角・回転数）とそのまま連動します。ドラッグで視点を回せます。</div>
-    </div>
-  </div>
-
-  <div class="grid" style="margin-top:18px">
+  <div class="grid">
     <!-- ===== INPUT ===== -->
     <div class="card">
       <h2>計測値を入力</h2>
@@ -201,8 +176,35 @@
       <p class="hint" style="margin-top:10px">横・縦変化は「回転がなかった場合の弾道」との差（無回転弾道からのズレ）。実測のHB/IVBに近い考え方です。</p>
     </div>
 
-    <!-- ===== VIEWER ===== -->
+    <!-- ===== SPIN AXIS MODEL ===== -->
     <div class="card viewer-card">
+      <div class="viewer-top">
+        <div>
+          <h2>回転軸モデル</h2>
+          <div class="en" style="margin-bottom:0">SPIN AXIS MODEL（BALL SPIN LABと同じ表示）</div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div class="seg" id="axisViewSeg">
+            <button data-axisview="pitcher" class="on">投手視点</button>
+            <button data-axisview="catcher">捕手視点</button>
+          </div>
+          <div class="seg" id="axisSpeedSeg">
+            <button data-axisspeed="0.1">1/10</button>
+            <button data-axisspeed="0.033" class="on">1/30</button>
+            <button data-axisspeed="0.0166">1/60</button>
+            <button data-axisspeed="0">停止</button>
+          </div>
+        </div>
+      </div>
+      <div id="axisStage">
+        <div class="stage-label" id="axisStageLabel">PITCHER VIEW</div>
+        <div class="stage-note">黒い矢印＝回転の向き／黒い串＝回転軸／金の輪と針＝時計の文字盤と回転方向（投手視点基準）。計測値の入力（回転方向・ジャイロ角・回転数）とそのまま連動します。ドラッグで視点を回せます。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TRAJECTORY VIEWER ===== -->
+  <div class="card viewer-card" style="margin-top:18px">
       <div class="viewer-top">
         <div>
           <h2>投球軌道</h2>
@@ -267,7 +269,6 @@
           <button data-p="1,30,40,1600,122,176,44,-2,-1,1.6">チェンジアップ</button>
         </div>
       </div>
-    </div>
   </div>
 
   <footer>
