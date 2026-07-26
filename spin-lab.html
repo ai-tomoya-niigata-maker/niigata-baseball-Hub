@@ -19,78 +19,78 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--body);font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+  .wrap{max-width:1180px;margin:0 auto;padding:18px 20px 32px}
 
-  .eyebrow{color:var(--gold);font-size:11px;letter-spacing:.32em;font-weight:700;margin-bottom:10px}
-  h1{color:var(--text);font-weight:900;font-size:clamp(24px,4.5vw,38px);line-height:1.25;letter-spacing:.02em}
-  .lead{color:var(--sub);font-size:13px;margin-top:10px;line-height:1.9}
+  .eyebrow{color:var(--gold);font-size:11px;letter-spacing:.32em;font-weight:700;margin-bottom:6px}
+  h1{color:var(--text);font-weight:900;font-size:clamp(22px,4vw,34px);line-height:1.2;letter-spacing:.02em}
+  .lead{color:var(--sub);font-size:13px;margin-top:6px;line-height:1.6}
   .lead b{color:var(--gold)}
 
-  .grid{display:grid;grid-template-columns:360px 1fr;gap:18px;margin-top:26px}
+  .grid{display:grid;grid-template-columns:360px 1fr;gap:14px;margin-top:14px}
   @media(max-width:900px){.grid{grid-template-columns:1fr}}
 
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;overflow:hidden}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;position:relative;overflow:hidden}
   .card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold2),var(--gold))}
-  .card h2{color:var(--text);font-weight:900;font-size:15px;margin-bottom:4px}
-  .card .en{color:var(--gold);font-size:10px;letter-spacing:.28em;font-weight:700;margin-bottom:14px}
-  .subhead{color:var(--text);font-weight:700;font-size:12px;margin:18px 0 2px;padding-top:14px;border-top:1px solid var(--line)}
-  .subhead:first-of-type{border-top:none;padding-top:0;margin-top:4px}
-  .subhead .en{display:block;color:var(--gold);font-size:9px;letter-spacing:.24em;font-weight:700;margin:2px 0 10px}
+  .card h2{color:var(--text);font-weight:900;font-size:15px;margin-bottom:3px}
+  .card .en{color:var(--gold);font-size:10px;letter-spacing:.28em;font-weight:700;margin-bottom:8px}
+  .subhead{color:var(--text);font-weight:700;font-size:12px;margin:10px 0 2px;padding-top:8px;border-top:1px solid var(--line)}
+  .subhead:first-of-type{border-top:none;padding-top:0;margin-top:0}
+  .subhead .en{display:block;color:var(--gold);font-size:9px;letter-spacing:.24em;font-weight:700;margin:2px 0 6px}
 
   /* ---- clock dial ---- */
-  .dial-box{display:flex;justify-content:center;margin:6px 0 4px}
+  .dial-box{display:flex;justify-content:center;margin:4px 0 2px}
   #dial{touch-action:none;cursor:grab;user-select:none}
-  .dial-read{display:flex;align-items:baseline;justify-content:center;gap:8px;margin-top:8px}
-  .dial-read input{width:96px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);font-size:26px;font-weight:900;text-align:center;padding:6px 4px;letter-spacing:.06em}
+  .dial-read{display:flex;align-items:baseline;justify-content:center;gap:8px;margin-top:5px}
+  .dial-read input{width:96px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);font-size:26px;font-weight:900;text-align:center;padding:5px 4px;letter-spacing:.06em}
   .dial-read span{color:var(--sub);font-size:11px}
 
-  .field{margin-top:16px}
-  .field-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+  .field{margin-top:10px}
+  .field-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
   .field-head label{color:var(--text);font-weight:700;font-size:13px}
   .field-head .val{color:var(--gold);font-weight:900;font-size:18px}
   .field-head .val small{color:var(--sub);font-weight:400;font-size:10px;margin-left:2px}
   input[type=range]{width:100%;appearance:none;height:4px;border-radius:2px;background:#1e2d44;outline:none}
   input[type=range]::-webkit-slider-thumb{appearance:none;width:20px;height:20px;border-radius:50%;background:var(--gold);border:3px solid var(--panel);box-shadow:0 0 0 1px var(--gold2);cursor:pointer}
   input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--gold);border:3px solid var(--panel);cursor:pointer}
-  .hint{color:var(--sub);font-size:11px;margin-top:6px;line-height:1.7}
+  .hint{color:var(--sub);font-size:11px;margin-top:4px;line-height:1.5}
 
-  .derived{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
-  .dcell{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+  .derived{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+  .dcell{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:9px;text-align:center}
   .dcell.wide{grid-column:1 / -1}
   .dcell .t{color:var(--sub);font-size:10px;letter-spacing:.06em}
-  .dcell .v{color:var(--text);font-weight:900;font-size:22px;margin-top:3px}
+  .dcell .v{color:var(--text);font-weight:900;font-size:20px;margin-top:2px}
   .dcell .v small{font-size:10px;color:var(--sub);font-weight:400;margin-left:2px}
   .dcell .v.gold{color:var(--gold)}
 
   /* ---- viewer ---- */
   .viewer-card{display:flex;flex-direction:column}
-  .viewer-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+  .viewer-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px}
   .seg{display:flex;background:var(--panel2);border:1px solid var(--line);border-radius:10px;overflow:hidden}
-  .seg button{background:none;border:none;color:var(--sub);font-size:12px;font-weight:700;padding:8px 14px;cursor:pointer;font-family:inherit}
+  .seg button{background:none;border:none;color:var(--sub);font-size:12px;font-weight:700;padding:7px 14px;cursor:pointer;font-family:inherit}
   .seg button.on{background:var(--gold);color:#0a0e1a}
-  #stage,#axisStage{flex:1;min-height:420px;border-radius:12px;background:radial-gradient(ellipse at 50% 42%,#16273f 0%,#0a1322 70%);border:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden}
-  #axisStage{min-height:380px}
+  #stage,#axisStage{flex:1;min-height:340px;border-radius:12px;background:radial-gradient(ellipse at 50% 42%,#16273f 0%,#0a1322 70%);border:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden}
+  #axisStage{min-height:300px}
   #stage canvas,#axisStage canvas{display:block;touch-action:none}
   .stage-label{position:absolute;top:12px;left:14px;color:var(--gold);font-size:10px;letter-spacing:.28em;font-weight:700;pointer-events:none}
-  .stage-note{position:absolute;bottom:10px;left:14px;right:14px;color:var(--sub);font-size:11px;pointer-events:none;line-height:1.6}
+  .stage-note{position:absolute;bottom:10px;left:14px;right:14px;color:var(--sub);font-size:11px;pointer-events:none;line-height:1.5}
   .resetview{position:absolute;top:10px;right:12px;background:rgba(16,31,51,.8);border:1px solid var(--line);color:var(--sub);font-size:11px;padding:6px 10px;border-radius:8px;cursor:pointer;font-family:inherit}
   .resetview:hover{color:var(--gold);border-color:var(--gold)}
 
-  .lowergrid{display:grid;grid-template-columns:1fr 220px;gap:14px;margin-top:14px}
+  .lowergrid{display:grid;grid-template-columns:1fr 220px;gap:10px;margin-top:10px}
   @media(max-width:640px){.lowergrid{grid-template-columns:1fr}}
-  .platebox{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;align-items:center}
-  .platebox .t{color:var(--sub);font-size:10px;letter-spacing:.1em;margin-bottom:8px;align-self:flex-start}
-  .plate-legend{display:flex;gap:14px;margin-top:8px;font-size:10px;color:var(--sub)}
+  .platebox{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;align-items:center}
+  .platebox .t{color:var(--sub);font-size:10px;letter-spacing:.1em;margin-bottom:6px;align-self:flex-start}
+  .plate-legend{display:flex;gap:14px;margin-top:6px;font-size:10px;color:var(--sub)}
   .plate-legend span{display:inline-flex;align-items:center;gap:5px}
   .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
 
-  .presets{margin-top:16px}
-  .presets .t{color:var(--sub);font-size:11px;margin-bottom:8px}
+  .presets{margin-top:10px}
+  .presets .t{color:var(--sub);font-size:11px;margin-bottom:6px}
   .pbtns{display:flex;flex-wrap:wrap;gap:8px}
-  .pbtns button{background:var(--panel2);border:1px solid var(--line);color:var(--body);border-radius:999px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
+  .pbtns button{background:var(--panel2);border:1px solid var(--line);color:var(--body);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
   .pbtns button:hover{border-color:var(--gold);color:var(--gold)}
 
-  footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;color:var(--sub);font-size:11px;line-height:2}
+  footer{margin-top:22px;border-top:1px solid var(--line);padding-top:12px;color:var(--sub);font-size:11px;line-height:1.7}
   footer b{color:var(--text)}
   @media(prefers-reduced-motion:reduce){.pbtns button{transition:none}}
 </style>
@@ -148,7 +148,7 @@
 
       <div class="field-head" style="margin-bottom:2px"><label>回転方向</label><span class="hint" style="margin:0">投手から見た文字盤</span></div>
       <div class="dial-box">
-        <svg id="dial" width="180" height="180" viewBox="0 0 200 200"></svg>
+        <svg id="dial" width="150" height="150" viewBox="0 0 200 200"></svg>
       </div>
       <div class="dial-read">
         <input id="clockInput" value="01:15" inputmode="numeric" aria-label="回転方向 時：分">
@@ -204,7 +204,7 @@
   </div>
 
   <!-- ===== TRAJECTORY VIEWER ===== -->
-  <div class="card viewer-card" style="margin-top:18px">
+  <div class="card viewer-card" style="margin-top:14px">
       <div class="viewer-top">
         <div>
           <h2>投球軌道</h2>
