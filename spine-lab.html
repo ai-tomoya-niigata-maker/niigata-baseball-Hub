@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="猫背・反り腰・軸伸長（エロンゲーション）を切り替えると、背骨のS字カーブと長さが動いて変わる図解ツール。体修塾BCAの無料学習教材。">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://taisyuuzyukus.com/spine-alignment/">
+<meta property="og:title" content="SPINE ALIGNMENT LAB｜体修塾BCA">
+<meta property="og:description" content="猫背・反り腰・軸伸長を切り替えて、背骨のアライメントと伸長を見る動く図解。">
+<meta property="og:type" content="website">
+<title>SPINE ALIGNMENT LAB｜体修塾BCA</title>
+<style>
+  :root{
+    --bg:#0a0e1a; --panel:#0d1b2a; --panel2:#101f33;
+    --gold:#f6c90e; --gold2:#d4af37;
+    --text:#f8fafc; --body:#e2e8f0; --sub:#94a3b8;
+    --line:rgba(214,175,55,.25);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--body);font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:640px;margin:0 auto;padding:28px 20px 40px}
+
+  .eyebrow{color:var(--gold);font-size:11px;letter-spacing:.32em;font-weight:700;margin-bottom:8px;text-align:center}
+  h1{color:var(--text);font-weight:900;font-size:clamp(20px,5vw,26px);line-height:1.4;letter-spacing:.02em;text-align:center;text-wrap:balance}
+  .lead{color:var(--sub);font-size:13px;margin-top:10px;line-height:1.8;text-align:center}
+  .lead b{color:var(--gold)}
+
+  .card{background:var(--panel2);border:2px solid var(--gold);border-radius:18px;padding:24px 18px;margin-top:22px}
+
+  .sa-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:18px;flex-wrap:wrap}
+  .sa-tab{cursor:pointer;background:var(--bg);color:var(--sub);border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:13px;font-weight:700;transition:background .2s,color .2s,border-color .2s}
+  .sa-tab:hover{border-color:var(--gold)}
+  .sa-tab.active{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+
+  .stage-wrap{position:relative;max-width:260px;margin:0 auto}
+  #sa-badge{position:absolute;top:6px;right:6px;background:#fc8181;color:var(--bg);font-size:11px;font-weight:900;padding:4px 10px;border-radius:999px;letter-spacing:.05em}
+  #sa-stage svg{display:block;margin:0 auto;overflow:visible}
+  .sa-path{transition:d .7s cubic-bezier(.4,0,.2,1),stroke .4s}
+  .sa-vert{transition:cx .7s cubic-bezier(.4,0,.2,1),cy .7s cubic-bezier(.4,0,.2,1),fill .4s,r .4s}
+  .sa-arrow{transition:opacity .5s}
+  .card.sa-breathing .sa-group{animation:saBreathe 3.2s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+  @keyframes saBreathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.018)}}
+
+  .sa-panel{color:var(--body);font-size:14px;line-height:2;margin-top:18px}
+  .sa-panel .label{color:var(--gold);font-size:13px;font-weight:900;margin-bottom:6px}
+
+  .compare{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:18px;text-align:center}
+  .compare p{color:var(--gold);font-size:14px;font-weight:900;line-height:1.8}
+
+  .back{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);color:var(--sub);font-size:12px;line-height:2}
+  .back a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">SPINE ALIGNMENT LAB</div>
+  <h1>背骨は、伸ばすのではない。伸長させる。</h1>
+  <p class="lead">タブを切り替えると、背骨の彎曲と長さが動きます。猫背・反り腰・<b>軸伸長（エロンゲーション）</b>の違いを見てください。</p>
+
+  <div class="card" id="spine-align-root">
+    <div class="sa-tabs">
+      <button type="button" class="sa-tab active" data-state="kyphosis">猫背（円背）</button>
+      <button type="button" class="sa-tab" data-state="lordosis">反り腰（過前弯）</button>
+      <button type="button" class="sa-tab" data-state="elongation">軸伸長（エロンゲーション）</button>
+    </div>
+
+    <div class="stage-wrap">
+      <div id="sa-badge">NG</div>
+      <div id="sa-stage"></div>
+    </div>
+
+    <div class="sa-panel" data-panel="kyphosis" style="display:block">
+      <div class="label">猫背（円背）</div>
+      <div>頭が前に出て、胸椎が丸まった状態です。重心が前にずれるため、脊柱起立筋は常に緊張を強いられます。回旋動作で生まれた力は丸まった胸椎の部分で吸収され、バットやボールまで伝わりきりません。</div>
+    </div>
+    <div class="sa-panel" data-panel="lordosis" style="display:none">
+      <div class="label">反り腰（過前弯）</div>
+      <div>腰椎が反りすぎて骨盤が前に傾いた状態です。腰椎の関節に圧縮ストレスが集中し、可動性より不安定な硬さが優先された姿勢になります。回旋の力は腰のあたりで漏れやすく、腰痛のリスクも高まります。</div>
+    </div>
+    <div class="sa-panel" data-panel="elongation" style="display:none">
+      <div class="label">軸伸長（エロンゲーション）</div>
+      <div>背骨が本来もつ彎曲（頸椎・胸椎・腰椎のS字カーブ）を保ったまま、頭頂と尾骨の方向へ引っ張られるように伸びた状態です。彎曲を消すのではなく、彎曲を保ったまま椎間の圧縮を抜く。地面から生まれた力が、背骨を通って上半身・腕・バットまでロスなく伝わります。</div>
+    </div>
+
+    <div class="compare">
+      <p>猫背・反り腰は彎曲を崩す姿勢。軸伸長は、彎曲を保ったまま伸ばす姿勢。</p>
+    </div>
+  </div>
+
+  <div class="back">
+    <b>読み方の解説はこちら</b>：<a href="https://taisyuuzyukus.com/spine-alignment/">軸伸長とエロンゲーション｜体修塾BCA</a><br><br>
+    <b>体修塾BCA</b>｜新潟県・柏崎の野球個別指導スクール｜代表 大林智也｜日体大 体育学 ／ 上越教育大学院 スポーツ心理学修士
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  var root = document.getElementById("spine-align-root");
+  if(!root) return;
+  var stage = document.getElementById("sa-stage");
+  if(!stage) return;
+
+  var svgNS = "http://www.w3.org/2000/svg";
+  var W = 220, H = 460, CX = 110;
+
+  var svg = document.createElementNS(svgNS,"svg");
+  svg.setAttribute("viewBox","0 0 " + W + " " + H);
+  svg.setAttribute("width","100%");
+  svg.setAttribute("height","400");
+  stage.appendChild(svg);
+
+  var group = document.createElementNS(svgNS,"g");
+  group.setAttribute("class","sa-group");
+  svg.appendChild(group);
+
+  var guide = document.createElementNS(svgNS,"line");
+  guide.setAttribute("x1",CX); guide.setAttribute("x2",CX);
+  guide.setAttribute("y1",10); guide.setAttribute("y2",H-20);
+  guide.setAttribute("stroke","rgba(159,179,204,.35)");
+  guide.setAttribute("stroke-dasharray","3,5");
+  guide.setAttribute("stroke-width","1");
+  group.appendChild(guide);
+
+  var path = document.createElementNS(svgNS,"path");
+  path.setAttribute("class","sa-path");
+  path.setAttribute("fill","none");
+  path.setAttribute("stroke-width","5");
+  path.setAttribute("stroke-linecap","round");
+  group.appendChild(path);
+
+  var head = document.createElementNS(svgNS,"circle");
+  head.setAttribute("r","20");
+  head.setAttribute("class","sa-vert");
+  group.appendChild(head);
+
+  var pelvis = document.createElementNS(svgNS,"ellipse");
+  pelvis.setAttribute("rx","26"); pelvis.setAttribute("ry","14");
+  pelvis.setAttribute("class","sa-vert");
+  group.appendChild(pelvis);
+
+  var COUNT = 24, CERVICAL = 7, THORACIC = 12, LUMBAR = 5;
+  var dots = [];
+  for(var i=0;i<COUNT;i++){
+    var c = document.createElementNS(svgNS,"circle");
+    c.setAttribute("r", i<CERVICAL ? 5 : (i<CERVICAL+THORACIC ? 6.5 : 7.5));
+    c.setAttribute("class","sa-vert");
+    group.appendChild(c);
+    dots.push(c);
+  }
+
+  function buildArrow(){
+    var g = document.createElementNS(svgNS,"g");
+    g.setAttribute("class","sa-arrow");
+    g.style.opacity = "0";
+    var line = document.createElementNS(svgNS,"line");
+    line.setAttribute("stroke","#f6c90e");
+    line.setAttribute("stroke-width","3");
+    line.setAttribute("stroke-linecap","round");
+    g.appendChild(line);
+    var tri = document.createElementNS(svgNS,"polygon");
+    tri.setAttribute("fill","#f6c90e");
+    g.appendChild(tri);
+    g._line = line;
+    g._tri = tri;
+    return g;
+  }
+  var arrowUp = buildArrow();
+  var arrowDown = buildArrow();
+  group.appendChild(arrowUp);
+  group.appendChild(arrowDown);
+
+  var regionLabels = {};
+  ["C","T","L"].forEach(function(k){
+    var t = document.createElementNS(svgNS,"text");
+    t.setAttribute("x","22");
+    t.setAttribute("font-size","11");
+    t.setAttribute("font-weight","700");
+    t.setAttribute("fill","#9fb3cc");
+    t.textContent = k;
+    group.appendChild(t);
+    regionLabels[k] = t;
+  });
+
+  var STATES = {
+    kyphosis:   { cervical:26, thoracic:-32, lumbar:3,  spacing:0.82, color:"#fc8181", badge:"NG" },
+    lordosis:   { cervical:15, thoracic:-11, lumbar:32, spacing:0.92, color:"#fc8181", badge:"NG" },
+    elongation: { cervical:11, thoracic:-15, lumbar:13, spacing:1.22, color:"#f6c90e", badge:"OK" }
+  };
+
+  function computePoints(state){
+    var cfg = STATES[state];
+    var gap = 12 * cfg.spacing;
+    var pts = [];
+    for(var i=0;i<COUNT;i++){
+      var amp, n, local;
+      if(i<CERVICAL){ amp=cfg.cervical; n=CERVICAL; local=i; }
+      else if(i<CERVICAL+THORACIC){ amp=cfg.thoracic; n=THORACIC; local=i-CERVICAL; }
+      else { amp=cfg.lumbar; n=LUMBAR; local=i-CERVICAL-THORACIC; }
+      var phase = ((local+0.5)/n) * Math.PI;
+      var x = CX + amp * Math.sin(phase);
+      var y = 66 + i*gap;
+      pts.push({x:x,y:y});
+    }
+    return pts;
+  }
+
+  function smoothPath(pts){
+    var d = "M" + pts[0].x.toFixed(1) + " " + pts[0].y.toFixed(1);
+    for(var i=1;i<pts.length-1;i++){
+      var mx=(pts[i].x+pts[i+1].x)/2, my=(pts[i].y+pts[i+1].y)/2;
+      d += " Q " + pts[i].x.toFixed(1) + " " + pts[i].y.toFixed(1) + " " + mx.toFixed(1) + " " + my.toFixed(1);
+    }
+    var last = pts[pts.length-1];
+    d += " L " + last.x.toFixed(1) + " " + last.y.toFixed(1);
+    return d;
+  }
+
+  function render(state){
+    var cfg = STATES[state];
+    var pts = computePoints(state);
+
+    path.setAttribute("d", smoothPath(pts));
+    path.setAttribute("stroke", cfg.color);
+
+    for(var i=0;i<COUNT;i++){
+      dots[i].setAttribute("cx", pts[i].x.toFixed(1));
+      dots[i].setAttribute("cy", pts[i].y.toFixed(1));
+      dots[i].setAttribute("fill", cfg.color);
+    }
+
+    var headPt = pts[0];
+    var headCY = headPt.y - 30;
+    head.setAttribute("cx", headPt.x.toFixed(1));
+    head.setAttribute("cy", headCY.toFixed(1));
+    head.setAttribute("fill", cfg.color);
+    head.setAttribute("fill-opacity","0.85");
+
+    var tailPt = pts[COUNT-1];
+    var pelvisCY = tailPt.y + 16;
+    pelvis.setAttribute("cx", tailPt.x.toFixed(1));
+    pelvis.setAttribute("cy", pelvisCY.toFixed(1));
+    pelvis.setAttribute("fill", cfg.color);
+    pelvis.setAttribute("fill-opacity","0.85");
+
+    var showArrows = state === "elongation";
+    [arrowUp, arrowDown].forEach(function(g){ g.style.opacity = showArrows ? "1" : "0"; });
+
+    var topY = headCY - 22;
+    arrowUp._line.setAttribute("x1",CX); arrowUp._line.setAttribute("x2",CX);
+    arrowUp._line.setAttribute("y1", (topY+2).toFixed(1));
+    arrowUp._line.setAttribute("y2", (topY-16).toFixed(1));
+    arrowUp._tri.setAttribute("points", (CX-6)+","+(topY-14).toFixed(1)+" "+(CX+6)+","+(topY-14).toFixed(1)+" "+CX+","+(topY-24).toFixed(1));
+
+    var botY = pelvisCY + 16;
+    arrowDown._line.setAttribute("x1",CX); arrowDown._line.setAttribute("x2",CX);
+    arrowDown._line.setAttribute("y1", (botY-2).toFixed(1));
+    arrowDown._line.setAttribute("y2", (botY+16).toFixed(1));
+    arrowDown._tri.setAttribute("points", (CX-6)+","+(botY+14).toFixed(1)+" "+(CX+6)+","+(botY+14).toFixed(1)+" "+CX+","+(botY+24).toFixed(1));
+
+    regionLabels.C.setAttribute("y", pts[3].y.toFixed(1));
+    regionLabels.T.setAttribute("y", pts[13].y.toFixed(1));
+    regionLabels.L.setAttribute("y", pts[21].y.toFixed(1));
+
+    root.classList.toggle("sa-breathing", state === "elongation");
+
+    var badge = document.getElementById("sa-badge");
+    if(badge){ badge.textContent = cfg.badge; badge.style.background = cfg.color; }
+
+    var tabs = root.querySelectorAll(".sa-tab");
+    tabs.forEach(function(t){
+      var active = t.getAttribute("data-state") === state;
+      t.classList.toggle("active", active);
+    });
+
+    var panels = root.querySelectorAll(".sa-panel");
+    panels.forEach(function(pnl){
+      pnl.style.display = (pnl.getAttribute("data-panel") === state) ? "block" : "none";
+    });
+  }
+
+  root.querySelectorAll(".sa-tab").forEach(function(t){
+    t.addEventListener("click", function(){ render(this.getAttribute("data-state")); });
+  });
+
+  render("kyphosis");
+});
+</script>
+</body>
+</html>
